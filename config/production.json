@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://Guest:GuestSession@cluster0-wucbb.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "ownSecret"
+}
