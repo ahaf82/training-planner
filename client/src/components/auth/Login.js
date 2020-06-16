@@ -14,7 +14,7 @@ const Login = (props) => {
             props.history.push('/');
         }
 
-        if(error === 'Invalid Credentials') {
+        if(error === 'Ungültige Eingabe') {
             setAlert(error, 'danger');
             clearErrors();
         }
@@ -34,7 +34,7 @@ const Login = (props) => {
     const onSubmit = e => {
         e.preventDefault();
         if (email === '' || password === '') {
-            setAlert('Please enter all fields', 'danger');
+            setAlert('Bitte E-Mail Adresse und Passwort eingeben', 'danger');
         } else {
             login({
                 email,
@@ -46,15 +46,15 @@ const Login = (props) => {
     return (
         <div className='form-container'>
             <h1>
-                Account <span className='text-primary'>Login</span>
+                <span className='text-primary'>Login</span>
             </h1>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
-                    <label htmlFor='email'>Email Adress</label>
+                    <label htmlFor='email'>E-Mail Adresse</label>
                     <input type='email' name='email' value={email} onChange={onChange} required />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor='password'>Password</label>
+                    <label htmlFor='password'>Passwort</label>
                     <input type='password' name='password' value={password} onChange={onChange} required />
                 </div>
                 <input type="submit" value="Login" className="btn btn-primary btn-block" />

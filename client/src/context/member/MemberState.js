@@ -36,7 +36,7 @@ const MemberState = props => {
         } catch (err) {
             dispatch({
                 type: MEMBER_ERROR,
-                //payload: err.response.msg
+                payload: err.response.msg
             })
 
         }

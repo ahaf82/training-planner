@@ -23,6 +23,7 @@ router.post('/', [
         }
 
         const { name, email, password, address } = req.body;
+        // const { street, postalCode, city } = address;
 
         try {
             let member = await Member.findOne({ email });
@@ -35,12 +36,12 @@ router.post('/', [
                 name,
                 email,
                 password,
-                address: {
-                    street,
-                    postalCode,
-                    city
-                },
-                role
+                // address: {
+                //     street,
+                //     postalCode,
+                //     city
+                // },
+                role: "none"
             });
 
             const salt = await bcrypt.genSalt(12);
