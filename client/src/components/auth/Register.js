@@ -63,12 +63,12 @@ const Register = (props) => {
                     <input type='email' name='email' value={email} onChange={onChange} required />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor='password'>Passwort</label>
-                    <input type='password' name='password' value={password} onChange={onChange} required minLength="6" />
+                    <label htmlFor='password'>Passwort (Mindestens 8 Zeichen inklusive Buchstaben, Zahlen und Sonderzeichen)</label>
+                    <input type='password' name='password' value={password} onChange={onChange} required minLength="8" />
                 </div>
                 <div className='form-group'>
                     <label htmlFor='password2'>Passwort bestätigen</label>
-                    <input type='password' name='password2' value={password2} onChange={onChange} required minLength="6" />
+                    <input type='password' name='password2' value={password2} onChange={onChange} required minLength="8" />
                 </div>
                 <input type="submit" value="Registrieren" className="btn btn-primary btn-block"/>
             </form>
