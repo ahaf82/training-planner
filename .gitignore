@@ -2,8 +2,8 @@ node_modules/
 
 /client/build
 
-/config/default.json.local
-/config/production.json.local
+/config/defa*
+/config/prod*
 
 .DS_Store
 /client/.env.local
