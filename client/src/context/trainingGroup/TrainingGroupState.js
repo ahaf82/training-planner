@@ -101,10 +101,10 @@ const TrainingGroupState = props => {
                 type: UPDATE_TRAININGGROUP,
                 payload: res.data
             });
-        } catch (err) {
+        } catch (error) {
             dispatch({
                 type: TRAININGGROUP_ERROR,
-                //payload: err.response.msg
+                payload: error.response.msg
             })
 
         }

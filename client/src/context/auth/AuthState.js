@@ -19,13 +19,13 @@ const AuthState = props => {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
         loading: true,
-        user: null,
+        member: null,
         error: null
     };
 
     const [state, dispatch]  = useReducer(authReducer, initialState);
 
-    // load User
+    // load Member
     const loadMember = async() => {
         if(localStorage.token) {
             setAuthToken(localStorage.token);
@@ -33,12 +33,13 @@ const AuthState = props => {
 
         try {
             const res = await axios.get('/api/auth');
-
+            console.log(res.data);
             dispatch({
                 type: MEMBER_LOADED,
                 payload: res.data
             })
         } catch (error) {
+            console.log(error);
             dispatch({
                 type: AUTH_ERROR
             })
@@ -61,16 +62,17 @@ const AuthState = props => {
             });
 
             loadMember();
-        } catch (err) {
+        } catch (error) {
+            console.log(error.response.data.msg);
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response.data.msg
+                payload: error.response.data.msg
             })
         }
     }
 
 
-    // Login User
+    // Login Member
     const login = async formData => {
         const config = {
             headers: {
@@ -86,10 +88,11 @@ const AuthState = props => {
             });
 
             loadMember();
-        } catch (err) {
+        } catch (error) {
+            console.log(error.response.data.msg);
             dispatch({
                 type: LOGIN_FAIL,
-                payload: err.response.data.msg
+                payload: error.response.data.msg
             })
         }
     }
@@ -109,7 +112,7 @@ const AuthState = props => {
                 token: state.token,
                 isAuthenticated: state.isAuthenticated,
                 loading: state.loading,
-                user: state.user,
+                member: state.member,
                 error: state.error,
                 register,
                 loadMember,

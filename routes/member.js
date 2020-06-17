@@ -14,22 +14,22 @@ const Member = require('../models/Member');
 router.post('/', [
     check('name', 'Bitte gib einen Namen ein').not().isEmpty(),
     check('email', 'Bitte gib eine gültige E-Mail Adresse ein').isEmail(),
-    check('password', 'Bitte gib ein a Passwort mit mehr als 8 Zeichen, mindestens einem Großbuchstaben, einem Kleinbuchstaben und einem Sonderzeichen ein').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
+    check('password', 'Bitte gib ein Passwort mit mindestens 8 Zeichen, mindestens einem Großbuchstaben, einem Kleinbuchstaben und einem Sonderzeichen ein').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
 ],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ msg: errors.errors[0].msg });
         }
 
-        const { name, email, password, address } = req.body;
+        const { name, email, password } = req.body;
         // const { street, postalCode, city } = address;
 
         try {
             let member = await Member.findOne({ email });
 
             if (member) {
-                return res.status(400).json({ msg: 'Mitglied bereits vorhanden' });
+                return res.status(400).json({ msg: 'E-Mail Adresse bereits vergeben' });
             }
 
             member = new Member({
@@ -59,13 +59,13 @@ router.post('/', [
 
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
-            }, (err, token) => {
-                if (err) throw err;
+            }, (error, token) => {
+                if (error) throw error;
                 res.send({ token });
             });
 
-        } catch (err) {
-            console.error(err.message);
+        } catch (error) {
+            console.error(error.message);
             res.status(500).json('Server Fehler');
         }
     });
@@ -79,8 +79,8 @@ router.get("/", auth, async (req, res) => {
             name: -1,
         });
         res.json(member);
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error(error.message);
         res.status(500).send("Server Fehler");
     }
 });
@@ -109,8 +109,8 @@ router.put("/:_id", auth, async (req, res) => {
             { new: true });
 
         res.json(member);
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error(error.message);
         res.status(500).send('Server Fehler');
     }
 
@@ -128,8 +128,8 @@ router.delete("/:_id", auth, async (req, res) => {
         await Member.findByIdAndRemove(req.params._id);
 
         res.json('Mitglied gelöscht');
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error(error.message);
         res.status(500).send('Server Fehler');
     }
 });

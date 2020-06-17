@@ -42,12 +42,12 @@ passport.use(new LocalStrategy({
 
         jwt.sign(payload, config.get('jwtSecret'), {
             expiresIn: 360000
-        }, (err, token) => {
-            if (err) throw err;
+        }, (error, token) => {
+            if (error) throw error;
             res.send({ token });
         });
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error(error.message);
         res.status(500).send('Server Error');
     }
 })
@@ -84,12 +84,12 @@ passport.use(new FacebookStrategy({
             }
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
-            }, (err, token) => {
-                if (err) throw err;
+            }, (error, token) => {
+                if (error) throw error;
                 res.send({ token });
             });
-        } catch (err) {
-            console.error(err.message);
+        } catch (error) {
+            console.error(error.message);
             res.status(500).send('Server Error');
         }
     })
@@ -132,13 +132,13 @@ passport.use(new GoogleStrategy({
 
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
-            }, (err, token) => {
-                if (err) throw err;
+            }, (error, token) => {
+                if (error) throw error;
                 console.log(token);
                 res.send({ token });
             });
-        } catch (err) {
-            console.error(err.message);
+        } catch (error) {
+            console.error(error.message);
             res.status(500).send('Server Error');
         }
     })
@@ -174,12 +174,12 @@ passport.use(new TwitterStrategy({
 
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
-            }, (err, token) => {
-                if (err) throw err;
+            }, (error, token) => {
+                if (error) throw error;
                 res.send({ token });
             });
-        } catch (err) {
-            console.error(err.message);
+        } catch (error) {
+            console.error(error.message);
             res.status(500).send('Server Error');
         }
     })
@@ -199,12 +199,11 @@ passport.deserializeUser(function (member, done) {
 // @access    Private
 router.get('/', auth, async(req, res) => {
     try {
-        console.log('Hallo member! ');
         const member = await Member.findById( req.member._id ).select('-password');
         console.log('Mitglied ist da', member.name)
         res.json(member);
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error(error.message);
         res.status(500).send('Server Fehler');
     }
 }); 
@@ -213,13 +212,13 @@ router.get('/', auth, async(req, res) => {
 // @desc      Auth member and get token
 // @access    Public
 router.post('/', [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists()
+    check('email', 'Bitte gib eine gültige E-Mail Adresse ein').isEmail(),
+    check('password', 'Bitte Passwort eingeben').exists()
 ],
     async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ msg: errors.errors[0].msg });
         }
 
         const { email, password } = req.body;
@@ -228,13 +227,13 @@ router.post('/', [
             let member = await Member.findOne({ email })
 
             if (!member) {
-                return res.status(400).json({ msg: 'Invalid Credentials' });
+                return res.status(400).json({ msg: 'Ungültige E-Mail Adresse oder Passwort' });
             }
 
             const isMatch = await bcrypt.compare(password, member.password);
 
             if (!isMatch) {
-                return res.status(400).json({ msg: 'Invalid Credentials' });
+                return res.status(400).json({ msg: 'Ungültige E-Mail Adresse oder Passwort' });
             }
 
             const payload = {
@@ -245,14 +244,14 @@ router.post('/', [
 
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
-            }, (err, token) => {
-                if (err) throw err;
+            }, (error, token) => {
+                if (error) throw error;
                 res.send({ token });
                 next();
             });
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send('Server Error');
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send('Server Fehler');
         }
     });
 

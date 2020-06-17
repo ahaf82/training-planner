@@ -16,7 +16,7 @@ export default(state, action) => {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
-                user: action.payload
+                member: action.payload
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
@@ -32,12 +32,13 @@ export default(state, action) => {
         case LOGIN_FAIL:
         case LOGOUT:
             localStorage.removeItem('token');
+            console.log(action.payload);
             return {
                 ...state,
                 token: null,
                 isAuthenticated: null,
                 loading: false,
-                user: null,
+                member: null,
                 error: action.payload
             };
         case CLEAR_ERRORS:

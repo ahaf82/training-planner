@@ -14,7 +14,7 @@ const Login = (props) => {
             props.history.push('/');
         }
 
-        if(error === 'Ungültige Eingabe') {
+        if (error) {
             setAlert(error, 'danger');
             clearErrors();
         }
@@ -22,14 +22,14 @@ const Login = (props) => {
         //eslint-disable-next-line
     }, [error, isAuthenticated, props.history])
 
-    const [user, setUser] = useState({
+    const [member, setMember] = useState({
         email: '',
         password: ''
     });
 
-    const { email, password } = user;
+    const { email, password } = member;
 
-    const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+    const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
@@ -51,11 +51,11 @@ const Login = (props) => {
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
                     <label htmlFor='email'>E-Mail Adresse</label>
-                    <input type='email' name='email' value={email} onChange={onChange} required />
+                    <input type='email' name='email' value={email} onChange={onChange} />
                 </div>
                 <div className='form-group'>
                     <label htmlFor='password'>Passwort</label>
-                    <input type='password' name='password' value={password} onChange={onChange} required />
+                    <input type='password' name='password' value={password} onChange={onChange} />
                 </div>
                 <input type="submit" value="Login" className="btn btn-primary btn-block" />
             </form>

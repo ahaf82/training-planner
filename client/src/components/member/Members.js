@@ -13,7 +13,6 @@ const Member = () => {
         getMembers();
         // eslint-disable-next-line
     }, []);
-    console.log(members);
     
     if (members !== null && members.length === 0 && !loading) {
         return <h4>Bitte füge ein Mitglied hinzu:</h4>

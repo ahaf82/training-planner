@@ -111,7 +111,7 @@ const TrainingSessionState = props => {
         }
     };
 
-        // Clear TrainingSession
+    // Clear TrainingSession
     const clearTrainingSessions = () => {
         dispatch({ type: CLEAR_TRAININGSESSIONS });
     }
