@@ -21,7 +21,8 @@ const Home = props => {
     return (
         <div className='grid-4'>
             <div>
-                <MemberForm />
+                {//<MemberForm />
+                }
                 <MemberFilter />
                 <Member />
             </div>
