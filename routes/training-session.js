@@ -38,7 +38,8 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            console.log(errors.errors[0].msg );
+            return res.status(400).json({ msg: 'Bitte Beschreibung, Datum und Uhrzeit eingeben' });
         }
 
         const { trainingGroup, description, maxMembers, memberCount, time, date, members } = req.body;

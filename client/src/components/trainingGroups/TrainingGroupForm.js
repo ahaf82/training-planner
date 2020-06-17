@@ -1,9 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import AlertContext from '../../context/alert/alertContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const TrainingGroupForm = () => {
+    const alertContext = useContext(AlertContext);
     const trainingGroupContext = useContext(TrainingGroupContext);
 
+    const { setAlert } = alertContext;
     const { addTrainingGroup, updateTrainingGroup, clearCurrent, current } = trainingGroupContext;
 
     useEffect(() => {
@@ -26,7 +29,9 @@ const TrainingGroupForm = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        if (current === null) {            
+        if (trainingGroup === '') {
+            setAlert('Bitte eine Gruppenbezeichnung eingeben', 'danger');
+        } else if (current === null) {            
             addTrainingGroup(group);
         } else {
             console.log(group);

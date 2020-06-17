@@ -19,7 +19,12 @@ const Home = props => {
     }, []);
 
     return (
-        <div className='grid-3'>
+        <div className='grid-4'>
+            <div>
+                <MemberForm />
+                <MemberFilter />
+                <Member />
+            </div>
             <div>
                 <TrainingGroupForm />
                 <TrainingGroupFilter />
@@ -28,12 +33,9 @@ const Home = props => {
             <div>
                 <TrainingSessionForm />
                 <TrainingSessionFilter />
-                <TrainingSession />
             </div>
             <div>
-                <MemberForm />
-                <MemberFilter />
-                <Member />
+                <TrainingSession />
             </div>
         </div>
     )

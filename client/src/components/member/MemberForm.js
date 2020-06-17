@@ -1,9 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
+import AlertContext from '../../context/alert/alertContext';
 import MemberContext from '../../context/member/memberContext';
+import alertContext from '../../context/alert/alertContext';
 
 const MemberForm = () => {
+    const alertContext = useContext(AlertContext);
     const memberContext = useContext(MemberContext);
 
+    const { setAlert } = alertContext;
     const { addMember, updateMember, clearCurrent, current } = memberContext;
 
     useEffect(() => {
@@ -40,7 +44,9 @@ const MemberForm = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        if (current === null) {            
+        if (email === '') {
+            setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
+        } else if (current === null) {            
             addMember(member);
         } else {
             updateMember(member);

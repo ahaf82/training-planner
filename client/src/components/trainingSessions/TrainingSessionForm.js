@@ -1,9 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import AlertContext from '../../context/alert/alertContext'
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 const TrainingSessionForm = () => {
+    const alertContext = useContext(AlertContext);
     const trainingSessionContext = useContext(TrainingSessionContext);
 
+    const { setAlert } = alertContext;
     const { addTrainingSession, updateTrainingSession, clearCurrent, current } = trainingSessionContext;
 
     useEffect(() => {
@@ -38,7 +41,9 @@ const TrainingSessionForm = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        if (current === null) {            
+        if (description === '' || time === '' || date === '') {
+            setAlert('Bitte Beschreibung, Datum und Zeit eingeben', 'danger');
+        } else if (current === null) {            
             addTrainingSession(trainingSession);
         } else {
             updateTrainingSession(trainingSession);

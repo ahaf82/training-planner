@@ -37,7 +37,8 @@ const MemberItem = ({ member }) => {
                 </li>}
             </ul>
             <p> 
-                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(member)}>Ändern</button>
+                {//<button className="btn btn-dark btn-sm" onClick={() => setCurrent(member)}>Ändern</button>
+                }
                 <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
             </p>
         </div>

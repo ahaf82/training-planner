@@ -33,7 +33,7 @@ const AuthState = props => {
 
         try {
             const res = await axios.get('/api/auth');
-            console.log(res.data);
+            
             dispatch({
                 type: MEMBER_LOADED,
                 payload: res.data
@@ -102,7 +102,7 @@ const AuthState = props => {
     // Logout
     const logout = () => dispatch({ type: LOGOUT});
 
-   // Clear Errors
+    // Clear Errors
     const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
 

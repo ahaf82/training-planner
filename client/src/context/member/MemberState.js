@@ -53,15 +53,15 @@ const MemberState = props => {
 
         try {
             const res = await axios.post('/api/member', member, config);
-            
+            console.log(res.data);
             dispatch({
                 type: ADD_MEMBER,
                 payload: res.data 
             });
-        } catch (err) {
+        } catch (error) {
             dispatch({
                 type: MEMBER_ERROR,
-                payload: err.response.msg
+                payload: error.response.msg
             })
             
         }
