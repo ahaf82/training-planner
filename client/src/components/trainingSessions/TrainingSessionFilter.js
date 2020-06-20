@@ -1,14 +1,19 @@
 import React, { useContext, useRef, useEffect } from 'react';
+import AuthContext from '../../context/auth/authContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext'
 
 const TrainingSessionFilter = () => {
-    const trainingSessionContext = useContext(TrainingSessionContext);
-    const text = useRef('');
+    const authContext = useContext(AuthContext);
+    const { role } = authContext;
 
+    const trainingSessionContext = useContext(TrainingSessionContext);
     const { filterTrainingSessions, clearFilter, filtered } = trainingSessionContext;
 
+    const text = useRef('');
+
+
     useEffect(() => {
-        if (filtered === null) {
+        if (role === ('admin' || 'superUser' || 'member') && filtered === null) {
             text.current.value = '';
         }
     });
@@ -20,10 +25,12 @@ const TrainingSessionFilter = () => {
             clearFilter();
         }
     }
-
+    
     return (
         <form>
+            { role === ('admin' || 'superUser' || 'member') && 
             <input ref={text} type="text" placeholder="Suche Trainingseinheit..." onChange={onChange} />
+            }
         </form>
     )
 }

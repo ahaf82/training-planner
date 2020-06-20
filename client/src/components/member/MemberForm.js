@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../../context/alert/alertContext';
 import MemberContext from '../../context/member/memberContext';
-import alertContext from '../../context/alert/alertContext';
 
 const MemberForm = () => {
     const alertContext = useContext(AlertContext);

@@ -11,9 +11,16 @@ const Member = require("../models/Member");
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        const trainingGroup = await TrainingGroup.find({ /*member: req.member._id*/ }).sort({
-            name: 1,
-        });
+        if (req.member.role === 'admin') {
+            trainingGroup = await TrainingGroup.find({}).sort({
+                trainingGroup: 1
+            });
+        } else {
+            trainingGroup = await TrainingGroup.find({ member: req.member._id }).sort({
+                trainingGroup: 1
+            });
+        }
+
         res.json(trainingGroup);
     } catch (err) {
         console.error(err.message);
@@ -42,7 +49,9 @@ router.post(
 
         try {
             const newTrainingGroup = new TrainingGroup({
-                trainingGroup
+                trainingGroup,
+                members: [],
+                trainingSessions: []
             });
 
             const group = await newTrainingGroup.save();
@@ -61,7 +70,6 @@ router.post(
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
     const { trainingGroup } = req.body;
-    console.log(req.body);
 
     // Build trainingGroup object
     const trainingGroupFields = {};

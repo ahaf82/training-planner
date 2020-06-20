@@ -12,30 +12,43 @@ import AuthContext from '../../context/auth/authContext';
 
 const Home = props => {
     const authContext = useContext(AuthContext);
+    const { role } = authContext;
 
     useEffect(() => {
         authContext.loadMember();
         // eslint-disable-next-line
     }, []);
 
+    let columns = 0;
+
+    if (role === ('admin' || 'superUser')) {
+        columns = 4;
+    }  else {
+        columns = 4;
+    }
+
     return (
-        <div className='grid-4'>
+        <div className={`grid-${columns}`}>
             <div>
                 {//<MemberForm />
                 }
-                <MemberFilter />
+                { role === ('admin' || 'superUser') &&
+                <MemberFilter /> }
                 <Member />
             </div>
             <div>
-                <TrainingGroupForm />
-                <TrainingGroupFilter />
+                { role === ('admin' || 'superUser') &&
+                <TrainingGroupForm /> }
+                { role === ('admin' || 'superUser') &&
+                <TrainingGroupFilter /> }
                 <TrainingGroups />
             </div>
             <div>
-                <TrainingSessionForm />
-                <TrainingSessionFilter />
+                {role === ('admin' || 'superUser') &&
+                <TrainingSessionForm /> }
             </div>
             <div>
+                <TrainingSessionFilter />
                 <TrainingSession />
             </div>
         </div>

@@ -20,6 +20,7 @@ const AuthState = props => {
         isAuthenticated: null,
         loading: true,
         member: null,
+        role: null,
         error: null
     };
 
@@ -33,7 +34,6 @@ const AuthState = props => {
 
         try {
             const res = await axios.get('/api/auth');
-            
             dispatch({
                 type: MEMBER_LOADED,
                 payload: res.data
@@ -113,6 +113,7 @@ const AuthState = props => {
                 isAuthenticated: state.isAuthenticated,
                 loading: state.loading,
                 member: state.member,
+                role: state.role,
                 error: state.error,
                 register,
                 loadMember,

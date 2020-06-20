@@ -1,14 +1,18 @@
 import React, { useContext, useRef, useEffect } from 'react';
+import AuthContext from '../../context/auth/authContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const TrainingGroupFilter = () => {
+    const authContext = useContext(AuthContext);
+    const { role } = authContext;
+
     const trainingGroupContext = useContext(TrainingGroupContext);
+    const { filterTrainingGroups, clearFilter, filtered } = trainingGroupContext;
+    
     const text = useRef('');
 
-    const { filterTrainingGroups, clearFilter, filtered } = trainingGroupContext;
-
     useEffect(() => {
-        if (filtered === null) {
+        if (filtered === null  && role === ('admin' || 'superUser')) {
             text.current.value = '';
         }
     });

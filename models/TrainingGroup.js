@@ -5,6 +5,14 @@ const TrainingGroupSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'member'
+    }], 
+    trainingSessions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'trainingSession'
+    }],
     date: {
         type: Date,
         default: Date.now

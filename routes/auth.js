@@ -21,7 +21,7 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
 }, async (email, password, done) => {
     try {
-        let member = await Member.findOne({ email })
+        let member = await Member.findOne({ email });
 
         if (!member) {
             return res.status(400).json({ msg: 'Ungültige E-Mail Adresse' });
@@ -32,7 +32,7 @@ passport.use(new LocalStrategy({
         if (!isMatch) {
             return res.status(400).json({ msg: 'Ungültiges Passwort' });
         }
-
+        
         const payload = {
             member: {
                 id: member._id,
@@ -41,7 +41,7 @@ passport.use(new LocalStrategy({
         }
 
         jwt.sign(payload, config.get('jwtSecret'), {
-            expiresIn: 360000
+            expiresIn: 3600
         }, (error, token) => {
             if (error) throw error;
             res.send({ token });
@@ -82,6 +82,7 @@ passport.use(new FacebookStrategy({
                     role: member.role
                 }
             }
+            
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
             }, (error, token) => {
@@ -200,7 +201,7 @@ passport.deserializeUser(function (member, done) {
 router.get('/', auth, async(req, res) => {
     try {
         const member = await Member.findById( req.member._id ).select('-password');
-        console.log('Mitglied ist da', member.name)
+        console.log('Mitglied ist da', member.role)
         res.json(member);
     } catch (error) {
         console.error(error.message);
@@ -238,7 +239,8 @@ router.post('/', [
 
             const payload = {
                 member: {
-                    _id: member._id
+                    _id: member._id,
+                    role: member.role
                 }
             }
 

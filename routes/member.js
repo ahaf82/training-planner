@@ -56,7 +56,7 @@ router.post('/', [
                     role: member.role
                 }
             }
-
+            
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
             }, (error, token) => {
@@ -75,9 +75,17 @@ router.post('/', [
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        const member = await Member.find({}).sort({
-            name: -1,
-        });
+        console.log(req.member)
+        if (req.member.role === 'admin') {
+            member = await Member.find({}).sort({
+                 name: -1
+            });
+        } else {
+            member = await Member.find({ member: req.member._id }).sort({
+                name: 1
+            });
+        }
+        
         res.json(member);
     } catch (error) {
         console.error(error.message);

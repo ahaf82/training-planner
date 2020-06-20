@@ -1,13 +1,16 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrainingGroupItem from './TrainingGroupItem';
-import Spinner from '../layout/Spinner'
+import Spinner from '../layout/Spinner';
+import AuthContext from '../../context/auth/authContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const TrainingGroups = () => {
+    const authContext = useContext(AuthContext);
+    const { role } = authContext;
+
     const trainingGroupContext = useContext(TrainingGroupContext);
-    
-    const { trainingGroup, filtered, getTrainingGroups, loading } = trainingGroupContext;
+    const { trainingGroup, filtered, getTrainingGroups, loading } = trainingGroupContext;    
 
     useEffect(() => {
         getTrainingGroups();
@@ -15,7 +18,7 @@ const TrainingGroups = () => {
     }, []);
 
 
-    if (trainingGroup !== null && trainingGroup.length === 0 && !loading) {
+    if (trainingGroup !== null && trainingGroup.length === 0 && !loading && role === ('admin' || 'superUser')) {
         return <h4>Bitte füge eine Trainingsgruppe hinzu:</h4>
     }
 
@@ -25,12 +28,12 @@ const TrainingGroups = () => {
                 <TransitionGroup>
                 {filtered !== null 
                 ? filtered.map(group => (
-                    <CSSTransition key={group._id} timeout={500} classNames="item">
+                    <CSSTransition key={group._id} timeout={300} classNames="item">
                     <TrainingGroupItem group={group} />
                     </CSSTransition>
                 )) 
                 : trainingGroup.map(group => (
-                    <CSSTransition key={group._id} timeout={500} classNames="item">
+                    <CSSTransition key={group._id} timeout={300} classNames="item">
                     <TrainingGroupItem group={group} />
                     </CSSTransition>
                 ))}
