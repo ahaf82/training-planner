@@ -69,11 +69,13 @@ router.post(
 // @desc      Update trainingGroup
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { trainingGroup } = req.body;
+    const { trainingGroup, members, trainingSessions } = req.body;
 
     // Build trainingGroup object
     const trainingGroupFields = {};
     if (trainingGroup) trainingGroupFields.trainingGroup = trainingGroup;
+    if (members) trainingGroupFields.members = members;
+    if (trainingSessions) trainingGroupFields.trainingSessions = trainingSessions;
     try {
         let trainingGroup = await TrainingGroup.findById(req.params._id);
 

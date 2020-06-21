@@ -36,6 +36,9 @@ router.post('/', [
                 name,
                 email,
                 password,
+                role,
+                trainingGroup: [],
+                trainingSessions: [],
                 // address: {
                 //     street,
                 //     postalCode,
@@ -98,12 +101,14 @@ router.get("/", auth, async (req, res) => {
 // @desc      Update member
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { trainingGroup, name, email, address, date } = req.body;
+    const { name, email, trainingGroup, trainingSessions ,address } = req.body;
     
     // Build member object
     const memberFields = { address: {} };
     if (name) memberFields.name = name;
     if (email) memberFields.email = email;
+    if (trainingGroup) memberFields.trainingGroup = trainingGroup;
+    if (trainingSessions) memberFields.trainingSessions = trainingSessions;
     if (address.street) memberFields.address.street = address.street;
     if (address.postalCode) memberFields.address.postalCode = address.postalCode;
     if (address.city) memberFields.address.city = address.city;

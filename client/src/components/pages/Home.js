@@ -22,9 +22,9 @@ const Home = props => {
     let columns = 0;
 
     if (role === ('admin' || 'superUser')) {
-        columns = 4;
+        columns = 3;
     }  else {
-        columns = 4;
+        columns = 2;
     }
 
     return (
@@ -46,8 +46,6 @@ const Home = props => {
             <div>
                 {role === ('admin' || 'superUser') &&
                 <TrainingSessionForm /> }
-            </div>
-            <div>
                 <TrainingSessionFilter />
                 <TrainingSession />
             </div>

@@ -48,7 +48,7 @@ const TrainingGroupForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary">{current ? 'Trainingsgruppe ändern' : 'Trainingsgruppe hinzufügen'}</h2>
+            <h2 className="text-primary large">{current ? 'Trainingsgruppe ändern' : 'Trainingsgruppe hinzufügen'}</h2>
             <input type="text" placeholder="Trainingsgruppe" name="trainingGroup" value={trainingGroup} onChange={onChange} />
             <div>
                 <input type="submit" value={current ? 'Trainingsgruppe aktualisieren' : 'Trainingsgruppe hinzufügen'} className="btn btn-primary btn-block"/>

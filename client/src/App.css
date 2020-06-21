@@ -43,28 +43,32 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
+  max-width: 1500px;
   padding: 0 2rem;
 }
 
 /* Text Styles*/
 .x-large {
-  font-size: 4rem;
+  font-size: 3rem;
   line-height: 1.2;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .large {
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1.2;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.middle {
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
 }
 
 .lead {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .text-center {
@@ -95,12 +99,12 @@ img {
 .card {
   padding: 1rem;
   border: #ccc 1px dotted;
-  margin: 0.7rem 0;
+  margin: 0.5rem 0;
 }
 
 /* List */
 .list {
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
 }
 
 .list li {
@@ -300,7 +304,7 @@ input {
 }
 
 .form-text {
-  display: block;
+  display: inline-block;
   margin-top: 0.3rem;
   color: #888;
 }

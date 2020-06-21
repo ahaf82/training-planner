@@ -8,6 +8,9 @@ import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import PrivatRoute from './components/routing/PrivateRoute';
 
+import 'materialize-css/dist/css/materialize.min.css';
+import M from 'materialize-css/dist/js/materialize.min.js';
+
 import TrainingGroupState from './context/trainingGroup/TrainingGroupState';
 import TrainingSessionState from './context/trainingSession/TrainingSessionState';
 import MemberState from './context/member/MemberState';

@@ -22,12 +22,14 @@ const Navbar = ({ title, icon }) => {
 
     const authLinks = (
         <Fragment>
-            <li>Hallo { member && member.name }</li>
-            <li>
-                <a onClick={onLogout} href="#!">
-                    <i className="fas fa-sign-out-alt"></i> <span className="hide-sm">Logout</span>
-                </a>
-            </li>
+            <div className="lead">
+                <li>Hallo { member && member.name }</li>
+                <li>
+                    <a onClick={onLogout} href="#!">
+                        <i className="fas fa-sign-out-alt"></i> <span className="hide-sm">Logout</span>
+                    </a>
+                </li>
+            </div>
         </Fragment>
     )
 
@@ -43,7 +45,7 @@ const Navbar = ({ title, icon }) => {
     )
 
     return (
-        <div className="navbar bg-primary">
+        <div className="navbar bg-primary middle">
             <h1>
                 <i className={icon} /> {title}
             </h1>

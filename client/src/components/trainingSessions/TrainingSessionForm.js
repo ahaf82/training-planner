@@ -65,7 +65,7 @@ const TrainingSessionForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
+            <h2 className="text-primary large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
             <input type="text" placeholder="Beschreibung" name="description" value={description} onChange={onChange} />
             <input type="time" placeholder="" name="time" value={time} onChange={onChange} />
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />

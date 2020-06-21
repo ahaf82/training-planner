@@ -50,8 +50,8 @@ const Register = (props) => {
 
     return (
         <div className='form-container'>
-            <h1>
-                Konto <span className='text-primary'>registrieren</span>
+            <h1 className='text-primary x-large'>
+                Konto registrieren
             </h1>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>

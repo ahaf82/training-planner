@@ -19,7 +19,7 @@ const TrainingGroups = () => {
 
 
     if (trainingGroup !== null && trainingGroup.length === 0 && !loading && role === ('admin' || 'superUser')) {
-        return <h4>Bitte füge eine Trainingsgruppe hinzu:</h4>
+        return <h4 className="large">Bitte füge eine Trainingsgruppe hinzu:</h4>
     }
 
     return (

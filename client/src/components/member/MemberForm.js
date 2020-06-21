@@ -68,7 +68,7 @@ const MemberForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary">{current ? 'Mitglied ändern' : 'Mitglied hinzufügen'}</h2>
+            <h2 className="text-primary large">{current ? 'Mitglied ändern' : 'Mitglied hinzufügen'}</h2>
             <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
             <input type="email" placeholder="E-Mail" name="email" value={email} onChange={onChange} />
             {/* <input type="text" placeholder="Straße" name="address.street" value={address.street} onChange={onChange} />

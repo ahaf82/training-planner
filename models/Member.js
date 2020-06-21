@@ -33,7 +33,11 @@ const MemberSchema = mongoose.Schema({
         city: {
             type: String
         }
-    },
+    }, 
+    trainingSessions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'trainingSession'
+    }],
     date: {
         type: Date,
         default: Date.now
