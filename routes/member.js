@@ -36,7 +36,6 @@ router.post('/', [
                 name,
                 email,
                 password,
-                role,
                 trainingGroup: [],
                 trainingSessions: [],
                 // address: {
