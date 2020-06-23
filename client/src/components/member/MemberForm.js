@@ -7,7 +7,7 @@ const MemberForm = () => {
     const memberContext = useContext(MemberContext);
 
     const { setAlert } = alertContext;
-    const { addMember, updateMember, clearCurrent, current } = memberContext;
+    const { updateMember, clearCurrent, current } = memberContext;
 
     useEffect(() => {
         if (current !== null) {
@@ -16,12 +16,9 @@ const MemberForm = () => {
             setMember({
               name: "",
               email: "",
-              address: {
-                  street: '',
-                  postalCode: '',
-                  city: '',
-              },
-              role: ""
+              role: "",
+              trainingGroup: [],
+              trainingSessions: []
             });
         }
     }, [memberContext, current]);
@@ -29,36 +26,41 @@ const MemberForm = () => {
     const [member, setMember] = useState({
         name: "",
         email: "",
-        address: {
-            street: '',
-            postalCode: '',
-            city: '',
-        },
-        role: ""
+        role: "",
+        trainingGroup: [],
+        trainingSessions: []
     });
 
-    const { name, email, address, role } = member;
+    const { name, email, role, trainingGroup } = member;
 
     const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
+
+    const [checked, setChecked] = useState(false);
 
     const onSubmit = e => {
         e.preventDefault();
         if (email === '') {
             setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
-        } else if (current === null) {            
-            addMember(member);
         } else {
-            updateMember(member);
+            checked === true ? current.role = "member" : current.role = "none";
+            console.log(current.role);
+            const updMember = {
+                _id: current._id,
+                name,
+                email,
+                role: current.role,
+                trainingGroup,
+                date: new Date()
+            }
+            console.log(updMember)
+            updateMember(updMember);
         }
         setMember({
             name: "",
             email: "",
-            address: {
-                street: '',
-                postalCode: '',
-                city: '',
-            },
-            role: ""
+            role: "",
+            trainingGroup: [],
+            trainingSessions: []
         })
     }
 
@@ -68,14 +70,25 @@ const MemberForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary large">{current ? 'Mitglied ändern' : 'Mitglied hinzufügen'}</h2>
-            <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
-            <input type="email" placeholder="E-Mail" name="email" value={email} onChange={onChange} />
-            {/* <input type="text" placeholder="Straße" name="address.street" value={address.street} onChange={onChange} />
-            <input type="number" placeholder="PLZ" name="postalCode" value={address.postalCode} onChange={onChange} />
-            <input type="text" placeholder="Stadt" name="city" value={address.city} onChange={onChange} /> */}
+            <h2 className="text-primary large">Mitglied ändern</h2>
+            <h2 className="text-primary large">{name}</h2>
+            <div class="switch">
+                Berechtigung:   
+                <label>
+                    keine
+                    <input type="checkbox" name="role" value={checked} onClick={() => setChecked(!checked)} />
+                    <span class="lever"></span>
+                    Mitglied
+                </label>
+            </div>
+            <br/>
             <div>
-                <input type="submit" value={current ? 'Mitglied aktualisieren' : 'Mitglied hinzufügen'} className="btn btn-primary btn-block"/>
+                <a href="#trainingGroup-list-modal" className="btn btn-primary btn-block modal-trigger">
+                    Trainingsgruppen
+                </a>
+            </div>
+             <div>
+                <input type="submit" value={'Mitglied aktualisieren'} className="btn btn-primary btn-block"/>
             </div>
             {current && <div>
                 <button className="btn btn-light btn-block" onClick={clearAll}>Löschen</button>

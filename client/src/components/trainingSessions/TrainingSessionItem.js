@@ -46,8 +46,4 @@ const TrainingSessionItem = ({ session }) => {
     )
 }
 
-TrainingSessionItem.propTypes = {
-    trainingSessions: PropTypes.object.isRequired
-}
-
 export default TrainingSessionItem;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
 
@@ -6,7 +6,7 @@ const MemberItem = ({ member }) => {
     const memberContext = useContext(MemberContext);
     const { deleteMember, setCurrent, clearCurrent } = memberContext;
 
-    const { _id, name, address, email, role } = member;
+    const { _id, name, address, email, role, trainingGroup } = member;
 
 
     const onDelete = () => {
@@ -35,18 +35,20 @@ const MemberItem = ({ member }) => {
                 {role && <li>
                     <i className="fas fa-envelope-open"></i> Berechtigung: {role}
                 </li>}
+                {trainingGroup && role !== ("admin" || "superUser") &&
+                    <div> 
+                        <i className="fas fa-envelope-open"></i> Trainingsgruppen: 
+                            {trainingGroup.map(group  =>  <li>{group.trainingGroup}</li> )}
+                    </div>}
             </ul>
+            {role !== ("admin" || "superUser") &&
             <p> 
-                {//<button className="btn btn-dark btn-sm" onClick={() => setCurrent(member)}>Ändern</button>
-                }
-                <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
+                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(member)}>Ändern</button>
+                <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>           
             </p>
+            }
         </div>
     )
-}
-
-MemberItem.propTypes = {
-    members: PropTypes.object.isRequired
 }
 
 export default MemberItem;

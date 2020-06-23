@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
@@ -6,6 +6,8 @@ import About from './components/pages/About';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
+import TrainingGroupListModal from './components/member/TrainingGroupListModal';
+
 import PrivatRoute from './components/routing/PrivateRoute';
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -25,6 +27,11 @@ if (localStorage.token) {
 
 
 const App = () => {
+  useEffect(() => {
+    // Initializes Materialize JS
+    M.AutoInit();
+  });
+
   return (
     <AuthState>
       <TrainingGroupState>
@@ -43,6 +50,7 @@ const App = () => {
                       < Route exact path="/login" component={Login} />
                     </Switch>
                   </div>
+                  <TrainingGroupListModal />
                 </Fragment>
               </Router>
           </AlertState>

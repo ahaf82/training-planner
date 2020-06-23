@@ -4,9 +4,9 @@ import TrainingSessionContext from '../../context/trainingSession/trainingSessio
 
 const TrainingSessionForm = () => {
     const alertContext = useContext(AlertContext);
-    const trainingSessionContext = useContext(TrainingSessionContext);
-
     const { setAlert } = alertContext;
+    
+    const trainingSessionContext = useContext(TrainingSessionContext);
     const { addTrainingSession, updateTrainingSession, clearCurrent, current } = trainingSessionContext;
 
     useEffect(() => {

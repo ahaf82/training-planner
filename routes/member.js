@@ -23,7 +23,6 @@ router.post('/', [
         }
 
         const { name, email, password } = req.body;
-        // const { street, postalCode, city } = address;
 
         try {
             let member = await Member.findOne({ email });
@@ -38,11 +37,6 @@ router.post('/', [
                 password,
                 trainingGroup: [],
                 trainingSessions: [],
-                // address: {
-                //     street,
-                //     postalCode,
-                //     city
-                // },
                 role: "none"
             });
 
@@ -54,8 +48,8 @@ router.post('/', [
 
             const payload = {
                 member: {
-                    _id: member._id,
-                    role: member.role
+                    _id: member._id
+                    // role: member.role
                 }
             }
             
@@ -100,17 +94,18 @@ router.get("/", auth, async (req, res) => {
 // @desc      Update member
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { name, email, trainingGroup, trainingSessions ,address } = req.body;
+    const { name, email, role, trainingGroup, trainingSessions } = req.body;
     
     // Build member object
-    const memberFields = { address: {} };
+    const memberFields = { trainingGroup: [], trainingSessions: [] };
     if (name) memberFields.name = name;
     if (email) memberFields.email = email;
     if (trainingGroup) memberFields.trainingGroup = trainingGroup;
+    if (role) memberFields.role = role;
     if (trainingSessions) memberFields.trainingSessions = trainingSessions;
-    if (address.street) memberFields.address.street = address.street;
-    if (address.postalCode) memberFields.address.postalCode = address.postalCode;
-    if (address.city) memberFields.address.city = address.city;
+    // if (address.street) memberFields.address.street = address.street;
+    // if (address.postalCode) memberFields.address.postalCode = address.postalCode;
+    // if (address.city) memberFields.address.city = address.city;
     try {
         let editMember = await Member.findById(req.params._id);
 

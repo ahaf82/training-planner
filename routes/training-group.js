@@ -16,7 +16,7 @@ router.get("/", auth, async (req, res) => {
                 trainingGroup: 1
             });
         } else {
-            trainingGroup = await TrainingGroup.find({ member: req.member._id }).sort({
+            trainingGroup = await TrainingGroup.find({ /*member: req.member._id*/ }).sort({
                 trainingGroup: 1
             });
         }
@@ -72,7 +72,7 @@ router.put("/:_id", auth, async (req, res) => {
     const { trainingGroup, members, trainingSessions } = req.body;
 
     // Build trainingGroup object
-    const trainingGroupFields = {};
+    const trainingGroupFields = { members: [], trainingSessions: [] };
     if (trainingGroup) trainingGroupFields.trainingGroup = trainingGroup;
     if (members) trainingGroupFields.members = members;
     if (trainingSessions) trainingGroupFields.trainingSessions = trainingSessions;

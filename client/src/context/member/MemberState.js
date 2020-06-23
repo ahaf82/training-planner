@@ -95,7 +95,7 @@ const MemberState = props => {
         }
 
         try {
-            const res = await axios.put(`/api/training-session/${member._id}`, member, config);
+            const res = await axios.put(`/api/member/${member._id}`, member, config);
 
             dispatch({
                 type: UPDATE_MEMBER,
@@ -110,7 +110,7 @@ const MemberState = props => {
         }
     };
 
-        // Clear Member
+    // Clear Member
     const clearMembers = () => {
         dispatch({ type: CLEAR_MEMBERS });
     }

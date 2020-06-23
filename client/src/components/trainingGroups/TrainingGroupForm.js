@@ -34,7 +34,6 @@ const TrainingGroupForm = () => {
         } else if (current === null) {            
             addTrainingGroup(group);
         } else {
-            console.log(group);
             updateTrainingGroup(group);
         }
         setTrainingGroup({

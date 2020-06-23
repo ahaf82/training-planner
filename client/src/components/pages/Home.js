@@ -30,7 +30,8 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div>
-                {//<MemberForm />
+                { role === ('admin' || 'superUser') &&
+                <MemberForm />
                 }
                 { role === ('admin' || 'superUser') &&
                 <MemberFilter /> }
@@ -39,14 +40,15 @@ const Home = props => {
             <div>
                 { role === ('admin' || 'superUser') &&
                 <TrainingGroupForm /> }
-                { role === ('admin' || 'superUser') &&
+                { role === ('admin' || 'superUser' || 'member') &&
                 <TrainingGroupFilter /> }
                 <TrainingGroups />
             </div>
             <div>
-                {role === ('admin' || 'superUser') &&
+                {role === ('admin' || 'superUser' || 'member') &&
                 <TrainingSessionForm /> }
-                <TrainingSessionFilter />
+                {role === ('admin' || 'superUser' || 'member') &&
+                <TrainingSessionFilter /> }
                 <TrainingSession />
             </div>
         </div>
