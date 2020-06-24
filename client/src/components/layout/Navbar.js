@@ -22,14 +22,12 @@ const Navbar = ({ title, icon }) => {
 
     const authLinks = (
         <Fragment>
-            <div className="lead">
-                <li>Hallo { member && member.name }</li>
-                <li>
-                    <a onClick={onLogout} href="#!">
-                        <i className="fas fa-sign-out-alt"></i> <span className="hide-sm">Logout</span>
-                    </a>
-                </li>
-            </div>
+            <li>Hallo { member && member.name }</li>
+            <li>
+                <a onClick={onLogout} href="#!">
+                    <i className="fas fa-sign-out-alt"></i> <span className="hide-sm">Logout</span>
+                </a>
+            </li>
         </Fragment>
     )
 

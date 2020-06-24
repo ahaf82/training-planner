@@ -1,17 +1,26 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
+import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const MemberItem = ({ member }) => {
     const memberContext = useContext(MemberContext);
     const { deleteMember, setCurrent, clearCurrent } = memberContext;
 
-    const { _id, name, address, email, role, trainingGroup } = member;
+    const { _id, name, address, email, role } = member;
 
+    const trainingGroupContext = useContext(TrainingGroupContext);
+    const { trainingGroup } = trainingGroupContext;
+
+    let groups = [];
 
     const onDelete = () => {
         deleteMember(_id);
         clearCurrent();
+    }
+
+    if (trainingGroup) { 
+        groups = [...new Set(trainingGroup.filter(element => member.trainingGroup.includes(element._id)))];
     }
 
     return (
@@ -23,22 +32,13 @@ const MemberItem = ({ member }) => {
                 {email && <li>
                     <i className="fas fa-envelope-open"></i> E-Mail Adresse: {email}
                 </li>}
-                {address && address.street && <li>
-                    <i className="fas fa-envelope-open"></i> Straße: {address.street}
-                </li>}
-                {address && address.postalCode && <li>
-                    <i className="fas fa-envelope-open"></i> PLZ: {address.postalCode}
-                </li>}
-                {address && address.city && <li>
-                    <i className="fas fa-envelope-open"></i> Stadt: {address.city}
-                </li>}
                 {role && <li>
                     <i className="fas fa-envelope-open"></i> Berechtigung: {role}
                 </li>}
-                {trainingGroup && role !== ("admin" || "superUser") &&
+                {groups && role !== ("admin" || "superUser") &&
                     <div> 
                         <i className="fas fa-envelope-open"></i> Trainingsgruppen: 
-                            {trainingGroup.map(group  =>  <li>{group.trainingGroup}</li> )}
+                            {groups.map(group => <li>{group.trainingGroup}</li>)}
                     </div>}
             </ul>
             {role !== ("admin" || "superUser") &&

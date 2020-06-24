@@ -13,11 +13,11 @@ router.get("/", auth, async (req, res) => {
     try {
         if (req.member.role === 'admin') {
             trainingGroup = await TrainingGroup.find({}).sort({
-                trainingGroup: 1
+                trainingGroup: -1
             });
         } else {
             trainingGroup = await TrainingGroup.find({ /*member: req.member._id*/ }).sort({
-                trainingGroup: 1
+                trainingGroup: -1
             });
         }
 
