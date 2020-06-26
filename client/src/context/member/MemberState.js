@@ -38,7 +38,6 @@ const MemberState = props => {
                 type: MEMBER_ERROR,
                 payload: err.response.msg
             })
-
         }
     };
 

@@ -1,17 +1,33 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import MemberContext from '../../context/member/memberContext';
+import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 const TrainingSessionItem = ({ session }) => {
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent } = trainingSessionContext;
+    const { deleteTrainingSession, setCurrent, clearCurrent, current } = trainingSessionContext;
 
-    const { _id, trainingGroup, description, maxMembers, memberCount, members, time, date } = session;
+    const trainingGroupContext = useContext(TrainingGroupContext);
+    const { trainingGroup } = trainingGroupContext;
+
+    const memberContext = useContext(MemberContext);
+    const { member } = memberContext;
+
+    const { _id, description, maxMembers, memberCount, members, time, date } = session;
 
     const onDelete = () => {
         deleteTrainingSession(_id);
         clearCurrent();
     }
+
+    // let group = current.trainingGroup.includes(trainingGroup._id);
+    let group = trainingGroup.map(tGroup => tGroup._id === session.trainingGroup);
+
+    //if(group) {console.log('Gruppe: ' + group);};
+    if(trainingGroup){console.log(trainingGroup)};
+    //if(trainingGroup) {console.log('Grupe: ' + trainingGroup.map(group => group));};
+
 
     return (
         <div className='card bg-light'>
@@ -19,9 +35,9 @@ const TrainingSessionItem = ({ session }) => {
                 {description}{' '} 
             </h3>
             <ul className="list">
-                {trainingGroup && <li>
-                    <i className="fas fa-envelope-open"></i> Trainingsgruppe: {trainingGroup}
-                </li>}
+                {group && <li>
+                    <i className="fas fa-envelope-open"></i> Trainingsgruppe: {group}
+                </li> }
                 {time && <li>
                     <i className="fas fa-envelope-open"></i> Zeit: {time}
                 </li>}

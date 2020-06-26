@@ -60,8 +60,8 @@ router.post(
                 date,
                 maxMembers,
                 memberCount,
-                members: [],
-                trainingGroup: []
+                trainingGroup,
+                members: []
             });
 
             const trainingSession = await newTrainingSession.save();

@@ -4,11 +4,11 @@ import MemberContext from '../../context/member/memberContext';
 
 const MemberForm = () => {
     const alertContext = useContext(AlertContext);
-    const memberContext = useContext(MemberContext);
-
     const { setAlert } = alertContext;
+    
+    const memberContext = useContext(MemberContext);
     const { updateMember, clearCurrent, current } = memberContext;
-
+    
     useEffect(() => {
         if (current !== null) {
             setMember(current);
@@ -43,13 +43,13 @@ const MemberForm = () => {
             setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
         } else {
             checked === true ? current.role = "member" : current.role = "none";
-            console.log(current.role);
+            console.log(current.trainingGroup);
             const updMember = {
                 _id: current._id,
                 name,
                 email,
                 role: current.role,
-                trainingGroup,
+                trainingGroup: current.trainingGroup,
                 date: new Date()
             }
             console.log(updMember)

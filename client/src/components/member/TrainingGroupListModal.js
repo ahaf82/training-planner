@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import TrainingGroupItem from './TrainingGroupItem';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
@@ -15,10 +14,10 @@ const TrainingGroupListModal = () => {
     // const { role } = authContext;
     
     const memberContext = useContext(MemberContext);
-    const { updateMember, clearCurrent, current } = memberContext;
+    const { updateMember, current } = memberContext;
     
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup, getTrainingGroups, loading } = trainingGroupContext;
+    const { trainingGroup, getTrainingGroups } = trainingGroupContext;
     
     useEffect(() => {
         if (current !== null) {
@@ -49,6 +48,8 @@ const TrainingGroupListModal = () => {
     const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
     
     const [checked, setChecked] = useState(false);
+
+
     
     const onSubmit = e => {
         e.preventDefault();
@@ -56,16 +57,16 @@ const TrainingGroupListModal = () => {
             setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
         } else {
             checked === true ? current.role = "member" : current.role = "none";
-            console.log(current.role);
+            
             const updMember = {
                 _id: current._id,
                 name,
                 email,
                 role: current.role,
-                trainingGroup,
+                trainingGroup: member.trainingGroup,
                 date: new Date()
             }
-            console.log(updMember)
+            
             updateMember(updMember);
         }
         setMember({
@@ -77,14 +78,37 @@ const TrainingGroupListModal = () => {
         })
     }
 
+    const handletrainingGroupSelect = e => {
+        let check = e.target.checked;
+        let checked_trainingGroup = e.target.value;
+        if (check) {
+            this.setState({
+                days: [...this.state.trainingGroup, checked_trainingGroup]
+            })
+        } else {
+            let index = trainingGroup.indexOf(checked_trainingGroup);
+            if (index > -1) {
+                trainingGroup.splice(index, 1);
+                this.setState({
+                    trainingGroup: trainingGroup
+                })
+            }
+        }
+    }
+
     return (
         <div id='trainingGroup-list-modal' className='modal'>
             <div className="modal-content">
                 <h4>Trainingsgruppen</h4>
                 <ul className="collection">
                     <Fragment>
-                      {trainingGroup && trainingGroup.map(group => (
-                        <TrainingGroupItem group={group} key={group._id} onChange={onChange} />
+                      {trainingGroup && trainingGroup.map((group,i) => (
+                          <p id={group._id} key={group._id}>
+                              <label>
+                                  <input type="checkbox" key={group._id} className="filled-in" name={group._id} value={group._id} onChange={e => setMember({ trainingGroup: e.target.value })} />
+                                  <span>{group.trainingGroup}</span>
+                              </label>
+                          </p>
                       ))}
                     </Fragment>
                 </ul>

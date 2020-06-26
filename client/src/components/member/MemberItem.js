@@ -7,7 +7,7 @@ const MemberItem = ({ member }) => {
     const memberContext = useContext(MemberContext);
     const { deleteMember, setCurrent, clearCurrent } = memberContext;
 
-    const { _id, name, address, email, role } = member;
+    const { _id, name, email, role } = member;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup } = trainingGroupContext;
@@ -38,12 +38,12 @@ const MemberItem = ({ member }) => {
                 {groups && role !== ("admin" || "superUser") &&
                     <div> 
                         <i className="fas fa-envelope-open"></i> Trainingsgruppen: 
-                            {groups.map(group => <li>{group.trainingGroup}</li>)}
+                            {groups.map(group => <li key={group._id}>{group.trainingGroup}</li>)}
                     </div>}
             </ul>
             {role !== ("admin" || "superUser") &&
             <p> 
-                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(member)}>Ändern</button>
+                <button className="btn btn-dark btn-sm" onClick={()=>setCurrent(member)}>Ändern</button>
                 <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>           
             </p>
             }
