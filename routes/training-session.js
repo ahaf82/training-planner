@@ -92,6 +92,7 @@ router.put("/:_id", auth, async (req, res) => {
     if (date) trainingSessionFields.date = date;
     try {
         let trainingSession = await TrainingSession.findById(req.params._id);
+        console.log('Session: ' * trainingSession);
 
         if (!trainingSession) return res.status(404).json({ msg: 'Trainingseinheit nicht gefunden' });
 

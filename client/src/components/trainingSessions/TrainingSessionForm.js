@@ -9,7 +9,7 @@ const TrainingSessionForm = () => {
     const { setAlert } = alertContext;
     
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup } = trainingGroupContext;
+    const { _id } = trainingGroupContext;
     
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { addTrainingSession, updateTrainingSession, clearCurrent, current } = trainingSessionContext;
@@ -41,12 +41,11 @@ const TrainingSessionForm = () => {
         members: []
     });    
 
-    const [group, setGroup] = useState("");
+    const [group] = useState("");
     
-    const { session, description, time, date, maxMembers, memberCount, members } = trainingSession;
+    const { description, time, date, maxMembers, memberCount } = trainingSession;
 
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
-    //if (trainingGroup) {console.log(trainingGroup.map(training => training.trainingGroup));}
 
     const onSubmit = e => {
         e.preventDefault();
@@ -55,6 +54,7 @@ const TrainingSessionForm = () => {
         } else if (current === null) {            
             addTrainingSession(trainingSession);
         } else {
+            console.log('Training: ' + JSON.stringify(trainingSession));
             updateTrainingSession(trainingSession);
         }
         setTrainingSession({
@@ -72,15 +72,13 @@ const TrainingSessionForm = () => {
         clearCurrent();
     }
 
-    
-    console.log('Gruppe: ' + group);
-   // console.log('Trainingsgruppe: ' + trainingGroup._id);
+    console.log('Trainingsgruppe: ' + group);
 
     return (
         <form onSubmit={onSubmit}>
             <h2 className="text-primary large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
             <div className="input-field">
-                <select name="trainingGroup" key={group} value={group} className="browser-default" onChange={e => setTrainingSession({ trainingGroup: e.target.value })}>
+                <select name="trainingGroup" key={_id} value={_id} className="browser-default" onChange={onChange}>
                     <option value="" disabled selected>
                         Trainingsgruppe...
                     </option>

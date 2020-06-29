@@ -43,13 +43,20 @@ const TrainingGroupListModal = () => {
         trainingSessions: []
     });
     
-    const { name, email, role } = member;
-    
-    const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
+    const { name, email                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               } = member;
+
     
     const [checked, setChecked] = useState(false);
 
-
+    const onChange = (e, id) => {
+        if (member.trainingGroup.includes(id)) {
+            // was already checked
+            setMember({ trainingGroup: member.trainingGroup.filter(item => item !== id) });
+        } else {
+            // was not checked
+            setMember({ trainingGroup: [...member.trainingGroup, e.target.value] });
+        }
+    };
     
     const onSubmit = e => {
         e.preventDefault();
@@ -78,24 +85,6 @@ const TrainingGroupListModal = () => {
         })
     }
 
-    const handletrainingGroupSelect = e => {
-        let check = e.target.checked;
-        let checked_trainingGroup = e.target.value;
-        if (check) {
-            this.setState({
-                days: [...this.state.trainingGroup, checked_trainingGroup]
-            })
-        } else {
-            let index = trainingGroup.indexOf(checked_trainingGroup);
-            if (index > -1) {
-                trainingGroup.splice(index, 1);
-                this.setState({
-                    trainingGroup: trainingGroup
-                })
-            }
-        }
-    }
-
     return (
         <div id='trainingGroup-list-modal' className='modal'>
             <div className="modal-content">
@@ -105,7 +94,7 @@ const TrainingGroupListModal = () => {
                       {trainingGroup && trainingGroup.map((group,i) => (
                           <p id={group._id} key={group._id}>
                               <label>
-                                  <input type="checkbox" key={group._id} className="filled-in" name={group._id} value={group._id} onChange={e => setMember({ trainingGroup: e.target.value })} />
+                                  <input type="checkbox" key={group._id} className="filled-in" name={group._id} value={group._id} checked={member.trainingGroup.includes(group._id)} onChange={e => onChange(e, group._id)} />
                                   <span>{group.trainingGroup}</span>
                               </label>
                           </p>

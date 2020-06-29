@@ -21,13 +21,10 @@ const TrainingSessionItem = ({ session }) => {
         clearCurrent();
     }
 
-    // let group = current.trainingGroup.includes(trainingGroup._id);
-    let group = trainingGroup.map(tGroup => tGroup._id === session.trainingGroup);
-
-    //if(group) {console.log('Gruppe: ' + group);};
-    if(trainingGroup){console.log(trainingGroup)};
-    //if(trainingGroup) {console.log('Grupe: ' + trainingGroup.map(group => group));};
-
+    let group = trainingGroup.filter(item => item._id === session.trainingGroup);
+    
+    console.log(group);
+//    console.log(group);
 
     return (
         <div className='card bg-light'>
@@ -36,19 +33,19 @@ const TrainingSessionItem = ({ session }) => {
             </h3>
             <ul className="list">
                 {group && <li>
-                    <i className="fas fa-envelope-open"></i> Trainingsgruppe: {group}
+                    <i></i> Trainingsgruppe: {group[0].trainingGroup}
                 </li> }
                 {time && <li>
-                    <i className="fas fa-envelope-open"></i> Zeit: {time}
+                    <i></i> Zeit: {time}
                 </li>}
                 {date && <li>
-                    <i className="fas fa-envelope-open"></i> Datum: {date}
+                    <i></i> Datum: {date}
                 </li>}
                 {maxMembers && <li>
-                    <i className="fas fa-envelope-open"></i> Maximale Teilnehmer: {maxMembers}
+                    <i></i> Maximale Teilnehmer: {maxMembers}
                 </li>}
                 {memberCount && <li>
-                    <i className="fas fa-envelope-open"></i> Angemeldete Teilnehmer: {memberCount}
+                    <i></i> Angemeldete Teilnehmer: {memberCount}
                 </li>}
                 {members && <li>
                     <i className="fas fa-phone"></i> {members}
