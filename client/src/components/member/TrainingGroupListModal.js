@@ -67,7 +67,7 @@ const TrainingGroupListModal = () => {
         if (email === '') {
             setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
         } else {
-            checked === true ? current.role = "member" : current.role = "none";
+            checked === true ? current.role = "none" : current.role = "member";
             
             const updMember = {
                 _id: current._id,
@@ -95,7 +95,7 @@ const TrainingGroupListModal = () => {
         setMember({
             name: "",
             email: "",
-            role: "",
+            role: current.role,
             trainingGroup: [],
             trainingSessions: []
         })

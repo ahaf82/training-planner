@@ -35,7 +35,7 @@ const MemberForm = () => {
 
     const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
 
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(true);
 
 
     const onSubmit = e => {
@@ -76,10 +76,10 @@ const MemberForm = () => {
             {role === "none" && <div class="switch">
                 Berechtigung     
                 <label>
-                    :  Mitglied
+                    :  kein Mitglied
                     <input type="checkbox" name="role" value={checked} onClick={() => setChecked(!checked)} />
                     <span class="lever"></span>
-                    kein Mitglied
+                    Mitglied
                 </label>
             </div>}
             <br/>

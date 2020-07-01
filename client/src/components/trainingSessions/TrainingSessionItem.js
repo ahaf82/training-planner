@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext } from 'react'; 
+import Moment from 'react-moment';
+import 'moment/locale/de';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
+
+Moment.globalLocale = 'de';
 
 const TrainingSessionItem = ({ session }) => {
     const trainingSessionContext = useContext(TrainingSessionContext);
@@ -34,10 +38,10 @@ const TrainingSessionItem = ({ session }) => {
                     }
                 </li> }
                 {time && <li>
-                    <i></i> Zeit: {time}
+                    <i></i> Zeit: <time format='h:mm:ss'>{time}</time>
                 </li>}
                 {date && <li>
-                    <i></i> Datum: {date}
+                    <i></i> Datum: <Moment format='Do MMMM YYYY'>{date}</Moment>
                 </li>}
                 {maxMembers && <li>
                     <i></i> Maximale Teilnehmer: {maxMembers}
