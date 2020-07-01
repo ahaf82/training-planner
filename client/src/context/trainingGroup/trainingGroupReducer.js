@@ -26,7 +26,6 @@ export default (state, action) => {
                 loading: false
             };
         case UPDATE_TRAININGGROUP:
-            console.log(action.payload)
             return {
                 ...state,
                 trainingGroup: state.trainingGroup.map(group => group._id === action.payload._id ? action.payload : group),

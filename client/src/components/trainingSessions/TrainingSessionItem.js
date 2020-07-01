@@ -21,10 +21,7 @@ const TrainingSessionItem = ({ session }) => {
         clearCurrent();
     }
 
-    let group = trainingGroup.filter(item => item._id === session.trainingGroup);
-    
-    console.log(group);
-//    console.log(group);
+    const group = trainingGroup.filter(item => item._id === session.trainingGroup);
 
     return (
         <div className='card bg-light'>
@@ -33,7 +30,8 @@ const TrainingSessionItem = ({ session }) => {
             </h3>
             <ul className="list">
                 {group && <li>
-                    <i></i> Trainingsgruppe: {group[0].trainingGroup}
+                    <i></i> Trainingsgruppe: {group[0].trainingGroup
+                    }
                 </li> }
                 {time && <li>
                     <i></i> Zeit: {time}

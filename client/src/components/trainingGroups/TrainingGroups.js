@@ -1,20 +1,25 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrainingGroupItem from './TrainingGroupItem';
 import Spinner from '../layout/Spinner';
 import AuthContext from '../../context/auth/authContext';
+import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const TrainingGroups = () => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
 
-    const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup, filtered, getTrainingGroups, loading } = trainingGroupContext;    
+    const memberContext = useContext(MemberContext);
+    const { members, getMembers } = memberContext;
 
+    const trainingGroupContext = useContext(TrainingGroupContext);
+    const { trainingGroup, filtered, getTrainingGroups, updateTrainingGroup, loading } = trainingGroupContext;    
+    
     useEffect(() => {
         getTrainingGroups();
-        // eslint-disable-next-line
+        getMembers();
+         // eslint-disable-next-line
     }, []);
 
 

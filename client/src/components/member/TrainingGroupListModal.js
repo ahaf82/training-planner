@@ -17,7 +17,7 @@ const TrainingGroupListModal = () => {
     const { updateMember, current } = memberContext;
     
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup, getTrainingGroups } = trainingGroupContext;
+    const { trainingGroup, getTrainingGroups, updateTrainingGroup } = trainingGroupContext;
     
     useEffect(() => {
         if (current !== null) {
@@ -43,18 +43,22 @@ const TrainingGroupListModal = () => {
         trainingSessions: []
     });
     
-    const { name, email                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               } = member;
+    const { name, email, _id } = member;
 
     
     const [checked, setChecked] = useState(false);
 
     const onChange = (e, id) => {
+        if (current === null) {
+            return;
+        }
         if (member.trainingGroup.includes(id)) {
             // was already checked
             setMember({ trainingGroup: member.trainingGroup.filter(item => item !== id) });
         } else {
             // was not checked
             setMember({ trainingGroup: [...member.trainingGroup, e.target.value] });
+            console.log(trainingGroup);
         }
     };
     
@@ -75,6 +79,18 @@ const TrainingGroupListModal = () => {
             }
             
             updateMember(updMember);
+
+            // Update members in trainingGroups
+            trainingGroup.map((item) => {
+                if (member.trainingGroup.filter(element => element === item._id) != '') {
+                    console.log('add: ' + member.trainingGroup.filter(element => element === item._id));
+                	updateTrainingGroup({ _id: item._id, members: [...item.members, current._id] })
+                } else {
+                    console.log('filter');
+                    updateTrainingGroup({ _id: item._id, members: item.members.filter(element => element !== current._id) 
+                })
+            }})
+            
         }
         setMember({
             name: "",

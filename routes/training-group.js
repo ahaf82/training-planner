@@ -11,12 +11,12 @@ const Member = require("../models/Member");
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        if (req.member.role === 'admin') {
+        if (req.member.role === ('admin' || 'superUser')) {
             trainingGroup = await TrainingGroup.find({}).sort({
                 trainingGroup: -1
             });
         } else {
-            trainingGroup = await TrainingGroup.find({ /*member: req.member._id*/ }).sort({
+            trainingGroup = await TrainingGroup.find({ members: req.member._id }).sort({
                 trainingGroup: -1
             });
         }

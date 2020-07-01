@@ -9,7 +9,7 @@ const TrainingSessionForm = () => {
     const { setAlert } = alertContext;
     
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { _id } = trainingGroupContext;
+    const { _id, members } = trainingGroupContext;
     
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { addTrainingSession, updateTrainingSession, clearCurrent, current } = trainingSessionContext;
@@ -43,18 +43,17 @@ const TrainingSessionForm = () => {
 
     const [group] = useState("");
     
-    const { description, time, date, maxMembers, memberCount } = trainingSession;
+    const { trainingGroup, description, time, date, maxMembers, memberCount } = trainingSession;
 
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
-        if (description === '' || time === '' || date === '') {
-            setAlert('Bitte Beschreibung, Datum und Zeit eingeben', 'danger');
+        if (trainingGroup === '' || description === '' || time === '' || date === '') {
+            setAlert('Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', 'danger');
         } else if (current === null) {            
             addTrainingSession(trainingSession);
         } else {
-            console.log('Training: ' + JSON.stringify(trainingSession));
             updateTrainingSession(trainingSession);
         }
         setTrainingSession({
@@ -71,9 +70,7 @@ const TrainingSessionForm = () => {
     const clearAll = () => {
         clearCurrent();
     }
-
-    console.log('Trainingsgruppe: ' + group);
-
+    
     return (
         <form onSubmit={onSubmit}>
             <h2 className="text-primary large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
