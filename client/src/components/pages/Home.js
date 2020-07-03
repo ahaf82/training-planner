@@ -30,26 +30,27 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div>
+                {(role === 'admin' || role === 'superUser') &&
+                <TrainingGroupForm /> }
+                {(role === 'admin' || role === 'superUser' || role === 'member') &&
+                <TrainingGroupFilter /> }
+                <TrainingGroups />
+            </div>
+            <div>
+                {(role === 'admin' || role === 'superUser') &&
+                <TrainingSessionForm /> }
+                {(role !== 'none' || role === 'superUser' || role === 'member') &&
+                <TrainingSessionFilter /> }
+                {(role === 'admin' || role === 'superUser' || role === 'member') &&
+                <TrainingSession />}
+            </div>
+            <div>
                 { role === ('admin' || 'superUser') &&
                 <MemberForm />
                 }
                 { role === ('admin' || 'superUser') &&
                 <MemberFilter /> }
                 <Member />
-            </div>
-            <div>
-                { role === ('admin' || 'superUser') &&
-                <TrainingGroupForm /> }
-                { role === ('admin' || 'superUser' || 'member') &&
-                <TrainingGroupFilter /> }
-                <TrainingGroups />
-            </div>
-            <div>
-                {role === ('admin' || 'superUser' || 'member') &&
-                <TrainingSessionForm /> }
-                {role === ('admin' || 'superUser' || 'member') &&
-                <TrainingSessionFilter /> }
-                <TrainingSession />
             </div>
         </div>
     )

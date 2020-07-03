@@ -3,11 +3,15 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrainingSessionItem from './TrainingSessionItem';
 import Spinner from '../layout/Spinner';
 import AuthContext from '../../context/auth/authContext';
+import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 const TrainingSession = () => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
+
+    const trainingGroupContext = useContext(TrainingGroupContext);
+    const { trainingGroup } = trainingGroupContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { trainingSessions, filtered, getTrainingSessions, loading } = trainingSessionContext;
@@ -17,13 +21,23 @@ const TrainingSession = () => {
         // eslint-disable-next-line
     }, []);
     
-    if (trainingSessions !== null && trainingSessions.length === 0 && !loading && role === ('admin' || 'superUser')) {
+    if (trainingSessions !== null && trainingSessions.length === 0 && !loading && (role === 'admin' || role === 'superUser')) {
         return <h4>Bitte füge eine Trainingseinheit hinzu:</h4>
     }
 
+    let tGroup = [];
+    if (trainingSessions && (role === 'admin' || role === 'superUser')) {
+        tGroup = trainingSessions;
+    }
+    
+    if (trainingSessions && role === 'member') {
+        tGroup = trainingSessions.filter(tSession => authContext.member.trainingGroup.find((tGroup) => tGroup === tSession.trainingGroup) !== undefined);
+    }
+
+
     return (
         <Fragment>
-            {trainingSessions !== null && !loading ? (
+            {tGroup !== null && !loading ? (
                 <TransitionGroup>
                 {filtered !== null 
                 ? filtered.map(session => (
@@ -31,7 +45,7 @@ const TrainingSession = () => {
                     <TrainingSessionItem session={session} />
                     </CSSTransition>
                 )) 
-                : trainingSessions.map(session => (
+                : tGroup.map(session => ( 
                     <CSSTransition key={session._id} timeout={300} classNames="item">
                     <TrainingSessionItem session={session} />
                     </CSSTransition>

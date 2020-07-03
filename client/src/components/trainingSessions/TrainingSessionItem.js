@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Moment from 'react-moment';
 import 'moment/locale/de';
 import PropTypes from 'prop-types';
+import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
@@ -9,6 +10,9 @@ import TrainingSessionContext from '../../context/trainingSession/trainingSessio
 Moment.globalLocale = 'de';
 
 const TrainingSessionItem = ({ session }) => {
+    const authContext = useContext(AuthContext);
+    const { role } = authContext;
+
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { deleteTrainingSession, setCurrent, clearCurrent, current } = trainingSessionContext;
 
@@ -53,10 +57,10 @@ const TrainingSessionItem = ({ session }) => {
                     <i className="fas fa-phone"></i> {members}
                 </li>}
             </ul>
-            <p> 
+            {(role === 'admin' || role === 'superUser') &&<p> 
                 <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
                 <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
-            </p>
+            </p>}
         </div>
     )
 }

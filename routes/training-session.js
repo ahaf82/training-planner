@@ -12,13 +12,15 @@ const TrainingGroup = require("../models/TrainingGroup");
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        if (req.member.role === ('admin' || 'superUser')) {
+        if (req.member.role === 'admin' || req.member.role === 'superUser' || req.member.role === 'member') {
+            console.log('DA');
             trainingSession = await TrainingSession.find({}).sort({
                 time: -1,
                 date: -1
             });
         } else {
-            trainingSession = await TrainingSession.find({ member: req.member._id }).sort({
+            console.log('Hier');
+            trainingSession = await TrainingSession.find({}).sort({
                 time: -1,
                 date: -1
             });

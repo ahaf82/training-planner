@@ -95,7 +95,7 @@ const TrainingGroupListModal = () => {
         setMember({
             name: "",
             email: "",
-            role: current.role,
+            role: "",
             trainingGroup: [],
             trainingSessions: []
         })
