@@ -33,11 +33,11 @@ const MemberItem = ({ member }) => {
                     <i className="fas fa-envelope-open"></i> E-Mail Adresse: {email}
                 </li>}
                 {role && <li>
-                    <i className="fas fa-envelope-open"></i> Berechtigung: {role}
+                    Berechtigung: {role}
                 </li>}
                 {groups && role !== ("admin" || "superUser") &&
                     <div> 
-                        <i className="fas fa-envelope-open"></i> Trainingsgruppen: 
+                    Trainingsgruppen: 
                             {groups.map(group => <li key={group._id}>{group.trainingGroup}</li>)}
                     </div>}
             </ul>

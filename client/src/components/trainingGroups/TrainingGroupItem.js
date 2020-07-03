@@ -56,7 +56,7 @@ const TrainingGroupItem = ({ group }) => {
                     {trainingGroup}{' '}
                 </h3>
                 {groupMembers && <div>
-                    <i className="fas fa-envelope-open"></i> Mitglieder:
+                    <i class="fa fa-user"></i> Mitglieder:
                             {groupMembers.map(member => <li key={member._id}>{member.name}</li>)}
                 </div>}
                 <p>
@@ -69,11 +69,6 @@ const TrainingGroupItem = ({ group }) => {
                     <h3 className="text-primary text-left large"> 
                         {group.trainingGroup}{' '}
                     </h3>
-                    <ul className="list">
-                    </ul>
-                    <p>
-                        <input type="checkbox"/>
-                    </p>
                 </div>}
         </div>
     )

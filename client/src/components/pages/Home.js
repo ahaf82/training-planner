@@ -23,9 +23,15 @@ const Home = props => {
 
     if (role === ('admin' || 'superUser')) {
         columns = 3;
-    }  else {
+    }
+    if (role === 'member') {
         columns = 2;
     }
+    if (role === 'none') {
+        columns = 1;
+    }
+
+
 
     return (
         <div className={`grid-${columns}`}>
@@ -35,11 +41,13 @@ const Home = props => {
                 {(role === 'admin' || role === 'superUser' || role === 'member') &&
                 <TrainingGroupFilter /> }
                 <TrainingGroups />
+                {role === 'none' &&
+                    <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
             </div>
             <div>
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingSessionForm /> }
-                {(role !== 'none' || role === 'superUser' || role === 'member') &&
+                {(role === 'admin' || role === 'superUser' || role === 'member') &&
                 <TrainingSessionFilter /> }
                 {(role === 'admin' || role === 'superUser' || role === 'member') &&
                 <TrainingSession />}

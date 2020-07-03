@@ -51,7 +51,7 @@ const TrainingSessionForm = () => {
         e.preventDefault();
         if (trainingGroup === '' || description === '' || time === '' || date === '') {
             setAlert('Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', 'danger');
-        } else if (current === null) {            
+        } else if (current === null) {          
             addTrainingSession(trainingSession);
         } else {
             updateTrainingSession(trainingSession);
@@ -86,7 +86,6 @@ const TrainingSessionForm = () => {
             <input type="time" placeholder="" name="time" value={time} onChange={onChange} />
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />
             Teilnehmer zugelassen: <input type="number" placeholder="0" name="maxMembers" value={maxMembers} onChange={onChange} />
-            Teilnehmer angemeldet: <input type="number" placeholder="0" name="memberCount" value={memberCount} onChange={onChange} />
             <div>
                 <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-primary btn-block"/>
             </div>

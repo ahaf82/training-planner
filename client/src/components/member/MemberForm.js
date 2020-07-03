@@ -73,7 +73,8 @@ const MemberForm = () => {
         <form onSubmit={onSubmit}>
             <h2 className="text-primary large">Mitglied ändern</h2>
             <h2 className="text-primary large">{name}</h2>
-            {role === "none" && <div class="switch">
+            {role === "none" && 
+            <div class="switch">
                 Berechtigung     
                 <label>
                     :  kein Mitglied

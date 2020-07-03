@@ -28,9 +28,7 @@ const TrainingSessionFilter = () => {
     
     return (
         <form>
-            { role === ('admin' || 'superUser' || 'member') && 
             <input ref={text} type="text" placeholder="Suche Trainingseinheit..." onChange={onChange} />
-            }
         </form>
     )
 }

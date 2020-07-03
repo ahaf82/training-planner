@@ -27,7 +27,7 @@ const Navbar = ({ title, icon }) => {
             </li>
             <li>
                 <a onClick={onLogout} href="#!">
-                    <span>Logout</span>
+                    <i className="fas fa-sign-out-alt"></i><span className="hide-sm">Logout</span>
                 </a>
             </li>
         </Fragment>
@@ -63,7 +63,7 @@ Navbar.propTypes = {
 
 Navbar.defaultProps = {
     title: 'Training Planner',
-    icon: 'fas fa-id-card-alt'
+    icon: 'fa fa-calendar'
 }
 
 export default Navbar;
