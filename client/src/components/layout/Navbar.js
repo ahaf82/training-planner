@@ -44,6 +44,9 @@ console.log(role);
 
     const guestLinks = (
         <Fragment>
+            {/* {<li>
+                <Link to='/policy'>DSGVO</Link>
+            </li> */}
             <li>
                 <Link to='/register'>Registrierung</Link>
             </li>

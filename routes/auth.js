@@ -84,7 +84,7 @@ passport.use(new FacebookStrategy({
             }
             
             jwt.sign(payload, config.get('jwtSecret'), {
-                expiresIn: 360000
+                expiresIn: 3600
             }, (error, token) => {
                 if (error) throw error;
                 res.send({ token });

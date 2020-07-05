@@ -1,13 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext'
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupOptions from './TrainingGroupOptions';
+import M from 'materialize-css/dist/js/materialize.min.js';
+
 
 const TrainingSessionForm = () => {
-    const alertContext = useContext(AlertContext);
-    const { setAlert } = alertContext;
-    
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { _id, members } = trainingGroupContext;
     
@@ -20,7 +18,7 @@ const TrainingSessionForm = () => {
             setTrainingSession(current);
         } else {
             setTrainingSession({
-              trainingGroup: "",  
+                trainingGroup: "",  
               description: "",
               time: "",
               date: "",
@@ -40,17 +38,17 @@ const TrainingSessionForm = () => {
         memberCount: "",
         members: []
     });    
-
+    
     const [group] = useState("");
     
     const { trainingGroup, description, time, date, maxMembers, memberCount } = trainingSession;
-
+    
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
-
+    
     const onSubmit = e => {
         e.preventDefault();
         if (trainingGroup === '' || description === '' || time === '' || date === '') {
-            setAlert('Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', 'danger');
+            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', classes: 'red darken-1', displayLength: 1500 });
         } else if (current === null) {          
             addTrainingSession(trainingSession);
         } else {

@@ -21,13 +21,10 @@ const Home = props => {
 
     let columns = 0;
 
-    if (role === ('admin' || 'superUser')) {
+    if (role === 'admin' || role === 'superUser') {
         columns = 3;
     }
-    if (role === 'member') {
-        columns = 2;
-    }
-    if (role === 'none') {
+    if (role === 'member' || role === 'none') {
         columns = 1;
     }
 
@@ -38,19 +35,24 @@ const Home = props => {
             <div>
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroupForm /> }
-                {(role === 'admin' || role === 'superUser' || role === 'member') &&
+                {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroupFilter /> }
-                <TrainingGroups />
+                {(role === 'admin' || role === 'superUser') &&
+                <TrainingGroups /> }
+                {role === 'member' &&
+                    <TrainingSessionFilter /> }
+                {role === 'member' &&
+                    <TrainingSession /> }
                 {role === 'none' &&
                     <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
             </div>
             <div>
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingSessionForm /> }
-                {(role === 'admin' || role === 'superUser' || role === 'member') &&
+                {(role === 'admin' || role === 'superUser') &&
                 <TrainingSessionFilter /> }
-                {(role === 'admin' || role === 'superUser' || role === 'member') &&
-                <TrainingSession />}
+                {(role === 'admin' || role === 'superUser') &&
+                <TrainingSession /> }
             </div>
             <div>
                 { role === ('admin' || 'superUser') &&

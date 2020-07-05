@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../../context/alert/alertContext';
 import MemberContext from '../../context/member/memberContext';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
-const MemberForm = () => {
-    const alertContext = useContext(AlertContext);
-    const { setAlert } = alertContext;
-    
+const MemberForm = () => {    
     const memberContext = useContext(MemberContext);
     const { updateMember, clearCurrent, current } = memberContext;
     
@@ -14,7 +12,7 @@ const MemberForm = () => {
             setMember(current);
         } else {
             setMember({
-              name: "",
+                name: "",
               email: "",
               role: "",
               trainingGroup: [],
@@ -30,18 +28,18 @@ const MemberForm = () => {
         trainingGroup: [],
         trainingSessions: []
     });
-
+    
     const { name, email, role, trainingGroup } = member;
-
+    
     const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
-
+    
     const [checked, setChecked] = useState(true);
-
+    
 
     const onSubmit = e => {
         e.preventDefault();
         if (email === '') {
-            setAlert('Bitte eine gültige E-Mail Adresse eingeben', 'danger');
+            M.toast({ html: 'Bitte eine gültige E-Mail Adresse eingeben', classes: 'red darken-1', displayLength: 1500 });
         } else {
             checked === true ? current.role = "none" : current.role = "member";
             

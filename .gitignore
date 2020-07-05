@@ -13,6 +13,8 @@ config/production.json
 
 .env.local
 
+/src/components/auth/PrivacyPolicy.js*
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TrainingGroupForm = () => {
     const alertContext = useContext(AlertContext);
@@ -30,7 +31,7 @@ const TrainingGroupForm = () => {
     const onSubmit = e => {
         e.preventDefault();
         if (trainingGroup === '') {
-            setAlert('Bitte eine Gruppenbezeichnung eingeben', 'danger');
+            M.toast({ html: 'Bitte eine Gruppenbezeichnung eingeben', classes: 'red darken-1', displayLength: 1500 });
         } else if (current === null) {            
             addTrainingGroup(group);
         } else {

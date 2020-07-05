@@ -2,18 +2,16 @@ import React, { useContext, useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import 'moment/locale/de';
 import PropTypes from 'prop-types';
-import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
+import M from 'materialize-css/dist/js/materialize.min.js';
+
 
 Moment.globalLocale = 'de';
 
 const TrainingSessionItem = ({ session }) => {
-    const alertContext = useContext(AlertContext);
-    const { setAlert } = alertContext;
-
     const authContext = useContext(AuthContext);
     const { role } = authContext;
 
@@ -25,7 +23,7 @@ const TrainingSessionItem = ({ session }) => {
 
     const memberContext = useContext(MemberContext);
     const { member } = memberContext;
-
+    
     const { _id, description, maxMembers, memberCount, members, time, date } = session;
 
     const group = trainingGroup.filter(item => item._id === session.trainingGroup);
@@ -37,15 +35,15 @@ const TrainingSessionItem = ({ session }) => {
         memberCount: "",
         members: []
     });
-
-
+    
+    
     const onDelete = () => {
         deleteTrainingSession(_id);
         clearCurrent();
     }
     
     const [checked, setChecked] = useState(false);
-
+    
     useEffect(() => {
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
             console.log(members.find(element => element === authContext.member._id));
@@ -58,13 +56,12 @@ const TrainingSessionItem = ({ session }) => {
         e.preventDefault();
         setChecked(!checked);
         if (maxMembers && !checked && (memberCount >= maxMembers)) {
-            setAlert('Kein Platz mehr frei', 'danger');
+            M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-1', displayLength: 1500 });
         }
         if (!checked && (memberCount < maxMembers || !maxMembers)) {
             updateTrainingSession({ ...session, members: [...members, authContext.member._id], memberCount: memberCount+1 });
         }
         if (checked) {
-            console.log('Checked');
             if (memberCount === 1) {
                 updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: "0" });
             } else {
@@ -72,7 +69,7 @@ const TrainingSessionItem = ({ session }) => {
             }
         }
     }
-
+    
     // Convert Object Id to Name
     let sessionMembers;
     if (memberContext.members) {

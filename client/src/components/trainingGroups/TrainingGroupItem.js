@@ -4,6 +4,7 @@ import TrainingGroupContext from '../../context/trainingGroup/trainingGroupConte
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TrainingGroupItem = ({ group }) => {
     const alertContext = useContext(AlertContext);
@@ -35,7 +36,7 @@ const TrainingGroupItem = ({ group }) => {
     const onDelete = () => {
         const delResult = trainingSessions.filter(item => item.trainingGroup === _id);
         if (delResult[0]?.trainingGroup !== undefined) {
-            setAlert('Bitte erst alle Traininingseinheiten für die Gruppe löschen', 'danger');
+            M.toast({ html: 'Bitte erst alle Traininingseinheiten für die Gruppe löschen', classes: 'red darken-1', displayLength: 1500 });
         } else {
             deleteTrainingGroup(_id);
             clearCurrent();
