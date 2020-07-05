@@ -15,14 +15,14 @@ router.get("/", auth, async (req, res) => {
         if (req.member.role === 'admin' || req.member.role === 'superUser' || req.member.role === 'member') {
             console.log('DA');
             trainingSession = await TrainingSession.find({}).sort({
-                time: -1,
-                date: -1
+                date: 1,
+                time: 1
             });
         } else {
             console.log('Hier');
             trainingSession = await TrainingSession.find({}).sort({
-                time: -1,
-                date: -1
+                date: 1,
+                time: 1
             });
         }
 

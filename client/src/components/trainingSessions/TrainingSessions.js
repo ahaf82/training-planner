@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrainingSessionItem from './TrainingSessionItem';
 import Spinner from '../layout/Spinner';
+import moment from 'moment'
 import AuthContext from '../../context/auth/authContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
@@ -25,15 +26,18 @@ const TrainingSession = () => {
         return <h4>Bitte füge eine Trainingseinheit hinzu:</h4>
     }
 
-    let tGroup = [];
+    let tGroup = []
     if (trainingSessions && (role === 'admin' || role === 'superUser')) {
-        tGroup = trainingSessions;
-    }
-    
-    if (trainingSessions && role === 'member') {
-        tGroup = trainingSessions.filter(tSession => authContext.member.trainingGroup.find((tGroup) => tGroup === tSession.trainingGroup) !== undefined);
+        tGroup = trainingSessions.filter(tSession => tSession.date >= moment(Date.now()).format('YYYY-MM-DD'));
     }
 
+    // filter sessions for member
+    if (trainingSessions && role === 'member') {
+        tGroup = trainingSessions.filter(tSession => authContext.member.trainingGroup.find((tGroup) => tGroup === tSession.trainingGroup) !== undefined);
+        tGroup = tGroup.filter(tSession => tSession.date >= moment(Date.now()).format('YYYY-MM-DD'));
+    }
+
+    console.log(tGroup);
 
     return (
         <Fragment>

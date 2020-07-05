@@ -53,7 +53,7 @@ const TrainingGroupForm = () => {
                 <input type="submit" value={current ? 'Trainingsgruppe aktualisieren' : 'Trainingsgruppe hinzufügen'} className="btn btn-primary btn-block"/>
             </div>
             {current && <div>
-                <button className="btn btn-light btn-block" onClick={clearAll}>Clear</button>
+                <button className="btn btn-light btn-block" onClick={clearAll}>Löschen</button>
 
             </div>}
         </form>

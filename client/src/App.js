@@ -5,6 +5,7 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import OldSessions from './components/trainingSessions/OldSessions';
 import Alerts from './components/layout/Alerts';
 import TrainingGroupListModal from './components/member/TrainingGroupListModal';
 
@@ -46,6 +47,7 @@ const App = () => {
                     <Switch>
                       < PrivatRoute exact path="/" component={Home} />
                       < Route exact path="/about" component={About} />
+                      < Route exact path="/oldSess" component={OldSessions} />
                       < Route exact path="/register" component={Register} />
                       < Route exact path="/login" component={Login} />
                     </Switch>

@@ -62,19 +62,13 @@ const TrainingSessionItem = ({ session }) => {
         }
         if (!checked && (memberCount < maxMembers || !maxMembers)) {
             updateTrainingSession({ ...session, members: [...members, authContext.member._id], memberCount: memberCount+1 });
-            console.log(members);
-            console.log(memberCount);
         }
         if (checked) {
             console.log('Checked');
             if (memberCount === 1) {
                 updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: "0" });
-                console.log(members);
-                console.log(memberCount);
             } else {
                 updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: memberCount-1 });
-                console.log(members);
-                console.log(memberCount);
             }
         }
     }
@@ -114,7 +108,7 @@ const TrainingSessionItem = ({ session }) => {
                             {sessionMembers.map(member => <li key={member._id}>{member.name}</li>)}
                 </div>}
             </ul>
-            {(role === 'admin' || role === 'superUser') && <p>
+            {(role === 'admin' || role === 'superUser') &&  <p>
                 <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
                 <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
             </p>}

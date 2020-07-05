@@ -10,7 +10,7 @@ const Navbar = ({ title, icon }) => {
     const trainingGroupContext = useContext(TrainingGroupContext);
     const trainingSessionContext = useContext(TrainingSessionContext);
     
-    const { isAuthenticated, logout, member } = authContext;
+    const { isAuthenticated, logout, member, role } = authContext;
     const { clearTrainingGroups } = trainingGroupContext;
     const { clearTrainingSessions } = trainingSessionContext;
 
@@ -19,12 +19,21 @@ const Navbar = ({ title, icon }) => {
         clearTrainingGroups();
         clearTrainingSessions();
     };
-
+console.log(role);
     const authLinks = (
         <Fragment>
+            {(role === 'admin' || role === 'superUser') &&
             <li>
-                Hallo { member && member.name }
-            </li>
+                <Link to='/'>Planung</Link>
+            </li>}            
+            {(role === 'admin' || role === 'superUser') &&
+            <li>
+                <Link to='/oldSess'>Vergangene Trainingseinheiten</Link>
+            </li>}
+            {role === 'member' &&
+            <li>
+                Hallo { member && member.name }  
+            </li>}
             <li>
                 <a onClick={onLogout} href="#!">
                     <i className="fas fa-sign-out-alt"></i><span className="hide-sm">Logout</span>
