@@ -37,6 +37,8 @@ const TrainingSession = () => {
         tGroup = tGroup.filter(tSession => tSession.date >= moment(Date.now()).format('YYYY-MM-DD'));
     }
 
+    console.log(tGroup);
+
     return (
         <Fragment>
             {tGroup !== null && !loading ? (

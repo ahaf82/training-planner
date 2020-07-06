@@ -13,10 +13,10 @@ Moment.globalLocale = 'de';
 
 const TrainingSessionItem = ({ session }) => {
     const authContext = useContext(AuthContext);
-    const { role, loading } = authContext;
+    const { role } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
+    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current, loading } = trainingSessionContext;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup } = trainingGroupContext;
@@ -82,7 +82,7 @@ const TrainingSessionItem = ({ session }) => {
 
     return (
         <div className={checked === true ? 'card bg-primary' : 'card bg-light'}>
-            <h3 className={checked === true ? 'card bg-primary' : 'text- text-left large'}>
+            <h3 className={checked === true ? 'text-light-color text-left large' : 'text-primary text-left large'}>
                 {description}{' '} 
             </h3>
             <ul className="list">

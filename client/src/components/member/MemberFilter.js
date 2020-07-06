@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import MemberContext from '../../context/member/memberContext';
+import MemberContext from '../../context/member/memberContext'
 
 const MemberFilter = () => {
     const memberContext = useContext(MemberContext);
