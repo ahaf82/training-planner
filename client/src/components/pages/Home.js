@@ -40,8 +40,6 @@ const Home = props => {
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroups /> }
                 {role === 'member' &&
-                    <TrainingSessionFilter /> }
-                {role === 'member' &&
                     <TrainingSession /> }
                 {role === 'none' &&
                     <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
