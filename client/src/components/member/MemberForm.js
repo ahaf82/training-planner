@@ -69,8 +69,8 @@ const MemberForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary large">Mitglied ändern</h2>
-            <h2 className="text-primary large">{name}</h2>
+            <h2 className="text-dark large">Mitglied ändern</h2>
+            <h2 className="text-dark large">{name}</h2>
             {role === "none" && 
             <div class="switch">
                 Berechtigung     
@@ -83,7 +83,7 @@ const MemberForm = () => {
             </div>}
             <br/>
             <div>
-                <a href="#trainingGroup-list-modal" className="btn btn-primary btn-block modal-trigger">
+                <a href="#trainingGroup-list-modal" className="btn btn-dark btn-block modal-trigger">
                     Trainingsgruppen
                 </a>
             </div>

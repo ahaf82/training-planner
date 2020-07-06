@@ -25,7 +25,7 @@ const MemberItem = ({ member }) => {
 
     return (
         <div className='card bg-light'>
-            <h3 className="text-primary text-left large">
+            <h3 className="text-dark text-left large">
                 {name}{' '} 
             </h3>
             <ul className="list">

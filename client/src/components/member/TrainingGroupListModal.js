@@ -118,7 +118,7 @@ const TrainingGroupListModal = () => {
                     </Fragment>
                 </ul>
                 <div className="modal-footer">
-                    <a href="#!" onClick={onSubmit} className="modal-close waves-effect waves-primary btn">Bestätigung</a>
+                    <a href="#!" onClick={onSubmit} className="modal-close waves-effect waves-kentai btn">Bestätigung</a>
                 </div>
             </div>
         </div>

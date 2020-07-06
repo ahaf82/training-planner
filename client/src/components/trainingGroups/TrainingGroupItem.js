@@ -36,7 +36,7 @@ const TrainingGroupItem = ({ group }) => {
     const onDelete = () => {
         const delResult = trainingSessions.filter(item => item.trainingGroup === _id);
         if (delResult[0]?.trainingGroup !== undefined) {
-            M.toast({ html: 'Bitte erst alle Traininingseinheiten für die Gruppe löschen', classes: 'red darken-1', displayLength: 1500 });
+            M.toast({ html: 'Bitte erst alle Traininingseinheiten für die Gruppe löschen', classes: 'kentai-color', displayLength: 1500 });
         } else {
             deleteTrainingGroup(_id);
             clearCurrent();
@@ -53,7 +53,7 @@ const TrainingGroupItem = ({ group }) => {
         <div>
             {(role === 'admin' || role === 'superUser') &&              // field for admin and superUser
             <div className='card bg-light'>
-                <h3 className="text-primary text-left large">
+                <h3 className="text-dark text-left large">
                     {trainingGroup}{' '}
                 </h3>
                 {groupMembers && <div>
@@ -67,7 +67,7 @@ const TrainingGroupItem = ({ group }) => {
             </div>}            
             {(role === 'member' && memberGroup !== "") &&               // field for member
                 <div className='card bg-light'>
-                    <h3 className="text-primary text-left large"> 
+                    <h3 className="text-dark text-left large"> 
                         {group.trainingGroup}{' '}
                     </h3>
                 </div>}

@@ -49,7 +49,7 @@ const App = () => {
                       < PrivatRoute exact path="/" component={Home} />
                       < Route exact path="/about" component={About} />
                       {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
-                      < Route exact path="/oldSess" component={OldSessions} />
+                      < PrivatRoute exact path="/oldSess" component={OldSessions} />
                       < Route exact path="/register" component={Register} />
                       < Route exact path="/login" component={Login} />
                     </Switch>

@@ -48,7 +48,7 @@ const TrainingSessionForm = () => {
     const onSubmit = e => {
         e.preventDefault();
         if (trainingGroup === '' || description === '' || time === '' || date === '') {
-            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', classes: 'red darken-1', displayLength: 1500 });
+            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', classes: 'kentai-color', displayLength: 1500 });
         } else if (current === null) {          
             addTrainingSession(trainingSession);
         } else {
@@ -71,7 +71,7 @@ const TrainingSessionForm = () => {
     
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
+            <h2 className="text-dark large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
             <div className="input-field">
                 <select name="trainingGroup" key={_id} value={_id} className="browser-default" onChange={onChange}>
                     <option value="" disabled selected>
@@ -85,7 +85,7 @@ const TrainingSessionForm = () => {
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />
             Teilnehmer zugelassen: <input type="number" placeholder="0" name="maxMembers" value={maxMembers} onChange={onChange} />
             <div>
-                <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-primary btn-block"/>
+                <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-dark btn-block"/>
             </div>
             {current && <div>
                 <button className="btn btn-light btn-block" onClick={clearAll}>Löschen</button>
