@@ -59,7 +59,7 @@ const TrainingSessionItem = ({ session }) => {
         e.preventDefault();
         setChecked(!checked);
         if (maxMembers && !checked && (memberCount >= maxMembers)) {
-            M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-1', displayLength: 1500 });
+            M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-2', displayLength: 1500 });
         }
         if (!checked && (memberCount < maxMembers || !maxMembers)) {
             updateTrainingSession({ ...session, members: [...members, authContext.member._id], memberCount: memberCount+1 });
@@ -81,8 +81,8 @@ const TrainingSessionItem = ({ session }) => {
     if(sessionMembers) console.log(sessionMembers);
 
     return (
-        <div className={checked === true ? 'card bg-primary' : 'card bg-light'}>
-            <h3 className={checked === true ? 'card bg-primary' : 'text- text-left large'}>
+        <div className={checked === true ? 'card bg-dark' : 'card bg-light'}>
+            <h3 className={checked === true ? 'text- text-left large' : 'text- text-left large'}>
                 {description}{' '} 
             </h3>
             <ul className="list">
