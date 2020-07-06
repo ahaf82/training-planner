@@ -79,11 +79,10 @@ const TrainingSessionItem = ({ session }) => {
         sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
     }
     if(sessionMembers) console.log(sessionMembers);
-    console.log(memberContext.member);
 
     return (
-        <div className='card bg-light'>
-            <h3 className="text-primary text-left large">
+        <div className={checked === true ? 'card bg-primary' : 'card bg-light'}>
+            <h3 className={checked === true ? 'text-light-color text-left large' : 'text-primary text-left large'}>
                 {description}{' '} 
             </h3>
             <ul className="list">
