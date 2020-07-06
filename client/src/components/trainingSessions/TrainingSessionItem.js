@@ -16,7 +16,7 @@ const TrainingSessionItem = ({ session }) => {
     const { role } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession ,current } = trainingSessionContext;
+    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current, loading } = trainingSessionContext;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup } = trainingGroupContext;
@@ -26,7 +26,10 @@ const TrainingSessionItem = ({ session }) => {
     
     const { _id, description, maxMembers, memberCount, members, time, date } = session;
 
-    const group = trainingGroup.filter(item => item._id === session.trainingGroup);
+    let group =[];
+    if(trainingGroup) {
+        group = trainingGroup.filter(item => item._id === session.trainingGroup);
+    }
     
     const [tSession, setTrainingSession] = useState({
         trainingGroup: "",
@@ -84,7 +87,7 @@ const TrainingSessionItem = ({ session }) => {
                 {description}{' '} 
             </h3>
             <ul className="list">
-                {group && <li>
+                {trainingGroup && group[0].trainingGroup && !loading &&  <li>
                     <i></i> Trainingsgruppe: {group[0].trainingGroup
                     }
                 </li> }
