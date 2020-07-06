@@ -39,8 +39,8 @@ const Home = props => {
                 <TrainingGroupFilter /> }
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroups /> }
-                {role === 'member' &&
-                    <TrainingSessionFilter /> }
+                {/* {role === 'member' &&
+                    <TrainingSessionFilter /> } */}
                 {role === 'member' &&
                     <TrainingSession /> }
                 {role === 'none' &&
