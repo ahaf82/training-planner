@@ -34,8 +34,6 @@ const Home = props => {
         <div className={`grid-${columns}`}>
             <div>
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingGroupForm /> }
-                {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroupFilter /> }
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingGroups /> }
@@ -46,17 +44,12 @@ const Home = props => {
             </div>
             <div>
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingSessionForm /> }
-                {(role === 'admin' || role === 'superUser') &&
                 <TrainingSessionFilter /> }
                 {(role === 'admin' || role === 'superUser') &&
                 <TrainingSession /> }
             </div>
             <div>
-                { role === ('admin' || 'superUser') &&
-                <MemberForm />
-                }
-                { role === ('admin' || 'superUser') &&
+                {(role === 'admin' || role === 'superUser') &&
                 <MemberFilter /> }
                 <Member />
             </div>

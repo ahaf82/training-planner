@@ -20,16 +20,28 @@ const Navbar = ({ title, icon }) => {
         clearTrainingGroups();
         clearTrainingSessions();
     };
-console.log(role);
+    
     const authLinks = (
         <Fragment>
             {(role === 'admin' || role === 'superUser') &&
             <li>
-                <Link to='/'>Planung</Link>
+                <Link to='/'><i className="fa fa-list-alt" aria-hidden="true"></i><span className="hide-sm"> Übersicht</span></Link>
             </li>}            
             {(role === 'admin' || role === 'superUser') &&
             <li>
-                <Link to='/oldSess'>Vergangene Trainingseinheiten</Link>
+                <Link to='/sessions'><i className="fa fa-calendar" aria-hidden="true"></i><span className="hide-sm"> Planung</span></Link>
+            </li>}            
+            {(role === 'admin' || role === 'superUser') &&
+            <li>
+                <Link to='/groups'><i className="fa fa-users" aria-hidden="true"></i><span className="hide-sm"> Trainingsgruppen</span></Link>
+            </li>}            
+            {(role === 'admin' || role === 'superUser') &&
+            <li>
+                <Link to='/memberPage'><i className="fa fa-user-circle" aria-hidden="true"></i><span className="hide-sm"> Mitglieder</span></Link>
+            </li>}            
+            {(role === 'admin' || role === 'superUser') &&
+            <li>
+                <Link to='/oldSess'><i class="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>
             </li>}
             {role === 'member' &&
             <li>
@@ -37,7 +49,7 @@ console.log(role);
             </li>}
             <li>
                 <a onClick={onLogout} href="#!">
-                    <i className="fas fa-sign-out-alt"></i><span className="hide-sm">Logout</span>
+                    <i className="fas fa-sign-out-alt"></i><span className="hide-sm"> Logout</span>
                 </a>
             </li>
         </Fragment>
