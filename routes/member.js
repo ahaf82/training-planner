@@ -25,7 +25,8 @@ router.post('/', [
         const { name, email, password } = req.body;
 
         try {
-            let member = await Member.findOne({ email });
+            let emailUser = email.toLowerCase();
+            let member = await Member.findOne({ emailUser });
 
             if (member) {
                 return res.status(400).json({ msg: 'E-Mail Adresse bereits vergeben' });
@@ -33,7 +34,7 @@ router.post('/', [
 
             member = new Member({
                 name,
-                email,
+                email: emailUser,
                 password,
                 trainingGroup: [],
                 trainingSessions: [],
@@ -52,7 +53,7 @@ router.post('/', [
                     // role: member.role
                 }
             }
-            
+
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 360000
             }, (error, token) => {
@@ -74,14 +75,14 @@ router.get("/", auth, async (req, res) => {
         console.log(req.member)
         if (req.member.role === 'admin') {
             member = await Member.find({}).sort({
-                 name: -1
+                name: -1
             });
         } else {
             member = await Member.find({ member: req.member._id }).sort({
                 name: 1
             });
         }
-        
+
         res.json(member);
     } catch (error) {
         console.error(error.message);
@@ -95,7 +96,7 @@ router.get("/", auth, async (req, res) => {
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
     const { name, email, role, trainingGroup, trainingSessions } = req.body;
-    
+
     // Build member object
     const memberFields = { trainingGroup: [], trainingSessions: [] };
     if (name) memberFields.name = name;

@@ -2,6 +2,9 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
+import MemberPage from './components/pages/MemberPage';
+import Groups from './components/pages/Groups';
+import Sessions from './components/pages/Sessions';
 // import PrivacyPolicy from './components/auth/PrivacyPolicy';
 import About from './components/pages/About';
 import Register from './components/auth/Register';
@@ -49,6 +52,9 @@ const App = () => {
                       < PrivatRoute exact path="/" component={Home} />
                       < Route exact path="/about" component={About} />
                       {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
+                      < PrivatRoute exact path="/sessions" component={Sessions} />
+                      < PrivatRoute exact path="/memberPage" component={MemberPage} />
+                      < PrivatRoute exact path="/groups" component={Groups} />
                       < PrivatRoute exact path="/oldSess" component={OldSessions} />
                       < Route exact path="/register" component={Register} />
                       < Route exact path="/login" component={Login} />
