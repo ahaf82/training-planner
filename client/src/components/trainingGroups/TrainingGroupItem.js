@@ -52,7 +52,7 @@ const TrainingGroupItem = ({ group }) => {
     return (
         <div>
             {(role === 'admin' || role === 'superUser') &&              // field for admin and superUser
-            <div className='card bg-light'>
+            <div className='card bg-light column card-content card card-body'>
                 <h3 className="text-dark text-left large">
                     {trainingGroup}{' '}
                 </h3>

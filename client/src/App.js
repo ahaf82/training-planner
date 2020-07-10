@@ -46,7 +46,7 @@ const App = () => {
             <Router>
                 <Fragment >
                   <Navbar />
-                  <div className="container">
+                  <div className="container top">
                     <Alerts />
                     <Switch>
                       < PrivatRoute exact path="/" component={Home} />

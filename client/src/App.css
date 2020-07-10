@@ -463,3 +463,91 @@ table th {
     justify-content: center;
   }
 }
+
+/* Desktrop view */
+@media (min-width: 700px) and (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+
+  .navbar {
+    position: fixed;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .top {
+    padding-top: 12rem;
+  }
+
+  .card-grid-2 {
+    /* starts at col pos 1, spans 2 cols */
+    grid-column: 3 / span 2;
+    /* starts at row pos 1, spans 1 row */
+    grid-row: 1 / span 1;
+  }
+
+  .card {
+    flex-direction: column;
+    display: flex;
+    align-items: stretch;
+    min-width: 250px;
+    margin: 0.5rem;
+    max-width: 31.3%;
+  }
+  
+  .card-content {
+    flex: 1 1 auto;  
+  }
+
+  .column {
+    float: left;
+    width: 33.3%;
+    padding: 1rem;
+  }
+}
+
+/* Desktrop view */
+@media (min-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+
+  .navbar {
+    position: fixed;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .top {
+    padding-top: 8rem;
+  }
+
+  .card-grid-3 {
+    /* starts at col pos 1, spans 2 cols */
+    grid-column: 2 / span 3;
+    /* starts at row pos 1, spans 1 row */
+    grid-row: 1 / span 1;
+  }
+/* 
+  .card {
+    flex-direction: column;
+    display: flex;
+    min-width: 250px;
+    margin: 0.5rem;
+    max-width: 31.4%;
+    align-self: stretch;
+    flex: 1 1 auto;  
+  } */
+
+  /* .column {
+    float: left;
+    width: 33.3%;
+    padding: 1rem;
+  } */
+}
+

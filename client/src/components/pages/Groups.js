@@ -16,16 +16,16 @@ const Groups = props => {
     let columns = 0;
 
     if (role === 'admin' || role === 'superUser') {
-        columns = 2;
+        columns = 3;
     }
 
     return (
         <div className={`grid-${columns}`}>
-            <div>
+            <div className='fixed'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingGroupForm />}
             </div>
-            <div>
+            <div className='card-grid-2 card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingGroupFilter />}
                 {(role === 'admin' || role === 'superUser') &&
