@@ -16,20 +16,21 @@ const Home = props => {
     let columns = 0;
 
     if (role === 'admin' || role === 'superUser') {
-        columns = 2;
+        columns = 3;
     }
 
     return (
         <div className={`grid-${columns}`}>
-            <div>
+            <div className='fixed'>
                 {(role === 'admin' || role === 'superUser') &&
                     <MemberForm />
                 }
-            </div>
-            <div>
                 {(role === 'admin' || role === 'superUser') &&
                     <MemberFilter />}
-                <Member />
+            </div>
+            <div className='card-grid-3'>
+                {(role === 'admin' || role === 'superUser') &&
+                    <Member />}
             </div>
         </div>
     )

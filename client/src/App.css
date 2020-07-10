@@ -43,7 +43,6 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1500px;
   padding: 0 2rem;
 }
 
@@ -449,4 +448,110 @@ table th {
     text-align: center;
     justify-content: center;
   }
+}
+
+/* Desktrop view */
+@media (min-width: 700px) and (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+
+  .navbar {
+    position: fixed;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .top {
+    padding-top: 12rem;
+  }
+
+  .card-grid-3 {
+    /* starts at col pos 1, spans 2 cols */
+    grid-column: 2 / span 3;
+    /* starts at row pos 1, spans 1 row */
+    grid-row: 1 / span 1;
+  }
+
+  .card {
+    flex-direction: column;
+    display: flex;
+    align-items: stretch;
+    min-width: 250px;
+    margin: 0.5rem;
+    max-width: 31.3%;
+  }
+  
+  .card-content {
+    flex: 1 1 auto;  
+  }
+
+  .column {
+    float: left;
+    width: 33.3%;
+    padding: 1rem;
+  }
+
+  .no-scrollbar {
+    background-color: #eee;
+    width: 200px;
+    height: 100px;
+    border: 1px dotted black;
+    overflow-y: scroll; /* Add the ability to scroll */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+/* Desktrop view */
+@media (min-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+
+  .navbar {
+    position: fixed;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .top {
+    padding-top: 8rem;
+  }
+
+  .card-grid-3 {
+    /* starts at col pos 1, spans 2 cols */
+    grid-column: 2 / span 3;
+    /* starts at row pos 1, spans 1 row */
+    grid-row: 1 / span 1;
+  }
+/* 
+  .card {
+    flex-direction: column;
+    display: flex;
+    min-width: 250px;
+    margin: 0.5rem;
+    max-width: 31.4%;
+    align-self: stretch;
+    flex: 1 1 auto;  
+  } */
+
+  /* .column {
+    float: left;
+    width: 33.3%;
+    padding: 1rem;
+  } */
 }

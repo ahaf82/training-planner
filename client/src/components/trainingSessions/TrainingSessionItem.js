@@ -81,7 +81,7 @@ const TrainingSessionItem = ({ session }) => {
     if(sessionMembers) console.log(sessionMembers);
 
     return (
-        <div className={checked === true ? 'card bg-primary' : 'card bg-light'}>
+        <div className={checked === true ? 'card bg-primary' : 'card bg-light column card-content card card-body'}>
             <h3 className={checked === true ? 'text-light-color text-left large' : 'text-primary text-left large'}>
                 {description}{' '} 
             </h3>

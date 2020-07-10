@@ -24,7 +24,7 @@ const MemberItem = ({ member }) => {
     }
 
     return (
-        <div className='card bg-light'>
+        <div className='card bg-light column card-content'>
             <h3 className="text-primary text-left large">
                 {name}{' '} 
             </h3>
