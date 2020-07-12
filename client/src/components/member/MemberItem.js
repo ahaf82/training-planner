@@ -24,29 +24,31 @@ const MemberItem = ({ member }) => {
     }
 
     return (
-        <div className='card bg-light column card-content'>
-            <h3 className="text-primary text-left large">
-                {name}{' '} 
-            </h3>
-            <ul className="list">
-                {email && <li>
-                    <i className="fas fa-envelope-open"></i> E-Mail Adresse: {email}
-                </li>}
-                {role && <li>
-                    Berechtigung: {role}
-                </li>}
-                {groups && role !== ("admin" || "superUser") &&
-                    <div> 
-                    Trainingsgruppen: 
-                            {groups.map(group => <li key={group._id}>{group.trainingGroup}</li>)}
-                    </div>}
-            </ul>
-            {role !== ("admin" || "superUser") &&
-            <p> 
-                <button className="btn btn-dark btn-sm" onClick={()=>setCurrent(member)}>Ändern</button>
-                <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>           
-            </p>
-            }
+        <div className='column'>
+            <div className="card bg-light card-content">
+                <h3 className="text-primary text-left large">
+                    {name}{' '} 
+                </h3>
+                <ul className="list">
+                    {email && <li>
+                        <i className="fas fa-envelope-open"></i> E-Mail Adresse: {email}
+                    </li>}
+                    {role && <li>
+                        Berechtigung: {role}
+                    </li>}
+                    {groups && role !== ("admin" || "superUser") &&
+                        <div> 
+                        Trainingsgruppen: 
+                                {groups.map(group => <li key={group._id}>{group.trainingGroup}</li>)}
+                        </div>}
+                </ul>
+                {role !== ("admin" || "superUser") &&
+                <p> 
+                    <button className="btn btn-dark btn-sm" onClick={()=>setCurrent(member)}>Ändern</button>
+                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>           
+                </p>
+                }
+            </div>
         </div>
     )
 }

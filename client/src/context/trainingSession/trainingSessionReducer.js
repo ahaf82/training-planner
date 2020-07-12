@@ -35,7 +35,7 @@ export default (state, action) => {
             return {
                 ...state,
                 trainingSessions: state.trainingSessions.filter(
-                (session) => session._id !== action.payload
+                    (session) => session._id !== action.payload
                 ),
                 loading: false
             };
@@ -62,13 +62,13 @@ export default (state, action) => {
                 ...state,
                 filtered: state.trainingSessions.filter(session => {
                     const regexSession = new RegExp(`${action.payload}`, `gi`);
-                    return session.description.match(regexSession);
+                    return session.description.match(regexSession) || session.date.match(regexSession);
                 })
             };
         case CLEAR_FILTER:
             return {
-            ...state,
-            filtered: null
+                ...state,
+                filtered: null
             };
         case TRAININGSESSION_ERROR:
             return {

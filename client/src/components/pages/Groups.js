@@ -24,10 +24,11 @@ const Groups = props => {
             <div className='fixed'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingGroupForm />}
-            </div>
-            <div className='card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingGroupFilter />}
+            <br/>
+            </div>
+            <div className='card-grid-2 card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingGroups />}
             </div>

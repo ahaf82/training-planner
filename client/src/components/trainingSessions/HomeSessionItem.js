@@ -6,12 +6,10 @@ import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
-import M from 'materialize-css/dist/js/materialize.min.js';
-
 
 Moment.globalLocale = 'de';
 
-const TrainingSessionItem = ({ session }) => {
+const HomeSessionItem = ({ session }) => {
     const authContext = useContext(AuthContext);
     const { role, loading } = authContext;
 
@@ -39,12 +37,6 @@ const TrainingSessionItem = ({ session }) => {
         members: []
     });
 
-
-    const onDelete = () => {
-        deleteTrainingSession(_id);
-        clearCurrent();
-    }
-
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
@@ -54,25 +46,6 @@ const TrainingSessionItem = ({ session }) => {
         }
     }, []);
 
-    // Check In and Out in Training Session
-    const onChange = (e) => {
-        e.preventDefault();
-        setChecked(!checked);
-        if (maxMembers && !checked && (memberCount >= maxMembers)) {
-            M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-2', displayLength: 1500 });
-        }
-        if (!checked && (memberCount < maxMembers || !maxMembers)) {
-            updateTrainingSession({ ...session, members: [...members, authContext.member._id], memberCount: memberCount + 1 });
-        }
-        if (checked) {
-            if (memberCount === 1) {
-                updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: "0" });
-            } else {
-                updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: memberCount - 1 });
-            }
-        }
-    }
-
     // Convert Object Id to Name
     let sessionMembers;
     if (memberContext.members) {
@@ -81,8 +54,8 @@ const TrainingSessionItem = ({ session }) => {
 
     return (
         <div className='column'>
-            <div className={checked === true ? 'card bg-primary' : 'card bg-light card-content'}>
-                <h3 className={checked === true ? 'text-light text-left large' : 'text-primary text-left large'}>
+            <div className={checked === true ? 'card bg-dark' : 'card bg-light card-content'}>
+                <h3 className={checked === true ? 'text-primary text-left large' : 'text-primary text-left large'}>
                     {description}{' '}
                 </h3>
                 <ul className="list">
@@ -107,23 +80,9 @@ const TrainingSessionItem = ({ session }) => {
                         {sessionMembers.map(member => <li key={member._id}>{member.name}</li>)}
                     </div>}
                 </ul>
-                {(role === 'admin' || role === 'superUser') && <p>
-                    <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
-                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
-                </p>}
-                {role === "member" &&
-                    <div class="switch">
-                        Teilnahme
-                    <label>
-                            : Check Out
-                        <input type="checkbox" key={session._id} className="filled-in" name={session._id} value={session.id} checked={checked} onChange={e => onChange(e, session._id)} disabled={maxMembers && !checked && (memberCount >= maxMembers)} />
-                            <span class="lever"></span>
-                        Check In
-                    </label>
-                    </div>}
             </div>
         </div>
     )
 }
 
-export default TrainingSessionItem;
+export default HomeSessionItem;

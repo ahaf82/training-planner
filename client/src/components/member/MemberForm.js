@@ -54,13 +54,6 @@ const MemberForm = () => {
             
             updateMember(updMember);
         }
-        setMember({
-            name: "",
-            email: "",
-            role: "",
-            trainingGroup: [],
-            trainingSessions: []
-        })
     }
 
     const clearAll = () => {

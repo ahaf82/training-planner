@@ -24,10 +24,11 @@ const Sessions = props => {
             <div className='fixed'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingSessionForm />}
-            </div>
-            <div className='card-grid-3'>
+                <br/>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingSessionFilter />}
+            </div>
+            <div className='card-grid-2 card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
                     <TrainingSession />}
             </div>

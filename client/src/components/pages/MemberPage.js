@@ -25,10 +25,11 @@ const Home = props => {
                 {(role === 'admin' || role === 'superUser') &&
                     <MemberForm />
                 }
+                <br/>
                 {(role === 'admin' || role === 'superUser') &&
                     <MemberFilter />}
             </div>
-            <div className='card-grid-3'>
+            <div className='card-grid-2 card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
                     <Member />}
             </div>
