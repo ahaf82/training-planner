@@ -29,7 +29,7 @@ const Navbar = ({ title, icon }) => {
             </li>}            
             {(role === 'admin' || role === 'superUser') &&
             <li>
-                <Link to='/sessions'><i className="fa fa-calendar" aria-hidden="true"></i><span className="hide-sm"> Planung</span></Link>
+                <Link to='/sessions'><i className="fa fa-calendar" aria-hidden="true"></i><span className="hide-sm"> Trainingsplanung</span></Link>
             </li>}            
             {(role === 'admin' || role === 'superUser') &&
             <li>

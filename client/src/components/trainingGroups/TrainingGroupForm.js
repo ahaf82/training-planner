@@ -37,9 +37,6 @@ const TrainingGroupForm = () => {
         } else {
             updateTrainingGroup(group);
         }
-        setTrainingGroup({
-            trainingGroup: ''
-        })
     }
 
     const clearAll = () => {

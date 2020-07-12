@@ -54,15 +54,6 @@ const TrainingSessionForm = () => {
         } else {
             updateTrainingSession(trainingSession);
         }
-        setTrainingSession({
-            trainingGroup: "",
-            description: "",
-            time: "",
-            date: "",
-            maxMembers: "",
-            memberCount: "",
-            members: []
-        })
     }
 
     const clearAll = () => {

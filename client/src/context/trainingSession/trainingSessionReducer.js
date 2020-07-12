@@ -62,7 +62,7 @@ export default (state, action) => {
                 ...state,
                 filtered: state.trainingSessions.filter(session => {
                     const regexSession = new RegExp(`${action.payload}`, `gi`);
-                    return session.description.match(regexSession);
+                    return session.description.match(regexSession) || session.date.match(regexSession);
                 })
             };
         case CLEAR_FILTER:

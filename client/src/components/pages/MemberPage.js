@@ -31,7 +31,7 @@ const Home = props => {
             </div>
             <div className='card-grid-2 card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
-                <Member />}
+                    <Member />}
             </div>
         </div>
     )

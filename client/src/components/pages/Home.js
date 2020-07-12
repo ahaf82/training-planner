@@ -1,18 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import TrainingGroups from '../trainingGroups/TrainingGroups';
-import TrainingGroupForm from '../trainingGroups/TrainingGroupForm';
-import TrainingGroupFilter from '../trainingGroups/TrainingGroupFilter';
+import SimpleReactCalendar from 'simple-react-calendar';
 import TrainingSession from '../trainingSessions/TrainingSessions';
-import TrainingSessionForm from '../trainingSessions/TrainingSessionForm';
+import HomeSessions from '../trainingSessions/HomeSessions';
+import TrainingGroupFilter from '../trainingGroups/TrainingGroupFilter';
 import TrainingSessionFilter from '../trainingSessions/TrainingSessionFilter';
-import Member from '../member/Members';
-import MemberForm from '../member/MemberForm';
-import MemberFilter from '../member/MemberFilter';
 import AuthContext from '../../context/auth/authContext';
+import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
+import Moment from 'react-moment';
+import moment from 'moment';
+import 'moment/locale/de';
+import { Datepicker } from 'materialize-css';
+
+Moment.globalLocale = 'de';
 
 const Home = props => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
+
+    const trainingSessionContext = useContext(TrainingSessionContext);
+    const { filterTrainingSessions, clearFilter, filtered } = trainingSessionContext;
 
     useEffect(() => {
         authContext.loadMember();
@@ -28,30 +35,30 @@ const Home = props => {
         columns = 1;
     }
 
-
-
     return (
         <div className={`grid-${columns}`}>
             <div>
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingGroupFilter /> }
+                    <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingGroups /> }
+                    <SimpleReactCalendar activeMonth={new Date()} daysOfWeek={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']} onSelect={(e) => {
+                        const actualDate = moment(e).format('YYYY-MM-DD');
+                        console.log(actualDate);
+                        filterTrainingSessions(actualDate);
+                    }} /> }
+                <br/>
+                {(role === 'admin' || role === 'superUser') &&
+                    <TrainingSessionFilter /> }
                 {role === 'member' &&
                     <TrainingSession /> }
                 {role === 'none' &&
                     <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
             </div>
-            <div>
+            <div className='card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingSessionFilter /> }
+                    <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
                 {(role === 'admin' || role === 'superUser') &&
-                <TrainingSession /> }
-            </div>
-            <div>
-                {(role === 'admin' || role === 'superUser') &&
-                <MemberFilter /> }
-                <Member />
+                    <HomeSessions /> }
             </div>
         </div>
     )

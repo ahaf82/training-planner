@@ -75,7 +75,7 @@ router.get("/", auth, async (req, res) => {
         console.log(req.member)
         if (req.member.role === 'admin') {
             member = await Member.find({}).sort({
-                 name: -1
+                 name: 1
             });
         } else {
             member = await Member.find({ member: req.member._id }).sort({
