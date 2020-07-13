@@ -11,7 +11,7 @@ There should be different roles: root user, admin, members and none.
 
 The admins can create training groups. For each training group training sessions with description, date and time can be created by the admins.
 
-Members should be able to register local, via Facebook or Google. First they have no role and no rights (none). They have to be put into training groups by an admin to get the role of a member. Then they can be put to the created training groups.
+Members should be able to register via e-mail address and password, later via Google or Facebook. First they have no role and no rights (none). They have to be set to member by an admin. Then they can be put to the created training groups.
 
 When members are put to a training group they can subscribe to the sessions of the training-group. 
 
