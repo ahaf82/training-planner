@@ -81,7 +81,7 @@ const TrainingSessionItem = ({ session }) => {
 
     return (
         <div className='column'>
-            <div className={checked === true ? 'card bg-primary' : 'card bg-light card-content'}>
+            <div className={checked === true ? 'card bg-primary card-content' : 'card bg-light card-content'}>
                 <h3 className={checked === true ? 'text-light text-left large' : 'text-primary text-left large'}>
                     {description}{' '}
                 </h3>
