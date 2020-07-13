@@ -384,6 +384,10 @@ table th {
   margin-bottom: 1rem;
 }
 
+.center-cal {
+    margin-left: 45px;
+}
+
 .navbar ul {
   display: flex;
 }
@@ -617,6 +621,14 @@ table th {
   .navbar ul {
     text-align: center;
     justify-content: center;
+  }
+
+  .center-cal {
+    margin-left: unset;
+  }
+  
+  .calendar {
+    max-width: 265px;
   }
 }
 
