@@ -618,7 +618,13 @@ table th {
     text-align: center;
     justify-content: center;
   }
+
+  .calendar {
+    max-width: 265px;
+  }
 }
+
+  
 
 /* Desktrop view */
 @media (min-width: 700px) and (max-width: 1200px) {
