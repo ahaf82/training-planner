@@ -440,6 +440,11 @@ table th {
     font-family: 'PT Sans', sans-serif;
 }
 
+.center-cal {
+  margin-left: 45px;
+}
+  
+
 .calendar-month_header {
     display: flex;
     justify-content: space-between;
@@ -619,6 +624,10 @@ table th {
     justify-content: center;
   }
 
+  .center-cal {
+    margin-left: unset;
+  }
+  
   .calendar {
     max-width: 265px;
   }

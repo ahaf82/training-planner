@@ -38,7 +38,7 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div>
-                <div className='fixed'>
+                <div className='center-cal fixed'>
                     {(role === 'admin' || role === 'superUser') &&
                         <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
                     {(role === 'admin' || role === 'superUser') &&
