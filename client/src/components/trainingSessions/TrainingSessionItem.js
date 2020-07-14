@@ -103,8 +103,8 @@ const TrainingSessionItem = ({ session }) => {
                         <i></i> Angemeldete Teilnehmer: {memberCount}
                     </li>}
                     {(role === 'admin' || role === 'superUser' ) && sessionMembers && <div>
-                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold>
-                                {sessionMembers.map(member => <li key={member._id}>{member.name}</li>)}
+                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
+                                {sessionMembers.map(member => member.name).join(', ')}
                     </div>}
                 </ul>
                 {(role === 'admin' || role === 'superUser') &&  <p>

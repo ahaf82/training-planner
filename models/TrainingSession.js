@@ -9,6 +9,9 @@ const TrainingSessionSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  trainer: {
+    type: String
+  }, 
   maxMembers: {
     type: Number
   },

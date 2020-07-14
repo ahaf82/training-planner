@@ -24,8 +24,8 @@ const MemberItem = ({ member }) => {
     }
 
     return (
-        <div className='column'>
-            <div className="card bg-light card-content">
+        <div>
+            <div className="card bg-light card-content list-card">
                 <h3 className="text-dark text-left large">
                     {name}{' '} 
                 </h3>
@@ -34,13 +34,13 @@ const MemberItem = ({ member }) => {
                         <i className="fas fa-envelope-open"></i> E-Mail Adresse: {email}
                     </li>}
                     {role && <li>
-                        Berechtigung: {role}
+                        <i className="fa fa-user" aria-hidden="true"></i> Berechtigung: {role}
                     </li>}
                     {groups && role !== ("admin" || "superUser") &&
-                        <div> 
-                        Trainingsgruppen: 
-                                {groups.map(group => <li key={group._id}>{group.trainingGroup}</li>)}
-                        </div>}
+                        <li> 
+                        <i className="fa fa-users" aria-hidden="true"></i> Trainingsgruppen: 
+                            {' '}{groups.map(group => group.trainingGroup).join(', ')}
+                        </li>}
                 </ul>
                 {role !== ("admin" || "superUser") &&
                 <p> 

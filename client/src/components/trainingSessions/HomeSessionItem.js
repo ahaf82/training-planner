@@ -76,7 +76,7 @@ const HomeSessionItem = ({ session }) => {
                         <i></i> Angemeldete Teilnehmer: {memberCount}
                     </li>}
                     {(role === 'admin' || role === 'superUser') && sessionMembers && <div>
-                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold>
+                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
                         {sessionMembers.map(member => <li key={member._id}>{member.name}</li>)}
                     </div>}
                 </ul>

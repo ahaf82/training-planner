@@ -57,9 +57,10 @@ const TrainingGroupItem = ({ group }) => {
                     {trainingGroup}{' '}
                 </h3>
                 {groupMembers && <div>
-                    <i class="fa fa-user"></i> Mitglieder:
+                    <i class="fa fa-user"></i> Mitglieder: <br/>
                             {groupMembers.map(member => <li key={member._id}>{member.name}</li>)}
                 </div>}
+                <br/>
                 <p>
                     <button className="btn btn-dark btn-sm" onClick={() => setCurrent(group)}>Ändern</button>
                     <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>

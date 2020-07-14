@@ -704,12 +704,26 @@ table th {
   .card {
     min-width: 250px;
     margin: 0.5rem;
-    max-width: 31.4%;
+    max-width: 98%;
+  }
+
+  .list-card {
+    float: left;
+    width: 100%
+  }
+
+  .list-card li {
+    float: left;
+    margin-left: 1rem;
+  }
+
+  .list-card p {
+    float: right;
   }
 
   .column {
     float: left;
-    width: 33.3%;
+    width: 90%;
   }
 }
 

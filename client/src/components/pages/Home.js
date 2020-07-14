@@ -1,16 +1,14 @@
 import React, { Component, useContext, useEffect } from 'react';
-import TrainingGroups from '../trainingGroups/TrainingGroups';
 import SimpleReactCalendar from 'simple-react-calendar';
 import TrainingSession from '../trainingSessions/TrainingSessions';
 import HomeSessions from '../trainingSessions/HomeSessions';
-import TrainingGroupFilter from '../trainingGroups/TrainingGroupFilter';
 import TrainingSessionFilter from '../trainingSessions/TrainingSessionFilter';
 import AuthContext from '../../context/auth/authContext';
+import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment/locale/de';
-import { Datepicker } from 'materialize-css';
 
 Moment.globalLocale = 'de';
 
@@ -18,11 +16,15 @@ const Home = props => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
 
+    const memberContext = useContext(MemberContext);
+    const { getMembers } = memberContext;
+
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { filterTrainingSessions, clearFilter, filtered } = trainingSessionContext;
 
     useEffect(() => {
         authContext.loadMember();
+        getMembers();
         // eslint-disable-next-line
     }, []);
 
