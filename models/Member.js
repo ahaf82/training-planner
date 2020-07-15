@@ -9,7 +9,7 @@ const MemberSchema = mongoose.Schema({
         type: String,
         required: true,
         default: "none",
-        enum: ["none", "member", "admin", "superUser"]
+        enum: ["none", "member", "trainer", "admin", "superUser"]
     },
     name: {
         type: String,

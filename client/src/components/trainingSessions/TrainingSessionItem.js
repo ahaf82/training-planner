@@ -16,15 +16,15 @@ const TrainingSessionItem = ({ session }) => {
     const { role, loading } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
+    const { getTrainingSessions, deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup } = trainingGroupContext;
+    const { trainingGroup, getTrainingGroups } = trainingGroupContext;
 
     const memberContext = useContext(MemberContext);
-    const { member } = memberContext;
+    const { member, getMembers } = memberContext;
     
-    const { _id, description, maxMembers, memberCount, members, time, date } = session;
+    const { _id, description, trainer, maxMembers, memberCount, members, time, date } = session;
 
     let group =[];
     if(trainingGroup) {
@@ -34,6 +34,7 @@ const TrainingSessionItem = ({ session }) => {
     const [tSession, setTrainingSession] = useState({
         trainingGroup: "",
         description: "",
+        trainer: "",
         maxMembers: "",
         memberCount: "",
         members: []
@@ -48,6 +49,9 @@ const TrainingSessionItem = ({ session }) => {
     const [checked, setChecked] = useState(false);
     
     useEffect(() => {
+        getMembers();
+        getTrainingGroups();
+        getTrainingSessions();
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
             console.log(members.find(element => element === authContext.member._id));
             setChecked(true);
@@ -73,11 +77,20 @@ const TrainingSessionItem = ({ session }) => {
         }
     }
     
-    // Convert Object Id to Name
+    // Convert ObjectMember Id to Name
     let sessionMembers;
     if (memberContext.members) {
         sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
     }
+
+    // Convert ObjectTrainer Id to Name
+    let trainerName;
+    if (memberContext.members && session.trainer) {
+        trainerName = memberContext.members.filter(element => element._id === session.trainer);
+    }
+
+    console.log(memberContext.members);
+    if (trainerName) console.log(trainerName);
 
     return (
         <div className='column'>
@@ -86,10 +99,13 @@ const TrainingSessionItem = ({ session }) => {
                     {description}{' '} 
                 </h3>
                 <ul className="list">
-                    {trainingGroup && group[0].trainingGroup && !loading &&  <li>
+                    {trainingGroup && group[0].trainingGroup && !loading && <li>
                         <i></i> Trainingsgruppe: {group[0].trainingGroup
-                        }
-                    </li> }
+                    }
+                    </li>}                    
+                    {memberContext.members && trainerName && !loading && <li>
+                        <i></i> Trainer: {trainerName[0].name}
+                    </li>}
                     {time && <li>
                         <i></i> Zeit: <time format='h:mm:ss'>{time}</time>
                     </li>}
@@ -113,13 +129,15 @@ const TrainingSessionItem = ({ session }) => {
                 </p>}
                 {role === "member" &&
                     <div class="switch">
-                        Teilnahme
-                    <label>
-                        : Check Out
-                        <input type="checkbox" key={session._id} className="filled-in" name={session._id} value={session.id} checked={checked} onChange={e => onChange(e, session._id)} disabled={maxMembers && !checked && (memberCount >= maxMembers)}/>
-                        <span class="lever"></span>
-                        Check In
-                    </label>
+                        Teilnahme:
+                    <p>
+                        <label>
+                            Check Out
+                            <input type="checkbox" key={session._id} className="filled-in" name={session._id} value={session.id} checked={checked} onChange={e => onChange(e, session._id)} disabled={maxMembers && !checked && (memberCount >= maxMembers)}/>
+                            <span class="lever"></span>
+                            Check In
+                        </label>
+                    </p>
                 </div>}
             </div>
         </div>

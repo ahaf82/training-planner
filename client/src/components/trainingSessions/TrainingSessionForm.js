@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupOptions from './TrainingGroupOptions';
+import TrainerOptions from './TrainerOptions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 
@@ -18,8 +19,9 @@ const TrainingSessionForm = () => {
             setTrainingSession(current);
         } else {
             setTrainingSession({
-                trainingGroup: "",  
+              trainingGroup: "",  
               description: "",
+              trainer: "",
               time: "",
               date: "",
               maxMembers: "",
@@ -32,6 +34,7 @@ const TrainingSessionForm = () => {
     const [trainingSession, setTrainingSession] = useState({
         trainingGroup: "",
         description: "",
+        trainer: "",
         time: "",
         date: "",
         maxMembers: "",
@@ -41,14 +44,14 @@ const TrainingSessionForm = () => {
     
     const [group] = useState("");
     
-    const { trainingGroup, description, time, date, maxMembers, memberCount } = trainingSession;
+    const { trainingGroup, description, trainer, time, date, maxMembers, memberCount } = trainingSession;
     
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
     
     const onSubmit = e => {
         e.preventDefault();
-        if (trainingGroup === '' || description === '' || time === '' || date === '') {
-            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Datum und Zeit eingeben', classes: 'kentai-color', displayLength: 1500 });
+        if (trainingGroup === '' || description === '' || trainer === '' || time === '' || date === '') {
+            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Trainer, Datum und Zeit eingeben', classes: 'kentai-color', displayLength: 1500 });
         } else if (current === null) {          
             addTrainingSession(trainingSession);
         } else {
@@ -72,6 +75,14 @@ const TrainingSessionForm = () => {
                 </select>
             </div>
             <input type="text" placeholder="Beschreibung" name="description" value={description} onChange={onChange} />
+            <div className="input-field">
+                <select name="trainer" key={_id} value={_id} className="browser-default" onChange={onChange}>
+                    <option value="" disabled selected>
+                        Trainer...
+                    </option>
+                    <TrainerOptions />
+                </select>
+            </div>
             <input type="time" placeholder="" name="time" value={time} onChange={onChange} />
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />
             Teilnehmer zugelassen: <input type="number" placeholder="0" name="maxMembers" value={maxMembers} onChange={onChange} />
@@ -79,7 +90,7 @@ const TrainingSessionForm = () => {
                 <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-dark btn-block"/>
             </div>
             {current && <div>
-                <button className="btn btn-light btn-block" onClick={clearAll}>Löschen</button>
+                <button className="btn btn-light btn-block" onClick={clearAll}>Formular leeren</button>
             </div>}
         </form>
     )

@@ -80,7 +80,7 @@ router.get("/", auth, async (req, res) => {
         } else {
             member = await Member.find({ member: req.member._id }).sort({
                 name: 1
-            });
+            }).concat(Member.find(role === 'admin' || role === 'trainer'));
         }
         
         res.json(member);

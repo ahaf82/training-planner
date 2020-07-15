@@ -10,7 +10,8 @@ const TrainingSessionSchema = mongoose.Schema({
     required: true
   },
   trainer: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'member'
   }, 
   maxMembers: {
     type: Number

@@ -22,6 +22,8 @@ const OldSessions = () => {
     const memberContext = useContext(MemberContext);
     const { getMembers } = memberContext;
 
+    const today = moment(Date.now()).format('YYYY-MM-DD');
+
     useEffect(() => {
         getTrainingSessions();
         getMembers();
@@ -37,33 +39,34 @@ const OldSessions = () => {
     let exportGroup = [{
         Datum: '',
         Zeit: '',
-        Trainingsgruppe: '',
+        Trainer: '',
+        Trainingseinheit: '',
         Teilnehmer: ''
     }];
 
     if (trainingSessions && (role === 'admin' || role === 'superUser')) {
         exportGroup = trainingSessions.filter(tSession => tSession.date < moment(Date.now()).format('YYYY-MM-DD')).map(function (item) {
-            console.log(item.members);
             let exportMembers;
+            let train;
             if (memberContext.members) {
                 let exportMembersArray = [...new Set(memberContext.members.filter(element => item.members.includes(element._id)))];
-                // console.log(memberContext.members.filter(element => element.members.includes(item.members)));
                 exportMembers = exportMembersArray.map(element => element.name).join(', ');
-                console.log(exportMembers);
+                let trainArray = memberContext.members.filter(element => element._id === item.trainer);
+                if (trainArray[0]) train = trainArray[0].name;
             }
             return {
                 Datum: moment(item.date).format('DD.MMMM.YYYY'),
                 Zeit: item.time,
-                Trainingsgruppe: item.description,
+                Trainingseinheit: item.description,
+                Trainer: train,
                 Teilnehmer: exportMembers
             }
         });
-        console.log(exportGroup);
     }
 
     return (
         <Fragment>
-            <ExportCSV csvData={exportGroup} fileName={"Trainingseinheiten-Export"} />
+            <ExportCSV csvData={exportGroup} fileName={`Trainingseinheiten-Export_${today}`} />
             {tGroup !== null && (role === 'admin' || role === 'superUser') && !loading ? (
                 <TransitionGroup>
                     {tGroup.map(session => (

@@ -6,6 +6,7 @@ import TrainingSessionFilter from '../trainingSessions/TrainingSessionFilter';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
+import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment/locale/de';
@@ -19,11 +20,16 @@ const Home = props => {
     const memberContext = useContext(MemberContext);
     const { getMembers } = memberContext;
 
+    const trainingGroupContext = useContext(TrainingGroupContext);
+    const { getTrainingGroups } = trainingGroupContext;
+
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { filterTrainingSessions, clearFilter, filtered } = trainingSessionContext;
+    const { filterTrainingSessions, getTrainingSessions, clearFilter, filtered } = trainingSessionContext;
 
     useEffect(() => {
         authContext.loadMember();
+        getTrainingGroups();
+        getTrainingSessions();
         getMembers();
         // eslint-disable-next-line
     }, []);
@@ -52,7 +58,7 @@ const Home = props => {
                     <br/>
                     {(role === 'admin' || role === 'superUser') &&
                         <TrainingSessionFilter /> }
-                    {role === 'member' &&
+                    {(role === 'member' || role === 'trainer') &&
                         <TrainingSession /> }
                     {role === 'none' &&
                         <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
