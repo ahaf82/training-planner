@@ -52,16 +52,25 @@ const HomeSessionItem = ({ session }) => {
         sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
     }
 
+    // Convert ObjectTrainer Id to Name
+    let trainerName;
+    if (memberContext.members && session.trainer) {
+        trainerName = memberContext.members.filter(element => element._id === session.trainer);
+    }
+
     return (
         <div className='column'>
-            <div className={checked === true ? 'card bg-dark' : 'card bg-light card-content'}>
-                <h3 className={checked === true ? 'text-primary text-left large' : 'text-primary text-left large'}>
+            <div className={checked === true ? 'card bg-primary' : 'card bg-light card-content'}>
+                <h3 className={checked === true ? 'text- text-left large' : 'text-primary text-left large'}>
                     {description}{' '}
                 </h3>
                 <ul className="list">
                     {trainingGroup && group[0].trainingGroup && !loading && <li>
                         <i></i> Trainingsgruppe: {group[0].trainingGroup
                         }
+                    </li>}                    
+                    {memberContext.members && trainerName && !loading && <li>
+                        <i></i> Trainer: {trainerName[0].name}
                     </li>}
                     {time && <li>
                         <i></i> Zeit: <time format='h:mm:ss'>{time}</time>
@@ -76,8 +85,8 @@ const HomeSessionItem = ({ session }) => {
                         <i></i> Angemeldete Teilnehmer: {memberCount}
                     </li>}
                     {(role === 'admin' || role === 'superUser') && sessionMembers && <div>
-                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold>
-                        {sessionMembers.map(member => <li key={member._id}>{member.name}</li>)}
+                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
+                        {sessionMembers.map(member => member.name).join(', ')}
                     </div>}
                 </ul>
             </div>

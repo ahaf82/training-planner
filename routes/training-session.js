@@ -49,15 +49,16 @@ router.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log(errors.errors[0].msg );
+            console.log(errors.errors[0].msg);
             return res.status(400).json({ msg: 'Bitte Beschreibung, Datum und Uhrzeit eingeben' });
         }
 
-        const { trainingGroup, description, maxMembers, memberCount, time, date, members } = req.body;
+        const { trainingGroup, description, trainer, maxMembers, memberCount, time, date, members } = req.body;
 
         try {
             const newTrainingSession = new TrainingSession({
                 description,
+                trainer,
                 time,
                 date,
                 maxMembers,
@@ -81,11 +82,12 @@ router.post(
 // @desc      Update trainingSession
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { description, maxMembers, memberCount, members, time, date, trainingGroup } = req.body;
+    const { description, trainer, maxMembers, memberCount, members, time, date, trainingGroup } = req.body;
 
     // Build trainingSession object
     const trainingSessionFields = { members: [] };
     if (description) trainingSessionFields.description = description;
+    if (trainer) trainingSessionFields.trainer = trainer;
     if (trainingGroup) trainingSessionFields.trainingGroup = trainingGroup;
     if (maxMembers) trainingSessionFields.maxMembers = maxMembers;
     if (memberCount) trainingSessionFields.memberCount = memberCount;

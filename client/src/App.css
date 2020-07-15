@@ -104,7 +104,7 @@ img {
 .card {
   padding: 1rem;
   border: #ccc 1px dotted;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
 }
 
 /* List */
@@ -384,10 +384,6 @@ table th {
   margin-bottom: 1rem;
 }
 
-.center-cal {
-    margin-left: 45px;
-}
-
 .navbar ul {
   display: flex;
 }
@@ -444,6 +440,11 @@ table th {
     font-family: 'PT Sans', sans-serif;
 }
 
+.center-cal {
+  margin-left: 45px;
+}
+  
+
 .calendar-month_header {
     display: flex;
     justify-content: space-between;
@@ -471,7 +472,7 @@ table th {
 }
 
   button:disabled {
-    background-color: var(--primary-color);
+    background-color: var(--dark-color);
     color: var(--light-color);
     border-color: -internal-light-dark-color(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
   }
@@ -632,6 +633,8 @@ table th {
   }
 }
 
+  
+
 /* Desktrop view */
 @media (min-width: 700px) and (max-width: 1200px) {
   .container {
@@ -701,12 +704,26 @@ table th {
   .card {
     min-width: 250px;
     margin: 0.5rem;
-    max-width: 31.4%;
+    max-width: 98%;
+  }
+
+  .list-card {
+    float: left;
+    width: 100%
+  }
+
+  .list-card li {
+    float: left;
+    margin-left: 1rem;
+  }
+
+  .list-card p {
+    float: right;
   }
 
   .column {
     float: left;
-    width: 33.3%;
+    width: 90%;
   }
 }
 

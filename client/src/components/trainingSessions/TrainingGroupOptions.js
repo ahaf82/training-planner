@@ -18,8 +18,4 @@ const TrainingGroupOptions = () => {
     )
 }
 
-TrainingGroupOptions.propTypes = {
-
-}
-
-export default TrainingGroupOptions
+export default TrainingGroupOptions;
