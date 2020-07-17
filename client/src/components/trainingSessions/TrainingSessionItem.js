@@ -127,7 +127,7 @@ const TrainingSessionItem = ({ session }) => {
                     <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
                     <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
                 </p>}
-                {role === "member" &&
+                {(role === "member" || role === "admin" || role === "trainer")&&
                     <div class="switch">
                         Teilnahme:
                     <p>
