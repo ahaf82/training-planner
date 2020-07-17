@@ -89,7 +89,7 @@ const MemberForm = () => {
             </div>}
             <br />
             <div>
-                <a href="#trainingGroup-list-modal" className="btn btn-primary btn-block modal-trigger">
+                <a href="#trainingGroup-list-modal" className="btn btn-dark btn-block modal-trigger">
                     Trainingsgruppen
                 </a>
             </div>

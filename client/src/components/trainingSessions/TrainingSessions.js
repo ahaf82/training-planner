@@ -32,7 +32,7 @@ const TrainingSession = () => {
     }
 
     // filter sessions for member
-    if (trainingSessions && role === 'member') {
+    if (trainingSessions && (role === 'member' || role === 'trainer')) {
         tGroup = trainingSessions.filter(tSession => authContext.member.trainingGroup.find((tGroup) => tGroup === tSession.trainingGroup) !== undefined);
         tGroup = tGroup.filter(tSession => tSession.date >= moment(Date.now()).format('YYYY-MM-DD'));
     }

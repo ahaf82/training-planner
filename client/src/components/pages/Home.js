@@ -39,9 +39,10 @@ const Home = props => {
     if (role === 'admin' || role === 'superUser') {
         columns = 3;
     }
-    if (role === 'member' || role === 'none') {
+    if (role === 'member' || role === 'trainer' || role === 'none') {
         columns = 1;
     }
+    console.log(role);
 
     return (
         <div className={`grid-${columns}`}>
