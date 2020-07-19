@@ -2,6 +2,11 @@ node_modules/
 
 /client/build
 
+/settings
+fire.js
+training-planner-bafd0-firebase-adminsdk-em7w2-9e3ab2621b.*
+
+
 config/default.json
 config/production.json
 

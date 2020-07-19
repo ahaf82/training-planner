@@ -22,7 +22,7 @@ const HomeSessionItem = ({ session }) => {
     const memberContext = useContext(MemberContext);
     const { member } = memberContext;
 
-    const { _id, description, maxMembers, memberCount, members, time, date } = session;
+    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group = [];
     if (trainingGroup) {
@@ -73,7 +73,7 @@ const HomeSessionItem = ({ session }) => {
                         <i></i> Trainer: {trainerName[0].name}
                     </li>}
                     {time && <li>
-                        <i></i> Zeit: <time format='h:mm:ss'>{time}</time>
+                        <i></i> Zeit: <time format='h:mm:ss'>{time}</time>{timeTo && <time format='h:mm:ss'>{` - ${timeTo}`}</time>}
                     </li>}
                     {date && <li>
                         <i></i> Datum: <Moment format='Do MMMM YYYY'>{date}</Moment>
