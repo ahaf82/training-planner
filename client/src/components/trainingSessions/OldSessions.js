@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Moment from 'react-moment';
 import 'moment/locale/de';
-import TrainingSessionItem from './TrainingSessionItem';
+import OldSessionItem from './OldSessionItem';
 import Spinner from '../layout/Spinner';
 import moment from 'moment';
 import ExportCSV from './ExportCSV';
@@ -48,15 +48,17 @@ const OldSessions = () => {
         exportGroup = trainingSessions.filter(tSession => tSession.date < moment(Date.now()).format('YYYY-MM-DD')).map(function (item) {
             let exportMembers;
             let train;
+            let sessionTime;
             if (memberContext.members) {
                 let exportMembersArray = [...new Set(memberContext.members.filter(element => item.members.includes(element._id)))];
                 exportMembers = exportMembersArray.map(element => element.name).join(', ');
                 let trainArray = memberContext.members.filter(element => element._id === item.trainer);
                 if (trainArray[0]) train = trainArray[0].name;
+                item.timeTo !== undefined ? sessionTime = item.time + ' - ' + item.timeTo : sessionTime = item.time;
             }
             return {
                 Datum: moment(item.date).format('DD.MMMM.YYYY'),
-                Zeit: item.time,
+                Zeit: sessionTime,
                 Trainingseinheit: item.description,
                 Trainer: train,
                 Teilnehmer: exportMembers
@@ -71,7 +73,7 @@ const OldSessions = () => {
                 <TransitionGroup>
                     {tGroup.map(session => (
                         <CSSTransition key={session._id} timeout={300} classNames="item">
-                            <TrainingSessionItem session={session} />
+                            <OldSessionItem session={session} />
                         </CSSTransition>
                     ))}
                 </TransitionGroup>

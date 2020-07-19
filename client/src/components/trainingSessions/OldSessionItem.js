@@ -9,20 +9,20 @@ import TrainingSessionContext from '../../context/trainingSession/trainingSessio
 
 Moment.globalLocale = 'de';
 
-const HomeSessionItem = ({ session }) => {
+const OldSessionItem = ({ session }) => {
     const authContext = useContext(AuthContext);
     const { role, loading } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
+    const { getTrainingSessions, deleteTrainingSession, clearCurrent, } = trainingSessionContext;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup } = trainingGroupContext;
+    const { trainingGroup, getTrainingGroups } = trainingGroupContext;
 
     const memberContext = useContext(MemberContext);
-    const { member } = memberContext;
+    const { member, getMembers } = memberContext;
 
-    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
+    const { _id, description, trainer, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group = [];
     if (trainingGroup) {
@@ -32,21 +32,31 @@ const HomeSessionItem = ({ session }) => {
     const [tSession, setTrainingSession] = useState({
         trainingGroup: "",
         description: "",
+        trainer: "",
         maxMembers: "",
         memberCount: "",
         members: []
     });
 
+
+    const onDelete = () => {
+        deleteTrainingSession(_id);
+        clearCurrent();
+    }
+
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
+        getMembers();
+        getTrainingGroups();
+        getTrainingSessions();
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
             console.log(members.find(element => element === authContext.member._id));
             setChecked(true);
         }
     }, []);
 
-    // Convert Object Id to Name
+    // Convert ObjectMember Id to Name
     let sessionMembers;
     if (memberContext.members) {
         sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
@@ -58,17 +68,20 @@ const HomeSessionItem = ({ session }) => {
         trainerName = memberContext.members.filter(element => element._id === session.trainer);
     }
 
+    console.log(memberContext.members);
+    if (trainerName) console.log(trainerName);
+
     return (
         <div className='column'>
-            <div className={checked === true ? 'card bg-dark' : 'card bg-light card-content'}>
-                <h3 className={checked === true ? 'text- text-left large' : 'text- text-left large'}>
+            <div className={'card bg-light card-content'}>
+                <h3 className={'text- text-left large'}>
                     {description}{' '}
                 </h3>
                 <ul className="list">
                     {trainingGroup && group[0].trainingGroup && !loading && <li>
                         <i></i> Trainingsgruppe: {group[0].trainingGroup
                         }
-                    </li>}                    
+                    </li>}
                     {memberContext.members && trainerName && !loading && <li>
                         <i></i> Trainer: {trainerName[0].name}
                     </li>}
@@ -85,13 +98,16 @@ const HomeSessionItem = ({ session }) => {
                         <i></i> Angemeldete Teilnehmer: {memberCount}
                     </li>}
                     {(role === 'admin' || role === 'superUser') && sessionMembers && <div>
-                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
+                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br />
                         {sessionMembers.map(member => member.name).join(', ')}
                     </div>}
                 </ul>
+                {(role === 'admin' || role === 'superUser') && <p>
+                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
+                </p>}
             </div>
         </div>
     )
 }
 
-export default HomeSessionItem;
+export default OldSessionItem;

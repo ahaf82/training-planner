@@ -23,6 +23,7 @@ const TrainingSessionForm = () => {
               description: "",
               trainer: "",
               time: "",
+              timeTo: "",
               date: "",
               maxMembers: "",
               memberCount: "",
@@ -36,6 +37,7 @@ const TrainingSessionForm = () => {
         description: "",
         trainer: "",
         time: "",
+        timeTo: "",
         date: "",
         maxMembers: "",
         memberCount: "",
@@ -44,14 +46,25 @@ const TrainingSessionForm = () => {
     
     const [group] = useState("");
     
-    const { trainingGroup, description, trainer, time, date, maxMembers, memberCount } = trainingSession;
+    const { trainingGroup, description, trainer, time, timeTo, date, maxMembers, memberCount } = trainingSession;
     
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
     
     const onSubmit = e => {
         e.preventDefault();
-        if (trainingGroup === '' || description === '' || trainer === '' || time === '' || date === '') {
-            M.toast({ html: 'Bitte Trainingsgruppe, Beschreibung, Trainer, Datum und Zeit eingeben', classes: 'kentai-color', displayLength: 1500 });
+        if (trainingGroup === '') {
+            M.toast({ html: 'Bitte Trainingsgruppe eingeben', classes: 'kentai-color', displayLength: 1500 });}
+        else if (description === '') {
+            M.toast({ html: 'Bitte Beschreibung eingeben', classes: 'kentai-color', displayLength: 1500 });
+        }
+        else if (trainer === '') {
+            M.toast({ html: 'Bitte Trainer eingeben', classes: 'kentai-color', displayLength: 1500 });
+        }
+        else if (date === '') {
+            M.toast({ html: 'Bitte Datum eingeben', classes: 'kentai-color', displayLength: 1500 });
+        }
+        else if (time === '') {
+            M.toast({ html: 'Bitte Zeit eingeben', classes: 'kentai-color', displayLength: 1500 });
         } else if (current === null) {          
             addTrainingSession(trainingSession);
         } else {
@@ -83,7 +96,8 @@ const TrainingSessionForm = () => {
                     <TrainerOptions />
                 </select>
             </div>
-            <input type="time" placeholder="" name="time" value={time} onChange={onChange} />
+            von: <input type="time" placeholder="von" name="time" value={time} onChange={onChange} />
+            bis: <input type="time" placeholder="bis" name="timeTo" value={timeTo} onChange={onChange} />
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />
             Teilnehmer zugelassen: <input type="number" placeholder="0" name="maxMembers" value={maxMembers} onChange={onChange} />
             <div>

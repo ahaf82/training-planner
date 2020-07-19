@@ -53,13 +53,14 @@ router.post(
             return res.status(400).json({ msg: 'Bitte Beschreibung, Datum und Uhrzeit eingeben' });
         }
 
-        const { trainingGroup, description, trainer, maxMembers, memberCount, time, date, members } = req.body;
+        const { trainingGroup, description, trainer, maxMembers, memberCount, time, timeTo, date, members } = req.body;
 
         try {
             const newTrainingSession = new TrainingSession({
                 description,
                 trainer,
                 time,
+                timeTo,
                 date,
                 maxMembers,
                 memberCount,
@@ -82,7 +83,7 @@ router.post(
 // @desc      Update trainingSession
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { description, trainer, maxMembers, memberCount, members, time, date, trainingGroup } = req.body;
+    const { description, trainer, maxMembers, memberCount, members, time, timeTo, date, trainingGroup } = req.body;
 
     // Build trainingSession object
     const trainingSessionFields = { members: [] };
@@ -93,6 +94,7 @@ router.put("/:_id", auth, async (req, res) => {
     if (memberCount) trainingSessionFields.memberCount = memberCount;
     if (members) trainingSessionFields.members = members;
     if (time) trainingSessionFields.time = time;
+    if (timeTo) trainingSessionFields.timeTo = timeTo;
     if (date) trainingSessionFields.date = date;
     try {
         let trainingSession = await TrainingSession.findById(req.params._id);

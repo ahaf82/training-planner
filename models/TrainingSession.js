@@ -27,6 +27,9 @@ const TrainingSessionSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  timeTo: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now
