@@ -8,7 +8,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TrainingSessionForm = () => {
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { _id, members } = trainingGroupContext;
+    const { _id } = trainingGroupContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { addTrainingSession, updateTrainingSession, clearCurrent, current } = trainingSessionContext;
@@ -44,9 +44,7 @@ const TrainingSessionForm = () => {
         members: []
     });
 
-    const [group] = useState("");
-
-    const { trainingGroup, description, trainer, time, timeTo, date, maxMembers, memberCount } = trainingSession;
+    const { trainingGroup, description, trainer, time, timeTo, date, maxMembers } = trainingSession;
 
     const onChange = e => setTrainingSession({ ...trainingSession, [e.target.name]: e.target.value });
 

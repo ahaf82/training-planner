@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TrainingGroupForm = () => {
-    const alertContext = useContext(AlertContext);
     const trainingGroupContext = useContext(TrainingGroupContext);
 
-    const { setAlert } = alertContext;
     const { addTrainingGroup, updateTrainingGroup, clearCurrent, current } = trainingGroupContext;
 
     useEffect(() => {

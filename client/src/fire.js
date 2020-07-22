@@ -9,7 +9,7 @@ https://firebase.google.com/docs/web/setup#available-libraries -->
   // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyCGzBvB1dfyeghEQo15VtH1rTHcNR9K3c4",
-    authDomain: "training-planner-bafd0.firebaseapp.com",
+             authDomain: "training-planner-bafd0.firebaseapp.com",
     databaseURL: "https://training-planner-bafd0.firebaseio.com",
     projectId: "training-planner-bafd0",
     storageBucket: "training-planner-bafd0.appspot.com",

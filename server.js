@@ -6,33 +6,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// Connect Firebase
-const firebase = require("firebase-admin");
-const serviceAccount = require("./training-planner-bafd0-firebase-adminsdk-em7w2-9e3ab2621b.json");
-
-// The Firebase token of the device which will get the notification
-// It can be a string or an array of strings
-const firebaseToken = 'abcdeabcdeabcde';
-
-firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
-    databaseURL: "https://training-planner-bafd0.firebaseio.com"
-});
-
-const payload = {
-    notification: {
-        title: 'Notification Title',
-        body: 'This is an example notification',
-    }
-};
-
-const options = {
-    priority: 'high',
-    timeToLive: 60 * 60 * 24, // 1 day
-};
-
-firebase.messaging().sendToDevice(firebaseToken, payload, options);
-
 // Connect DataBase
 connectDB();
 

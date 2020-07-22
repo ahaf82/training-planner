@@ -16,30 +16,20 @@ const TrainingSessionItem = ({ session }) => {
     const { role, loading } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { getTrainingSessions, deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
+    const { getTrainingSessions, deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession } = trainingSessionContext;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup, getTrainingGroups } = trainingGroupContext;
 
     const memberContext = useContext(MemberContext);
-    const { member, getMembers } = memberContext;
+    const { getMembers } = memberContext;
     
-    const { _id, description, trainer, maxMembers, memberCount, members, time, timeTo, date } = session;
+    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group =[];
     if(trainingGroup) {
         group = trainingGroup.filter(item => item._id === session.trainingGroup);
-    }
-    
-    const [tSession, setTrainingSession] = useState({
-        trainingGroup: "",
-        description: "",
-        trainer: "",
-        maxMembers: "",
-        memberCount: "",
-        members: []
-    });
-    
+    }    
     
     const onDelete = () => {
         deleteTrainingSession(_id);
@@ -49,13 +39,10 @@ const TrainingSessionItem = ({ session }) => {
     const [checked, setChecked] = useState(false);
     
     useEffect(() => {
-        getMembers();
-        getTrainingGroups();
-        getTrainingSessions();
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
             setChecked(true);
         }
-    }, []);
+    }, [authContext.member._id, getMembers, getTrainingGroups, getTrainingSessions, session.members]);
 
     // Check In and Out in Training Session
     const onChange = (e) => {
@@ -87,8 +74,6 @@ const TrainingSessionItem = ({ session }) => {
     if (memberContext.members && session.trainer) {
         trainerName = memberContext.members.filter(element => element._id === session.trainer);
     }
-
-    if (timeTo) console.log(timeTo);
 
     return (
         <div className='column'>
@@ -140,6 +125,10 @@ const TrainingSessionItem = ({ session }) => {
             </div>
         </div>
     )
+}
+
+TrainingSessionItem.propTypes = {
+    session: PropTypes.object.isRequired
 }
 
 export default TrainingSessionItem;

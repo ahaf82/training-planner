@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Moment from 'react-moment';
 import 'moment/locale/de';
@@ -17,18 +17,12 @@ const OldSessions = () => {
     const { role } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { trainingSessions, filtered, getTrainingSessions, loading } = trainingSessionContext;
+    const { trainingSessions, getTrainingSessions, loading } = trainingSessionContext;
 
     const memberContext = useContext(MemberContext);
     const { getMembers } = memberContext;
 
     const today = moment(Date.now()).format('YYYY-MM-DD');
-
-    useEffect(() => {
-        getTrainingSessions();
-        getMembers();
-        // eslint-disable-next-line
-    }, []);
 
     let tGroup = []
     if (trainingSessions && (role === 'admin' || role === 'superUser')) {

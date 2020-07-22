@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SimpleReactCalendar from 'simple-react-calendar';
 import TrainingSession from '../trainingSessions/TrainingSessions';
 import HomeSessions from '../trainingSessions/HomeSessions';
@@ -7,6 +7,9 @@ import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
+// import PushNote from '../pushNotes/pushNotes';
+// import { messaging } from '../../init-fcm';
+// import request from '../../request';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment/locale/de';
@@ -24,13 +27,22 @@ const Home = props => {
     const { getTrainingGroups } = trainingGroupContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { filterTrainingSessions, getTrainingSessions, clearFilter, filtered } = trainingSessionContext;
+    const { filterTrainingSessions, getTrainingSessions } = trainingSessionContext;
+
 
     useEffect(() => {
         authContext.loadMember();
         getTrainingGroups();
         getTrainingSessions();
         getMembers();
+        // messaging.requestPermission()
+        //     .then(async function () {
+        //         const token = await messaging.getToken();
+        //     })
+        //     .catch(function (err) {
+        //         console.log("Unable to get permission to notify.", err);
+        //     });
+        // navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
         // eslint-disable-next-line
     }, []);
 
@@ -42,7 +54,9 @@ const Home = props => {
     if (role === 'member' || role === 'trainer' || role === 'none') {
         columns = 1;
     }
-    console.log(role);
+
+    // let newMessage = 'Here is my new message';
+    // request(newMessage);
 
     return (
         <div className={`grid-${columns}`}>
@@ -53,7 +67,6 @@ const Home = props => {
                     {(role === 'admin' || role === 'superUser') &&
                         <SimpleReactCalendar activeMonth={new Date()} daysOfWeek={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']} onSelect={(e) => {
                             const actualDate = moment(e).format('YYYY-MM-DD');
-                            console.log(actualDate);
                             filterTrainingSessions(actualDate);
                         }} /> }
                     <br/>
@@ -73,10 +86,6 @@ const Home = props => {
             </div>
         </div>
     )
-}
-
-Home.propTypes = {
-
 }
 
 export default Home;

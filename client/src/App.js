@@ -30,7 +30,6 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-
 const App = () => {
   useEffect(() => {
     // Initializes Materialize JS

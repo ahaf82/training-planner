@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
-import AlertContext from '../../context/alert/alertContext';
+import React, { useState, useContext, useEffect } from 'react';
 import MemberContext from '../../context/member/memberContext';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { Checkbox } from 'semantic-ui-react';
 
 const MemberForm = () => {    
     const memberContext = useContext(MemberContext);
@@ -30,9 +28,7 @@ const MemberForm = () => {
         trainingSessions: []
     });
     
-    const { name, email, role, trainingGroup } = member;
-    
-    const onChange = e => setMember({ ...member, [e.target.name]: e.target.value });
+    const { name, email, role } = member;
     
     const [checked, setChecked] = useState(true);
     const [checkedTrainer, setCheckedTrainer] = useState(false);

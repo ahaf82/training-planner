@@ -72,7 +72,6 @@ router.post('/', [
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        console.log(req.member)
         if (req.member.role === 'admin') {
             member = await Member.find({}).sort({
                 name: 1

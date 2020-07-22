@@ -22,7 +22,7 @@ const Member = () => {
     }
 
     return (
-        <div>
+        <Fragment>
             {members !== null && !loading ? (
                 <TransitionGroup>
                 {filtered !== null 
@@ -38,7 +38,7 @@ const Member = () => {
                 ))}
                 </TransitionGroup>
                 ) : <Spinner />}
-        </div>
+        </Fragment>
     )
 }
 

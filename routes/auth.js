@@ -21,7 +21,6 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
 }, async (email, password, done) => {
     try {
-        console.log(email);
         let member = await Member.findOne({ email });
 
         if (!member) {
@@ -116,7 +115,6 @@ passport.use(new GoogleStrategy({
             let member = await Member.findOne({ email })
 
             if (!member) {
-                console.log('New Member');
                 member = new Member({
                     name,
                     email
@@ -136,7 +134,6 @@ passport.use(new GoogleStrategy({
                 expiresIn: 360000
             }, (error, token) => {
                 if (error) throw error;
-                console.log(token);
                 res.send({ token });
             });
         } catch (error) {
@@ -202,7 +199,6 @@ passport.deserializeUser(function (member, done) {
 router.get('/', auth, async (req, res) => {
     try {
         const member = await Member.findById(req.member._id).select('-password');
-        console.log('Mitglied ist da', member.role)
         res.json(member);
     } catch (error) {
         console.error(error.message);
@@ -218,7 +214,6 @@ router.post('/', [
     check('password', 'Bitte Passwort eingeben').exists()
 ],
     async (req, res, next) => {
-        console.log(res.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ msg: errors.errors[0].msg });
@@ -227,9 +222,7 @@ router.post('/', [
         const { email, password } = req.body;
 
         try {
-            console.log('hier');
             let emailUser = email.toLowerCase();
-            console.log(emailUser);
             let member = await Member.findOne({ email: emailUser });
 
             if (!member) {
@@ -294,13 +287,11 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 router.get('/auth/google/callback',
     passport.authenticate('google'),
     async (req, res) => {
-        console.log('Ich warte hier ein bisschen');
         res.redirect('/');
     }
 );
 
 router.get('/fail', (req, res) => {
-    console.log('Das hat nicht geklappt');
     res.send('Authentifizierung fehlgeschlagen');
 });
 

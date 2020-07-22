@@ -1,17 +1,11 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
-import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 const TrainingGroupListModal = () => {
     const alertContext = useContext(AlertContext);
     const { setAlert } = alertContext;
-    
-    const authContext = useContext(AuthContext);
-    // const { role } = authContext;
     
     const memberContext = useContext(MemberContext);
     const { updateMember, current } = memberContext;
@@ -43,7 +37,7 @@ const TrainingGroupListModal = () => {
         trainingSessions: []
     });
     
-    const { name, email, _id } = member;
+    const { name, email } = member;
 
     
     const [checked, setChecked] = useState(false);
@@ -86,10 +80,8 @@ const TrainingGroupListModal = () => {
                     console.log('add: ' + member.trainingGroup.filter(element => element === item._id));
                 	updateTrainingGroup({ _id: item._id, members: [...item.members, current._id] })
                 } else {
-                    console.log('filter');
-                    updateTrainingGroup({ _id: item._id, members: item.members.filter(element => element !== current._id) 
-                })
-            }})
+                    updateTrainingGroup({ _id: item._id, members: item.members.filter(element => element !== current._id) });
+            }});
             
         }
         setMember({

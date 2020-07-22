@@ -36,8 +36,4 @@ const Sessions = props => {
     )
 }
 
-Sessions.propTypes = {
-
-}
-
 export default Sessions;

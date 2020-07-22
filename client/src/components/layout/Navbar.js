@@ -40,7 +40,7 @@ const Navbar = ({ title, icon }) => {
                 </li>}
             {(role === 'admin' || role === 'superUser') &&
                 <li>
-                    <Link to='/oldSess'><i class="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>
+                    <Link to='/oldSess'><i className="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>
                 </li>}
             {role === 'member' &&
                 <li>

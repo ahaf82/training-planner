@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
@@ -51,6 +51,10 @@ const MemberItem = ({ member }) => {
             </div>
         </div>
     )
+}
+
+MemberItem.propTypes = {
+    member: PropTypes.object.isRequired
 }
 
 export default MemberItem;

@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import 'moment/locale/de';
-import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
-import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 Moment.globalLocale = 'de';
 
@@ -13,38 +12,25 @@ const HomeSessionItem = ({ session }) => {
     const authContext = useContext(AuthContext);
     const { role, loading } = authContext;
 
-    const trainingSessionContext = useContext(TrainingSessionContext);
-    const { deleteTrainingSession, setCurrent, clearCurrent, updateTrainingSession, current } = trainingSessionContext;
-
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup } = trainingGroupContext;
 
     const memberContext = useContext(MemberContext);
-    const { member } = memberContext;
 
-    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
+    const { description, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group = [];
     if (trainingGroup) {
         group = trainingGroup.filter(item => item._id === session.trainingGroup);
     }
 
-    const [tSession, setTrainingSession] = useState({
-        trainingGroup: "",
-        description: "",
-        maxMembers: "",
-        memberCount: "",
-        members: []
-    });
-
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
-            console.log(members.find(element => element === authContext.member._id));
             setChecked(true);
         }
-    }, []);
+    }, [session.members, authContext.member._id, members]);
 
     // Convert Object Id to Name
     let sessionMembers;
@@ -85,13 +71,17 @@ const HomeSessionItem = ({ session }) => {
                         <i></i> Angemeldete Teilnehmer: {memberCount}
                     </li>}
                     {(role === 'admin' || role === 'superUser') && sessionMembers && <div>
-                        <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
+                        <i className="fa fa-user"></i> <strong>Teilnehmer:</strong> <br/>
                         {sessionMembers.map(member => member.name).join(', ')}
                     </div>}
                 </ul>
             </div>
         </div>
     )
+}
+
+HomeSessionItem.propTypes = {
+    session: PropTypes.object.isRequired
 }
 
 export default HomeSessionItem;
