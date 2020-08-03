@@ -2,12 +2,14 @@ const express = require('express');
 const connectDB = require('./config/db');
 const passport = require('passport');
 const path = require('path');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const webpush = require('web-push');
 
 const app = express();
 
+app.use(cors())
 app.use(bodyParser.json())
 
 // Connect DataBase
