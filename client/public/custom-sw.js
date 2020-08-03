@@ -1,7 +1,7 @@
 self.addEventListener('install', function (event) {
   // The promise that skipWaiting() returns can be safely ignored.
   self.skipWaiting();
-}
+});
 
 self.addEventListener('notificationclose', function (e) {
   var notification = e.notification;
