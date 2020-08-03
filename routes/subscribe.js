@@ -17,7 +17,7 @@ webpush.setVapidDetails(
 );
 
 // Subscribe Route
-router.post("/subscribe", async (req, res) => {
+router.post("/", async (req, res) => {
     // Get pushSubscription object
     const subscription = req.body;
 
