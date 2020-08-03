@@ -8,7 +8,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 // import { messaging } from "../../init-fcm";
 // import { compose, lifecycle, withHandlers, withState } from "recompose";
 
-const PushNote = () => {
+const PushNoteAd = () => {
     const authContext = useContext(AuthContext);
     const { member } = authContext;
     
@@ -150,9 +150,9 @@ const PushNote = () => {
     console.log(trainingGroup);
 
     return (
-        <div className='column'>
-            {'Notification' in window && navigator.serviceWorker && ((role === 'member') || (role === 'trainer')) &&
-            <div className="card bg-light">
+        <div>
+            {'Notification' in window && navigator.serviceWorker && (role === 'admin' || role === 'superUser') &&
+            <div>
                 Push Benachrichtigungen auf diesem Gerät zulassen:
                 <div class='switch'>
                     <label>
@@ -163,24 +163,11 @@ const PushNote = () => {
                             </label>
                 </div>
             </div>}
-            {(role === 'admin' || role === 'superUser') &&
-            <div className="card bg-light">
-                <div className="input-field">
-                    <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup}>
-                        <option value="" disabled selected>
-                            Trainingsgruppe...
-                    </option>
-                        <TrainingGroupOptions />
-                    </select>
-                </div>
-                <input type="text" placeholder="Sende Nachricht" name="pushData" value={pushData} onChange={onChangeInput} /> 
-                <button className="btn btn-dark btn-sm" variant="warning" onClick={(e) => send(pushData)}>Sende Push-Nachricht</button> 
-            </div> }
         </div>
     )
 };
 
-export default PushNote;
+export default PushNoteAd;
 
 
 

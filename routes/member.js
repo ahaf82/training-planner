@@ -72,7 +72,7 @@ router.post('/', [
 // @access    Private
 router.get("/", auth, async (req, res) => {
     try {
-        if (req.member.role === 'admin') {
+        if (req.member.role === 'admin' || req.member.role === 'trainer' || req.member.role === 'member') {
             member = await Member.find({}).sort({
                 name: 1
             });
@@ -94,18 +94,16 @@ router.get("/", auth, async (req, res) => {
 // @desc      Update member
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { name, email, role, trainingGroup, trainingSessions } = req.body;
+    const { name, email, role, trainingGroup, trainingSessions, devices } = req.body;
 
     // Build member object
-    const memberFields = { trainingGroup: [], trainingSessions: [] };
+    const memberFields = { trainingGroup: [], trainingSessions: [], devices: [] };
     if (name) memberFields.name = name;
     if (email) memberFields.email = email;
     if (trainingGroup) memberFields.trainingGroup = trainingGroup;
     if (role) memberFields.role = role;
     if (trainingSessions) memberFields.trainingSessions = trainingSessions;
-    // if (address.street) memberFields.address.street = address.street;
-    // if (address.postalCode) memberFields.address.postalCode = address.postalCode;
-    // if (address.city) memberFields.address.city = address.city;
+    if (devices) memberFields.devices = devices;
     try {
         let editMember = await Member.findById(req.params._id);
 

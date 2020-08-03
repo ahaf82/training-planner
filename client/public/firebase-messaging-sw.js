@@ -1,5 +1,5 @@
-importScripts("https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/5.9.4/firebase-messaging.js");
+importScripts('https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.13.1/firebase-messaging.js');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCGzBvB1dfyeghEQo15VtH1rTHcNR9K3c4",
@@ -16,24 +16,23 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
+// Add the public key generated from the console here.
+messaging.usePublicVapidKey("BPAjC44svbSfc2mXkSA58CTKcYgegsdWwSBpx2h7puJSQCZtquS_1HMlETSl8XmV4uZo7wlv0X11EVrpcCPB_ME");
+
 messaging.setBackgroundMessageHandler(function (payload) {
-    const promiseChain = clients
-        .matchAll({
-            type: "window",
-            includeUncontrolled: true,
-        })
-        .then((windowClients) => {
-            for (let i = 0; i < windowClients.length; i++) {
-                const windowClient = windowClients[i];
-                windowClient.postMessage(payload);
-            }
-        })
-        .then(() => {
-            return registration.showNotification("my notification title");
-        });
-    return promiseChain;
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+
+    const notificationTitle = payload.data.title;
+    const notificationOptions = {
+        body: payload.data.body,
+        icon: '/firebase-logo.png'
+    };
+
+    return self.registration.showNotification(notificationTitle,
+        notificationOptions);
 });
 
-self.addEventListener("notificationclick", function (event) {
-    console.log(event);
+self.addEventListener('notificationclick', event => {
+    console.log(event)
+    return event;
 });

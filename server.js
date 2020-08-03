@@ -3,8 +3,12 @@ const connectDB = require('./config/db');
 const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const webpush = require('web-push');
 
 const app = express();
+
+app.use(bodyParser.json())
 
 // Connect DataBase
 connectDB();
@@ -29,6 +33,32 @@ app.use('/api/auth/fail', require('./routes/auth'));
 app.use('/api/member', require('./routes/member'));
 app.use('/api/training-group', require('./routes/training-group'));
 app.use('/api/training-session', require('./routes/training-session'));
+
+
+// Push-Messages
+webpush.setVapidDetails(
+    "mailto:ahaf82@gmail.com",
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+);
+
+// Subscribe Route
+app.post("/subscribe", (req, res) => {
+    // Get pushSubscription object
+    const subscription = req.body;
+
+    // Send 201 - resource created
+    res.status(201).json({});
+
+    // Create payload
+    const payload = subscription.payload;
+
+    // Pass object into sendNotification
+    webpush
+        .sendNotification(subscription, payload)
+        .catch(err => console.error(err));
+});
+
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

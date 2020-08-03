@@ -37,6 +37,22 @@ const MemberSchema = mongoose.Schema({
     trainingSessions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'trainingSession'
+    }], 
+    devices: [{
+        endpoint: {
+            type: String
+        },
+        expirationTime: {
+            type: String
+        },
+        keys: {
+            p256dh: {
+                type: String
+            },
+            auth: {
+                type: String
+            }
+        }
     }],
     date: {
         type: Date,

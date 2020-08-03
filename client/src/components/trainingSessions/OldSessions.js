@@ -17,10 +17,9 @@ const OldSessions = () => {
     const { role } = authContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { trainingSessions, getTrainingSessions, loading } = trainingSessionContext;
+    const { trainingSessions, loading } = trainingSessionContext;
 
     const memberContext = useContext(MemberContext);
-    const { getMembers } = memberContext;
 
     const today = moment(Date.now()).format('YYYY-MM-DD');
 

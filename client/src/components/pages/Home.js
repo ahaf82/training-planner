@@ -7,8 +7,8 @@ import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
-// import PushNote from '../pushNotes/pushNotes';
-// import { messaging } from '../../init-fcm';
+import PushNote from '../pushNotes/pushNotes';
+import PushNoteAd from '../pushNotes/pushNoteAd';
 // import request from '../../request';
 import Moment from 'react-moment';
 import moment from 'moment';
@@ -35,14 +35,6 @@ const Home = props => {
         getTrainingGroups();
         getTrainingSessions();
         getMembers();
-        // messaging.requestPermission()
-        //     .then(async function () {
-        //         const token = await messaging.getToken();
-        //     })
-        //     .catch(function (err) {
-        //         console.log("Unable to get permission to notify.", err);
-        //     });
-        // navigator.serviceWorker.addEventListener("message", (message) => console.log(message));
         // eslint-disable-next-line
     }, []);
 
@@ -54,9 +46,6 @@ const Home = props => {
     if (role === 'member' || role === 'trainer' || role === 'none') {
         columns = 1;
     }
-
-    // let newMessage = 'Here is my new message';
-    // request(newMessage);
 
     return (
         <div className={`grid-${columns}`}>
@@ -76,9 +65,15 @@ const Home = props => {
                         <TrainingSession /> }
                     {role === 'none' &&
                         <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
+                    {(role === 'member' || role === 'trainer') &&
+                        <PushNote />}                    
+                    {(role === 'admin' || role === 'superUser') &&
+                        <PushNoteAd />}
                 </div>
             </div>
             <div className='card-grid-3'>
+                {(role === 'admin' || role === 'superUser') &&
+                    <PushNote />}
                 {(role === 'admin' || role === 'superUser') &&
                     <h4 className="text-primary large center">Kommende Trainingseinheiten:</h4>}
                 {(role === 'admin' || role === 'superUser') &&

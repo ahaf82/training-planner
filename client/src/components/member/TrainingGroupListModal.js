@@ -8,7 +8,7 @@ const TrainingGroupListModal = () => {
     const { setAlert } = alertContext;
     
     const memberContext = useContext(MemberContext);
-    const { updateMember, current } = memberContext;
+    const { updateMember, current, clearCurrent } = memberContext;
     
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup, getTrainingGroups, updateTrainingGroup } = trainingGroupContext;
@@ -90,7 +90,8 @@ const TrainingGroupListModal = () => {
             role: "",
             trainingGroup: [],
             trainingSessions: []
-        })
+        });
+        clearCurrent();
     }
 
     return (

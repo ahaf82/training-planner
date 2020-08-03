@@ -29,7 +29,8 @@
     "passport-local": "^1.0.0",
     "react-moment": "^0.9.7",
     "semantic-ui-react": "^0.88.2",
-    "twitter": "^1.7.1"
+    "twitter": "^1.7.1",
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
