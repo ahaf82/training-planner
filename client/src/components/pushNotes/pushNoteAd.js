@@ -4,7 +4,6 @@ import TrainingGroupContext from '../../context/trainingGroup/trainingGroupConte
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupOptions from '../trainingSessions/TrainingGroupOptions';
 import M from 'materialize-css/dist/js/materialize.min.js';
-
 // import { messaging } from "../../init-fcm";
 // import { compose, lifecycle, withHandlers, withState } from "recompose";
 
@@ -30,6 +29,10 @@ const PushNoteAd = () => {
     
     const [checked, setChecked] = useState(false);
 
+    // useEffect(() => {
+    //     start();
+    // }, [])
+
     function urlBase64ToUint8Array(base64String) {
         const padding = "=".repeat((4 - base64String.length % 4) % 4);
         const base64 = (base64String + padding)
@@ -44,6 +47,44 @@ const PushNoteAd = () => {
         }
         return outputArray;
     }
+
+    // async function start() {
+    //     if ("serviceWorker" in navigator) {
+    //         const register = await navigator.serviceWorker.register("./custom-sw.js");
+    //         console.log('Service worker in navigator');
+    //         const sw = await navigator.serviceWorker.ready;
+
+    //         // Register Push
+    //         console.log("Registering Push...");
+    //         const subscription = await sw.pushManager.subscribe({
+    //             userVisibleOnly: true,
+    //             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+    //         });
+
+    //         const subscribeData = {
+    //             endpoint: subscription.endpoint,
+    //             expirationTime: 7200,
+    //             keys: {
+    //                 p256dh: subscription.toJSON().keys.p256dh,
+    //                 auth: subscription.toJSON().keys.auth
+    //             }
+    //         };
+
+    //         if (subscription && members) console.log('Ergebnis filter', (members.filter(item => item.endpoint === subscription.endpoint)));
+
+    //         if (subscription.endpoint && members) {
+    //             if (members.filter(item => item.endpoint === subscription.endpoint).length > 0) {
+    //                 setChecked(true);
+    //                 console.log('Endpoint vorhanden: ', subscription.endpoint);
+    //                 console.log(members.filter(item => item.endpoint === subscription.endpoint).length);
+    //             } else {
+    //                 setChecked(false);
+    //                 console.log(members.filter(item => item.endpoint === subscription.endpoint).length);
+    //             }
+    //         }
+    //     }
+    // }
+
     
     async function subscribe() {
         if ("serviceWorker" in navigator) {
@@ -74,6 +115,7 @@ const PushNoteAd = () => {
             }
 
             console.log('UpdMember: ', updMember);
+            // console.log(members.filter(item => item.endpoint === subscribeData.endpoint));
             updateMember(updMember);
         }
     }
