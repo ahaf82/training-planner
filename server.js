@@ -52,6 +52,7 @@ app.post("/subscribe", (req, res) => {
 
     // Create payload
     const payload = subscription.payload;
+    console.log('Payload ist da...');
 
     // Pass object into sendNotification
     webpush

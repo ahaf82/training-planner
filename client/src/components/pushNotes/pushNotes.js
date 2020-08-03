@@ -46,7 +46,8 @@ const PushNote = () => {
     }
     
     async function subscribe() {
-        const register = await navigator.serviceWorker.register(`./service-worker.js`);
+        const register = await navigator.serviceWorker.register(`./custom-sw.js`);
+        console.log('Service worker in navigator');
 
         // Register Push
         console.log("Registering Push...");
