@@ -38,7 +38,7 @@ app.use('/api/training-session', require('./routes/training-session'));
 
 
 // Push Notification
-app.use('subscribe', require('./routes/subscribe'));
+app.use('/subscribe', require('./routes/subscribe'));
 
 
 // Serve static assets in production

@@ -8,8 +8,6 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 // import { messaging } from "../../init-fcm";
 // import { compose, lifecycle, withHandlers, withState } from "recompose";
 
-const host = process.env.NODE_ENV === "production" ? "." : "";
-
 const PushNote = () => {
     const authContext = useContext(AuthContext);
     const { member } = authContext;
@@ -87,7 +85,7 @@ const PushNote = () => {
     // }
 
     async function subscribe() {
-        const register = await navigator.serviceWorker.register(`./custom-sw.js`);
+        const register = await navigator.serviceWorker.register(`/custom-sw.js`);
         console.log('Service worker in navigator');
 
         const sw = await navigator.serviceWorker.ready;
