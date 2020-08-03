@@ -20,6 +20,7 @@ self.addEventListener('notificationclick', function (e) {
 
 self.addEventListener('push', function (e) {
   var body;
+  console.log('received...')
 
   if (e.data) {
     body = e.data.text();

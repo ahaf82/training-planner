@@ -8,6 +8,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 // import { messaging } from "../../init-fcm";
 // import { compose, lifecycle, withHandlers, withState } from "recompose";
 
+const host = process.env.NODE_ENV === "production" ? "." : "";
+
 const PushNoteAd = () => {
     const authContext = useContext(AuthContext);
     const { member } = authContext;
@@ -44,34 +46,34 @@ const PushNoteAd = () => {
     }
     
     async function subscribe() {
-        const register = await navigator.serviceWorker.register("/service-worker.js", {
-            scope: "/"
-        });
+        if ("serviceWorker" in navigator) {
+            const register = await navigator.serviceWorker.register("./service-worker.js");
 
-        // Register Push
-        console.log("Registering Push...");
-        const subscription = await register.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-        });
+            // Register Push
+            console.log("Registering Push...");
+            const subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+            });
 
-        const subscribeData = {
-            endpoint: subscription.endpoint,
-            expirationTime: subscription.expirationTime,
-            keys: {
-                p256dh: subscription.toJSON().keys.p256dh,
-                auth: subscription.toJSON().keys.auth
+            const subscribeData = {
+                endpoint: subscription.endpoint,
+                expirationTime: 7200,
+                keys: {
+                    p256dh: subscription.toJSON().keys.p256dh,
+                    auth: subscription.toJSON().keys.auth
+                }
+            };
+
+            const updMember = {
+                _id,
+                email,
+                devices: [...member.devices, subscribeData]
             }
-        };
 
-        const updMember = {
-            _id,
-            name,
-            email,
-            devices: [...member.devices, subscribeData]
+            console.log(updMember);
+            updateMember(updMember);
         }
-
-        updateMember(updMember);
     }
 
     async function unsubscribe() {
@@ -85,7 +87,6 @@ const PushNoteAd = () => {
                         .then(function () {
                             const unsubscribeMember = {
                                 _id,
-                                name,
                                 email,
                                 devices: member.devices.filter(element => element.endpoint !== subscription.endpoint)
                             }
@@ -101,51 +102,11 @@ const PushNoteAd = () => {
     const onChange = (e) => {
         e.preventDefault()
         setChecked(!checked);
+        console.log(checked);
         checked === true ? unsubscribe() : subscribe();
     }
     
     const publicVapidKey = process.env.REACT_APP_VAPID_PUBLIC_KEY;
-    
-    // Register SW, Register Push, Send Push
-    async function send(pushData) {
-        // Send Push Notification
-        console.log("Sending Push...");
-
-        // console.log(member.role);
-
-        // console.log(members.filter(memb => memb.trainingGroup.map(item => item === trainingGroup) || (member.role === 'admin')));
-        // console.log(members.filter(memb => memb.trainingGroup.map(item => item !== trainingGroup)));
-        
-        if (trainingGroup) {
-            console.log(trainingGroup);
-            members.filter(memb => memb.trainingGroup.map(item => item === trainingGroup) || (memb.role === 'admin')).map(async function (item) {
-                if (item) {
-                    item.payload = pushData;
-                    await fetch("/subscribe", {
-                        method: "POST",
-                        body: JSON.stringify(item),
-                        headers: {
-                            "content-type": "application/json"
-                        }
-                    });
-                    console.log("Push Sent...");
-                }
-            });
-        } else {
-            members.map(memb => memb.devices.map(async function(item) {
-                item.payload = pushData;
-                await fetch("/subscribe", {
-                    method: "POST",
-                    body: JSON.stringify(item),
-                    headers: {
-                        "content-type": "application/json"
-                    }
-                });
-                console.log("Push Sent...");
-            }));
-        }
-    }
-
 
     console.log(trainingGroup);
 

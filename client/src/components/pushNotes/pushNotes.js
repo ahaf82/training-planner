@@ -8,6 +8,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 // import { messaging } from "../../init-fcm";
 // import { compose, lifecycle, withHandlers, withState } from "recompose";
 
+const host = process.env.NODE_ENV === "production" ? "." : "";
+
 const PushNote = () => {
     const authContext = useContext(AuthContext);
     const { member } = authContext;
@@ -44,9 +46,7 @@ const PushNote = () => {
     }
     
     async function subscribe() {
-        const register = await navigator.serviceWorker.register("/service-worker.js", {
-            scope: "/"
-        });
+        const register = await navigator.serviceWorker.register(`./service-worker.js`);
 
         // Register Push
         console.log("Registering Push...");
@@ -57,7 +57,7 @@ const PushNote = () => {
 
         const subscribeData = {
             endpoint: subscription.endpoint,
-            expirationTime: subscription.expirationTime,
+            expirationTime: 7200,
             keys: {
                 p256dh: subscription.toJSON().keys.p256dh,
                 auth: subscription.toJSON().keys.auth
@@ -66,11 +66,11 @@ const PushNote = () => {
 
         const updMember = {
             _id,
-            name,
             email,
             devices: [...member.devices, subscribeData]
         }
 
+        console.log(updMember);
         updateMember(updMember);
     }
 
@@ -85,7 +85,6 @@ const PushNote = () => {
                         .then(function () {
                             const unsubscribeMember = {
                                 _id,
-                                name,
                                 email,
                                 devices: member.devices.filter(element => element.endpoint !== subscription.endpoint)
                             }
@@ -145,7 +144,6 @@ const PushNote = () => {
             }));
         }
     }
-
 
     console.log(trainingGroup);
 
