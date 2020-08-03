@@ -49,9 +49,11 @@ const PushNote = () => {
         const register = await navigator.serviceWorker.register(`./custom-sw.js`);
         console.log('Service worker in navigator');
 
+        const sw = await navigator.serviceWorker.ready;
+
         // Register Push
         console.log("Registering Push...");
-        const subscription = await register.pushManager.subscribe({
+        const subscription = await sw.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
         });
@@ -71,7 +73,7 @@ const PushNote = () => {
             devices: [...member.devices, subscribeData]
         }
 
-        console.log(updMember);
+        console.log('UpdMember: ', updMember);
         updateMember(updMember);
     }
 
