@@ -9,8 +9,8 @@ const webpush = require('web-push');
 
 const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 
 // Connect DataBase
 connectDB();
@@ -37,30 +37,8 @@ app.use('/api/training-group', require('./routes/training-group'));
 app.use('/api/training-session', require('./routes/training-session'));
 
 
-// Push-Messages
-webpush.setVapidDetails(
-    "mailto:ahaf82@gmail.com",
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
-);
-
-// Subscribe Route
-app.post("/subscribe", (req, res) => {
-    // Get pushSubscription object
-    const subscription = req.body;
-
-    // Send 201 - resource created
-    res.status(201).json({});
-
-    // Create payload
-    const payload = subscription.payload;
-    console.log('Payload ist da...');
-
-    // Pass object into sendNotification
-    webpush
-        .sendNotification(subscription, payload)
-        .catch(err => console.error(err));
-});
+// Push Notification
+app.use('subscribe', require('./routes/subscribe'));
 
 
 // Serve static assets in production
