@@ -112,10 +112,10 @@ const PushNote = () => {
             devices: [...member.devices, subscribeData]
         }
 
-//        if (members.filter(item => item.endpoint === subscription.endpoint) === []) {
+        if (member.devices.includes(subscription.endpoint) === false) {
             console.log('UpdMember: ', updMember);
             updateMember(updMember);    
-//        }
+        }
     }
 
     async function unsubscribe() {
@@ -160,14 +160,11 @@ const PushNote = () => {
         // console.log(members.filter(memb => memb.trainingGroup.map(item => item !== trainingGroup)));
         
         if (trainingGroup) {
-            console.log(trainingGroup.trainingGroup);
-            console.log(members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup)));
+            console.log(members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup) || (memb.role === 'admin')));
             members.filter(memb => (members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup)) || (memb.role === 'admin'))).map(async function (item) {
-                console.log(item);
                 if (item.devices) {
                     item.devices.map(async element => {
                         element.payload = pushData;
-                        console.log(element.email);
                         console.log('Gesendet');
                         await fetch("/subscribe", {
                             method: "POST",

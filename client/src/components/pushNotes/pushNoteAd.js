@@ -113,8 +113,12 @@ const PushNoteAd = () => {
             }
 
             console.log('UpdMember: ', updMember);
-            // console.log(members.filter(item => item.endpoint === subscribeData.endpoint));
-            updateMember(updMember);
+            if (member.devices.includes(subscription.endpoint) === false) {
+                console.log('UpdMember: ', updMember);
+                updateMember(updMember);
+            }
+
+            console.log(member);
         }
     }
 
