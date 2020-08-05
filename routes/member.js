@@ -97,7 +97,7 @@ router.put("/:_id", auth, async (req, res) => {
     const { name, email, role, trainingGroup, trainingSessions, devices } = req.body;
 
     // Build member object
-    const memberFields = { trainingGroup: [], trainingSessions: [], devices: [] };
+    const memberFields = {};
     if (name) memberFields.name = name;
     if (email) memberFields.email = email;
     if (trainingGroup) memberFields.trainingGroup = trainingGroup;

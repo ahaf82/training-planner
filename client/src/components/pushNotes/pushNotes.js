@@ -160,18 +160,24 @@ const PushNote = () => {
         // console.log(members.filter(memb => memb.trainingGroup.map(item => item !== trainingGroup)));
         
         if (trainingGroup) {
-            console.log(trainingGroup);
-            members.filter(memb => memb.trainingGroup.map(item => item === trainingGroup) || (memb.role === 'admin')).map(async function (item) {
-                if (item) {
-                    item.payload = pushData;
-                    await fetch("/subscribe", {
-                        method: "POST",
-                        body: JSON.stringify(item),
-                        headers: {
-                            "content-type": "application/json"
-                        }
+            console.log(trainingGroup.trainingGroup);
+            console.log(members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup)));
+            members.filter(memb => (members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup)) || (memb.role === 'admin'))).map(async function (item) {
+                console.log(item);
+                if (item.devices) {
+                    item.devices.map(async element => {
+                        element.payload = pushData;
+                        console.log(element.email);
+                        console.log('Gesendet');
+                        await fetch("/subscribe", {
+                            method: "POST",
+                            body: JSON.stringify(element),
+                            headers: {
+                                "content-type": "application/json"
+                            }
+                        });
+                        console.log("Push Sent...");
                     });
-                    console.log("Push Sent...");
                 }
             });
         } else {
@@ -188,8 +194,6 @@ const PushNote = () => {
             }));
         }
     }
-
-    console.log(trainingGroup);
 
     return (
         <div className='column'>
