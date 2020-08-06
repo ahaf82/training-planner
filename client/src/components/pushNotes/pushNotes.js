@@ -10,14 +10,14 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 
 const PushNote = () => {
     const authContext = useContext(AuthContext);
-    const { member } = authContext;
+    const { member, role } = authContext;
     
     const memberContext = useContext(MemberContext);
     const { updateMember, members } = memberContext; 
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     
-    const { _id, name, email, role } = member;
+    const { _id, name, email } = member;
     
     const [pushData, setPushData] = useState('');
     
@@ -194,7 +194,7 @@ const PushNote = () => {
 
     return (
         <div className='column'>
-            {'Notification' in window && navigator.serviceWorker && ((role === 'member') || (role === 'trainer')) &&
+            {'Notification' in window && navigator.serviceWorker && (role === 'member' || role === 'trainer') &&
             <div className="card bg-light">
                 Push Benachrichtigungen auf diesem Gerät zulassen:
                 <div class='switch'>
@@ -208,14 +208,14 @@ const PushNote = () => {
             </div>}
             {(role === 'admin' || role === 'superUser') &&
             <div className="card bg-light">
-                <div className="input-field">
+                {/* <div className="input-field">
                     <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup}>
                         <option value="" disabled selected>
                             Trainingsgruppe...
                     </option>
                         <TrainingGroupOptions />
                     </select>
-                </div>
+                </div> */}
                 <input type="text" placeholder="Sende Nachricht" name="pushData" value={pushData} onChange={onChangeInput} /> 
                 <button className="btn btn-dark btn-sm" variant="warning" onClick={(e) => send(pushData)}>Sende Push-Nachricht</button> 
             </div> }
