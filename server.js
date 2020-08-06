@@ -2,10 +2,15 @@ const express = require('express');
 const connectDB = require('./config/db');
 const passport = require('passport');
 const path = require('path');
+const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const webpush = require('web-push');
 
 const app = express();
 
+app.use(cors());
+app.use(bodyParser.json());
 
 // Connect DataBase
 connectDB();
@@ -30,6 +35,11 @@ app.use('/api/auth/fail', require('./routes/auth'));
 app.use('/api/member', require('./routes/member'));
 app.use('/api/training-group', require('./routes/training-group'));
 app.use('/api/training-session', require('./routes/training-session'));
+
+
+// Push Notification
+app.use('/subscribe', require('./routes/subscribe'));
+
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

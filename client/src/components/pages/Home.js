@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SimpleReactCalendar from 'simple-react-calendar';
 import TrainingSession from '../trainingSessions/TrainingSessions';
 import HomeSessions from '../trainingSessions/HomeSessions';
@@ -7,6 +7,9 @@ import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
+import PushNote from '../pushNotes/pushNotes';
+import PushNoteAd from '../pushNotes/pushNoteAd';
+// import request from '../../request';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment/locale/de';
@@ -24,7 +27,8 @@ const Home = props => {
     const { getTrainingGroups } = trainingGroupContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
-    const { filterTrainingSessions, getTrainingSessions, clearFilter, filtered } = trainingSessionContext;
+    const { filterTrainingSessions, getTrainingSessions } = trainingSessionContext;
+
 
     useEffect(() => {
         authContext.loadMember();
@@ -48,11 +52,10 @@ const Home = props => {
             <div>
                 <div className='center-cal fixed'>
                     {(role === 'admin' || role === 'superUser') &&
-                        <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
+                        <h4 className="text-primary large center">Trainingseinheiten am:</h4>}
                     {(role === 'admin' || role === 'superUser') &&
                         <SimpleReactCalendar activeMonth={new Date()} daysOfWeek={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']} onSelect={(e) => {
                             const actualDate = moment(e).format('YYYY-MM-DD');
-                            console.log(actualDate);
                             filterTrainingSessions(actualDate);
                         }} /> }
                     <br/>
@@ -62,20 +65,22 @@ const Home = props => {
                         <TrainingSession /> }
                     {role === 'none' &&
                         <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
+                    {(role === 'member' || role === 'trainer') &&
+                        <PushNote />}                    
+                    {(role === 'admin' || role === 'superUser') &&
+                        <PushNoteAd />}
                 </div>
             </div>
             <div className='card-grid-3'>
                 {(role === 'admin' || role === 'superUser') &&
-                    <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
+                    <PushNote />}
+                {(role === 'admin' || role === 'superUser') &&
+                    <h4 className="text-primary large center">Kommende Trainingseinheiten:</h4>}
                 {(role === 'admin' || role === 'superUser') &&
                     <HomeSessions /> }
             </div>
         </div>
     )
-}
-
-Home.propTypes = {
-
 }
 
 export default Home;

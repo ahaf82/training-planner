@@ -36,8 +36,4 @@ const Groups = props => {
     )
 }
 
-Groups.propTypes = {
-
-}
-
 export default Groups;

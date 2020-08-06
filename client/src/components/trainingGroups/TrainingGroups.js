@@ -1,27 +1,16 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TrainingGroupItem from './TrainingGroupItem';
 import Spinner from '../layout/Spinner';
 import AuthContext from '../../context/auth/authContext';
-import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 
 const TrainingGroups = () => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
 
-    const memberContext = useContext(MemberContext);
-    const { members, getMembers } = memberContext;
-
     const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup, filtered, getTrainingGroups, updateTrainingGroup, loading } = trainingGroupContext;    
-    
-    useEffect(() => {
-        getTrainingGroups();
-        getMembers();
-         // eslint-disable-next-line
-    }, []);
-
+    const { trainingGroup, filtered, loading } = trainingGroupContext;    
 
     if (trainingGroup !== null && trainingGroup.length === 0 && !loading && role === ('admin' || 'superUser')) {
         return <h4 className="large">Bitte füge eine Trainingsgruppe hinzu:</h4>

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import 'moment/locale/de';
-import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
@@ -20,24 +20,14 @@ const OldSessionItem = ({ session }) => {
     const { trainingGroup, getTrainingGroups } = trainingGroupContext;
 
     const memberContext = useContext(MemberContext);
-    const { member, getMembers } = memberContext;
+    const { getMembers } = memberContext;
 
-    const { _id, description, trainer, maxMembers, memberCount, members, time, timeTo, date } = session;
+    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group = [];
     if (trainingGroup) {
         group = trainingGroup.filter(item => item._id === session.trainingGroup);
     }
-
-    const [tSession, setTrainingSession] = useState({
-        trainingGroup: "",
-        description: "",
-        trainer: "",
-        maxMembers: "",
-        memberCount: "",
-        members: []
-    });
-
 
     const onDelete = () => {
         deleteTrainingSession(_id);
@@ -47,14 +37,11 @@ const OldSessionItem = ({ session }) => {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
-        getMembers();
-        getTrainingGroups();
-        getTrainingSessions();
         if (session.members.find(element => element === authContext.member._id) !== undefined) {
             console.log(members.find(element => element === authContext.member._id));
             setChecked(true);
         }
-    }, []);
+    }, [getMembers, getTrainingGroups, getTrainingSessions, session.members, authContext.member._id, members] );
 
     // Convert ObjectMember Id to Name
     let sessionMembers;
@@ -68,13 +55,10 @@ const OldSessionItem = ({ session }) => {
         trainerName = memberContext.members.filter(element => element._id === session.trainer);
     }
 
-    console.log(memberContext.members);
-    if (trainerName) console.log(trainerName);
-
     return (
         <div className='column'>
             <div className={'card bg-light card-content'}>
-                <h3 className={'text- text-left large'}>
+                <h3 className={'text-dark text-left large'}>
                     {description}{' '}
                 </h3>
                 <ul className="list">
@@ -108,6 +92,10 @@ const OldSessionItem = ({ session }) => {
             </div>
         </div>
     )
+}
+
+OldSessionItem.propTypes = {
+    session: PropTypes.object.isRequired
 }
 
 export default OldSessionItem;

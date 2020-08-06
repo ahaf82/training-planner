@@ -4,15 +4,11 @@ import TrainingSessionItem from './TrainingSessionItem';
 import Spinner from '../layout/Spinner';
 import moment from 'moment'
 import AuthContext from '../../context/auth/authContext';
-import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 
 const TrainingSession = () => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
-
-    const trainingGroupContext = useContext(TrainingGroupContext);
-    const { trainingGroup } = trainingGroupContext;
 
     const trainingSessionContext = useContext(TrainingSessionContext);
     const { trainingSessions, filtered, getTrainingSessions, loading } = trainingSessionContext;

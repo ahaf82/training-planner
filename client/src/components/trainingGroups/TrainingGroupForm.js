@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TrainingGroupForm = () => {
-    const alertContext = useContext(AlertContext);
     const trainingGroupContext = useContext(TrainingGroupContext);
 
-    const { setAlert } = alertContext;
     const { addTrainingGroup, updateTrainingGroup, clearCurrent, current } = trainingGroupContext;
 
     useEffect(() => {
@@ -15,7 +12,7 @@ const TrainingGroupForm = () => {
             setTrainingGroup(current);
         } else {
             setTrainingGroup({
-              trainingGroup: ""
+                trainingGroup: ""
             });
         }
     }, [trainingGroupContext, current]);
@@ -32,7 +29,7 @@ const TrainingGroupForm = () => {
         e.preventDefault();
         if (trainingGroup === '') {
             M.toast({ html: 'Bitte eine Gruppenbezeichnung eingeben', classes: 'kentai-color', displayLength: 1500 });
-        } else if (current === null) {            
+        } else if (current === null) {
             addTrainingGroup(group);
         } else {
             updateTrainingGroup(group);
@@ -48,7 +45,7 @@ const TrainingGroupForm = () => {
             <h2 className="text-dark large">{current ? 'Trainingsgruppe ändern' : 'Trainingsgruppe hinzufügen'}</h2>
             <input type="text" placeholder="Trainingsgruppe" name="trainingGroup" value={trainingGroup} onChange={onChange} />
             <div>
-                <input type="submit" value={current ? 'Trainingsgruppe aktualisieren' : 'Trainingsgruppe hinzufügen'} className="btn btn-dark btn-block"/>
+                <input type="submit" value={current ? 'Trainingsgruppe aktualisieren' : 'Trainingsgruppe hinzufügen'} className="btn btn-dark btn-block" />
             </div>
             {current && <div>
                 <button className="btn btn-light btn-block" onClick={clearAll}>Löschen</button>
