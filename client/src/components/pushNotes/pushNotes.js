@@ -10,14 +10,15 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 
 const PushNote = () => {
     const authContext = useContext(AuthContext);
-    const { member, role } = authContext;
+    const { member } = authContext;
     
     const memberContext = useContext(MemberContext);
     const { updateMember, members } = memberContext; 
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     
-    const { _id, name, email } = member;
+    const { _id, name, email, role } = member;
+    console.log(role);
     
     const [pushData, setPushData] = useState('');
     
