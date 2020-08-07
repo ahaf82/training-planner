@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const MemberItem = ({ member }) => {
     const memberContext = useContext(MemberContext);
@@ -13,11 +14,6 @@ const MemberItem = ({ member }) => {
     const { trainingGroup } = trainingGroupContext;
 
     let groups = [];
-
-    const onDelete = () => {
-        deleteMember(_id);
-        clearCurrent();
-    }
 
     if (trainingGroup) { 
         groups = [...new Set(trainingGroup.filter(element => member.trainingGroup.includes(element._id)))];
@@ -45,7 +41,7 @@ const MemberItem = ({ member }) => {
                 {role !== ("admin" || "superUser") &&
                 <p> 
                     <button className="btn btn-dark btn-sm" onClick={()=>setCurrent(member)}>Ändern</button>
-                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>           
+                    <button data-target="clear-modal-member" class="btn btn-danger btn-sm modal-trigger" onClick={() => setCurrent(member)}>Löschen</button>
                 </p>
                 }
             </div>

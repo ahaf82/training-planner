@@ -12,6 +12,9 @@ import Login from './components/auth/Login';
 import OldSessions from './components/trainingSessions/OldSessions';
 import Alerts from './components/layout/Alerts';
 import TrainingGroupListModal from './components/member/TrainingGroupListModal';
+import ClearModalMember from './components/member/ClearModalMember';
+import ClearModalGroup from './components/trainingGroups/ClearModalGroup';
+import ClearModalSession from './components/trainingSessions/ClearModalSession';
 
 import PrivatRoute from './components/routing/PrivateRoute';
 
@@ -60,6 +63,9 @@ const App = () => {
                     </Switch>
                   </div>
                   <TrainingGroupListModal />
+                  <ClearModalMember />
+                  <ClearModalGroup />
+                  <ClearModalSession />
                 </Fragment>
               </Router>
           </AlertState>

@@ -18,7 +18,6 @@ const PushNote = () => {
     const trainingGroupContext = useContext(TrainingGroupContext);
     
     const { _id, name, email, role } = member;
-    console.log(role);
     
     const [pushData, setPushData] = useState('');
     
@@ -87,7 +86,6 @@ const PushNote = () => {
 
     async function subscribe() {
         const register = await navigator.serviceWorker.register(`/custom-sw.js`);
-        console.log('Service worker in navigator');
 
         const sw = await navigator.serviceWorker.ready;
 
@@ -114,7 +112,6 @@ const PushNote = () => {
         }
 
         if (member.devices.includes(subscription.endpoint) === false) {
-            console.log('UpdMember: ', updMember);
             updateMember(updMember);    
         }
     }
@@ -135,7 +132,6 @@ const PushNote = () => {
                             }
                             
                             updateMember(unsubscribeMember);
-                            console.log('Unsubscribed', subscription.endpoint);
                         });
                     };
                 });

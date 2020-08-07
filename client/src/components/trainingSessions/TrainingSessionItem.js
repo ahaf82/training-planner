@@ -108,8 +108,8 @@ const TrainingSessionItem = ({ session }) => {
                 </ul>
                 {(role === 'admin' || role === 'superUser') &&  <p>
                     <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
-                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
-                </p>}
+                    <button data-target="clear-modal-session" class="btn btn-danger btn-sm modal-trigger" onClick={() => setCurrent(session)}>Löschen</button>
+                 </p>}
                 {(role === "member" || role === "admin" || role === "trainer")&&
                     <div class="switch">
                         Teilnahme:

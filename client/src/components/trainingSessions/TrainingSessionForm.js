@@ -103,6 +103,8 @@ const TrainingSessionForm = () => {
                 <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-dark btn-block" />
             </div>
             {current && <div>
+                <a href="#clear-modal-session" className="btn btn-danger btn-block modal-trigger">Löschen</a>
+                <br />
                 <button className="btn btn-light btn-block" onClick={clearAll}>Formular leeren</button>
             </div>}
         </form>

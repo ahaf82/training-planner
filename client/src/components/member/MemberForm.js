@@ -91,7 +91,11 @@ const MemberForm = () => {
             </div>
             {current && <div>
                 {(role === "none" || role === "member" || role === "trainer") && <div>
-                    <input type="submit" value={'Mitglied aktualisieren'} className="btn btn-dark btn-block"/>
+                    <br/>
+                    <a href="#clear-modal-member" className="btn btn-danger btn-block modal-trigger">
+                        Löschen
+                    </a>
+                    <input type="submit" value={'Mitglied aktualisieren'} className="btn btn-primary btn-block"/>
                 </div>}
                 <br/>
                 <div>

@@ -87,11 +87,9 @@ const PushNoteAd = () => {
     async function subscribe() {
         if ("serviceWorker" in navigator) {
             const register = await navigator.serviceWorker.register("/custom-sw.js");
-            console.log('Service worker in navigator');
             const sw = await navigator.serviceWorker.ready;
 
             // Register Push
-            console.log("Registering Push...");
             const subscription = await sw.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
@@ -112,13 +110,10 @@ const PushNoteAd = () => {
                 devices: [...member.devices, subscribeData]
             }
 
-            console.log('UpdMember: ', updMember);
             if (member.devices.includes(subscription.endpoint) === false) {
-                console.log('UpdMember: ', updMember);
                 updateMember(updMember);
             }
 
-            console.log(member);
         }
     }
 
@@ -138,7 +133,6 @@ const PushNoteAd = () => {
                             }
                             
                             updateMember(unsubscribeMember);
-                            console.log('Unsubscribed', subscription.endpoint);
                         });
                     };
                 });
@@ -148,13 +142,10 @@ const PushNoteAd = () => {
     const onChange = (e) => {
         e.preventDefault()
         setChecked(!checked);
-        console.log(checked);
         checked === true ? unsubscribe() : subscribe();
     }
     
     const publicVapidKey = process.env.REACT_APP_VAPID_PUBLIC_KEY;
-
-    console.log(trainingGroup);
 
     return (
         <div>
