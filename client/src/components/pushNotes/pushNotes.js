@@ -86,7 +86,6 @@ const PushNote = () => {
 
     async function subscribe() {
         const register = await navigator.serviceWorker.register(`/custom-sw.js`);
-        console.log('Service worker in navigator');
 
         const sw = await navigator.serviceWorker.ready;
 
@@ -113,7 +112,6 @@ const PushNote = () => {
         }
 
         if (member.devices.includes(subscription.endpoint) === false) {
-            console.log('UpdMember: ', updMember);
             updateMember(updMember);    
         }
     }
@@ -134,7 +132,6 @@ const PushNote = () => {
                             }
                             
                             updateMember(unsubscribeMember);
-                            console.log('Unsubscribed', subscription.endpoint);
                         });
                     };
                 });
@@ -194,7 +191,7 @@ const PushNote = () => {
 
     return (
         <div className='column'>
-            {'Notification' in window && navigator.serviceWorker && ((role === 'member') || (role === 'trainer')) &&
+            {'Notification' in window && navigator.serviceWorker && (role === 'member' || role === 'trainer') &&
             <div className="card bg-light">
                 Push Benachrichtigungen auf diesem Gerät zulassen:
                 <div class='switch'>

@@ -77,8 +77,8 @@ const TrainingSessionItem = ({ session }) => {
 
     return (
         <div className='column'>
-            <div className={checked === true ? 'card bg-primary card-content' : 'card bg-light card-content'}>
-                <h3 className={checked === true ? 'text- text-left large' : 'text-primary text-left large'}>
+            <div className={checked === true ? 'card bg-dark card-content' : 'card bg-light card-content'}>
+                <h3 className={checked === true ? 'text- text-left large' : 'text-dark text-left large'}>
                     {description}{' '} 
                 </h3>
                 <ul className="list">
@@ -108,8 +108,8 @@ const TrainingSessionItem = ({ session }) => {
                 </ul>
                 {(role === 'admin' || role === 'superUser') &&  <p>
                     <button className="btn btn-dark btn-sm" onClick={() => setCurrent(session)}>Ändern</button>
-                    <button className="btn btn-danger btn-sm" onClick={onDelete}>Löschen</button>
-                </p>}
+                    <button data-target="clear-modal-session" class="btn btn-danger btn-sm modal-trigger" onClick={() => setCurrent(session)}>Löschen</button>
+                 </p>}
                 {(role === "member" || role === "admin" || role === "trainer")&&
                     <div class="switch">
                         Teilnahme:

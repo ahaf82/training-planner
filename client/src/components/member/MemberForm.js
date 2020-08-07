@@ -61,8 +61,8 @@ const MemberForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary large">Mitglied ändern</h2>
-            <h2 className="text-primary large">{name}</h2>
+            <h2 className="text-dark large">Mitglied ändern</h2>
+            <h2 className="text-dark large">{name}</h2>
             {role === "none" && 
                 <div className="switch">
                     Berechtigung
@@ -91,6 +91,10 @@ const MemberForm = () => {
             </div>
             {current && <div>
                 {(role === "none" || role === "member" || role === "trainer") && <div>
+                    <br/>
+                    <a href="#clear-modal-member" className="btn btn-danger btn-block modal-trigger">
+                        Löschen
+                    </a>
                     <input type="submit" value={'Mitglied aktualisieren'} className="btn btn-primary btn-block"/>
                 </div>}
                 <br/>

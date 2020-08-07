@@ -77,7 +77,7 @@ const TrainingSessionForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
+            <h2 className="text-dark large">{current ? 'Trainingseinheit ändern' : 'Trainingseinheit hinzufügen'}</h2>
             <div className="input-field">
                 <select name="trainingGroup" key={_id} value={_id} className="browser-default" onChange={onChange}>
                     <option value="" disabled selected>
@@ -100,9 +100,11 @@ const TrainingSessionForm = () => {
             <input type="date" placeholder="" name="date" value={date} onChange={onChange} />
             Teilnehmer zugelassen: <input type="number" placeholder="0" name="maxMembers" value={maxMembers} onChange={onChange} />
             <div>
-                <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-primary btn-block" />
+                <input type="submit" value={current ? 'Trainingseinheit aktualisieren' : 'Trainingseinheit hinzufügen'} className="btn btn-dark btn-block" />
             </div>
             {current && <div>
+                <a href="#clear-modal-session" className="btn btn-danger btn-block modal-trigger">Löschen</a>
+                <br />
                 <button className="btn btn-light btn-block" onClick={clearAll}>Formular leeren</button>
             </div>}
         </form>
