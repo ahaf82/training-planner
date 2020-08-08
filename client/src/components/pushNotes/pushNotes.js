@@ -28,9 +28,11 @@ const PushNote = () => {
     
     const [checked, setChecked] = useState(false);
 
-    // useEffect(() => {
-    //     start();
-    // }, []);
+    const subsTrue = false;
+
+    useEffect(() => {
+        start();
+    }, []);
 
     function urlBase64ToUint8Array(base64String) {
         const padding = "=".repeat((4 - base64String.length % 4) % 4);
@@ -83,6 +85,20 @@ const PushNote = () => {
     //         }
     //     }
     // }
+
+    async function start() {
+        if ((member.devices.length > 0) && unsubscribe !== null) {
+            navigator.serviceWorker.ready
+                .then(function (registration) {
+                    return registration.pushManager.getSubscription();
+                }).then(function (subscription) {
+                    if (subscription && member.devices.filter(item => item.endpoint === subscription.endpoint) !== '') {
+                        console.log('true');
+                        setChecked(true);
+                    }
+                });
+            }
+        }
 
     async function subscribe() {
         const register = await navigator.serviceWorker.register(`/custom-sw.js`);
@@ -197,7 +213,7 @@ const PushNote = () => {
                 <div class='switch'>
                     <label>
                         Nein
-                                <input type="checkbox" name="role" checked={checked} onChange={onChange} />
+                        <input type="checkbox" name="role" checked={checked} onChange={onChange} />
                         <span class="lever"></span>
                                 Ja
                             </label>
@@ -205,14 +221,14 @@ const PushNote = () => {
             </div>}
             {(role === 'admin' || role === 'superUser') &&
             <div className="card bg-light">
-                <div className="input-field">
+                {/* <div className="input-field">
                     <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup}>
                         <option value="" disabled selected>
                             Trainingsgruppe...
                     </option>
                         <TrainingGroupOptions />
                     </select>
-                </div>
+                </div> */}
                 <input type="text" placeholder="Sende Nachricht" name="pushData" value={pushData} onChange={onChangeInput} /> 
                 <button className="btn btn-dark btn-sm" variant="warning" onClick={(e) => send(pushData)}>Sende Push-Nachricht</button> 
             </div> }
