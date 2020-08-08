@@ -27,9 +27,9 @@ const PushNoteAd = () => {
     
     const [checked, setChecked] = useState(false);
 
-    // useEffect(() => {
-    //     start();
-    // }, [])
+    useEffect(() => {
+        start();
+    }, [])
 
     function urlBase64ToUint8Array(base64String) {
         const padding = "=".repeat((4 - base64String.length % 4) % 4);
@@ -83,6 +83,19 @@ const PushNoteAd = () => {
     //     }
     // }
 
+    async function start() {
+        if ((member.devices.length > 0) && unsubscribe !== null) {
+            navigator.serviceWorker.ready
+                .then(function (registration) {
+                    return registration.pushManager.getSubscription();
+                }).then(function (subscription) {
+                    if (subscription && member.devices.filter(item => item.endpoint === subscription.endpoint) !== '') {
+                        console.log('true');
+                        setChecked(true);
+                    }
+                });
+        }
+    }
     
     async function subscribe() {
         if ("serviceWorker" in navigator) {

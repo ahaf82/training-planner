@@ -5,20 +5,6 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 const MemberForm = () => {    
     const memberContext = useContext(MemberContext);
     const { updateMember, clearCurrent, current } = memberContext;
-    
-    useEffect(() => {
-        if (current !== null) {
-            setMember(current);
-        } else {
-            setMember({
-              name: "",
-              email: "",
-              role: "",
-              trainingGroup: [],
-              trainingSessions: []
-            });
-        }
-    }, [memberContext, current]);
 
     const [member, setMember] = useState({
         name: "",
@@ -33,6 +19,23 @@ const MemberForm = () => {
     const [checked, setChecked] = useState(true);
     const [checkedTrainer, setCheckedTrainer] = useState(false);
     
+    useEffect(() => {
+        if (current !== null) {
+            setMember(current);
+            if (current.role === 'trainer') {
+                setCheckedTrainer(true);
+            }
+        } else {
+            setMember({
+              name: "",
+              email: "",
+              role: "",
+              trainingGroup: [],
+              trainingSessions: []
+            });
+        }
+    }, [memberContext, current]);
+
 
     const onSubmit = e => {
         e.preventDefault();
@@ -41,6 +44,7 @@ const MemberForm = () => {
         } else {
             checked === true ? current.role = "none" : current.role = "member";
             checkedTrainer === true ? current.role = "trainer" : current.role = "member";
+            console.log(checkedTrainer);
             
             const updMember = {
                 _id: current._id,
