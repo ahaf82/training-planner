@@ -36,9 +36,9 @@ const Register = (props) => {
     const onSubmit = e => {
         e.preventDefault();
         if (name === '' || email === '' || password === '') {
-            setAlert('Bitte alle Felder ausfüllen', 'danger');
+            setAlert('Bitte alle Felder ausfüllen', 'dark');
         } else if (password !== password2) {
-            setAlert('Die Passworteingaben stimmen nicht übereinander', 'danger');
+            setAlert('Die Passworteingaben stimmen nicht übereinander', 'dark');
         } else {
             register({
                 name,
@@ -50,7 +50,7 @@ const Register = (props) => {
 
     return (
         <div className='form-container'>
-            <h1 className='text-primary x-large'>
+            <h1 className='text-dark x-large'>
                 Konto registrieren
             </h1>
             <form onSubmit={onSubmit}>
@@ -70,7 +70,7 @@ const Register = (props) => {
                     <label htmlFor='password2'>Passwort bestätigen</label>
                     <input type='password' name='password2' value={password2} onChange={onChange} />
                 </div>
-                <input type="submit" value="Registrieren" className="btn btn-primary btn-block"/>
+                <input type="submit" value="Registrieren" className="btn btn-dark btn-block"/>
             </form>
         </div>
     )

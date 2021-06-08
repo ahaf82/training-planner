@@ -21,6 +21,7 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
 }, async (email, password, done) => {
     try {
+        console.log(email);
         let member = await Member.findOne({ email });
 
         if (!member) {
@@ -214,15 +215,18 @@ router.post('/', [
     check('password', 'Bitte Passwort eingeben').exists()
 ],
     async (req, res, next) => {
+        console.log(res.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ msg: errors.errors[0].msg });
         }
 
         const { email, password } = req.body;
-
+        
         try {
+
             let emailUser = email.toLowerCase();
+          
             let member = await Member.findOne({ email: emailUser });
 
             if (!member) {

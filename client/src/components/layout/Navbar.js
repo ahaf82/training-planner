@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import AuthContext from '../../context/auth/authContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
@@ -42,6 +43,7 @@ const Navbar = ({ title, icon }) => {
                 <li>
                     <Link to='/oldSess'><i className="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>
                 </li>}
+
             {role === 'member' &&
                 <li>
                     Hallo {member && member.name}
@@ -69,9 +71,9 @@ const Navbar = ({ title, icon }) => {
     )
 
     return (
-        <div className="navbar bg-primary middle">
-            <h1 className="x-large">
-                <i className={icon} /> {title}
+        <div className="navbar bg-kentai middle">
+            <h1 className="text-light-color x-large">
+                <img src={KentaiLogo} className='kentai-logo' /> {title}
             </h1>
             <ul>
                 {isAuthenticated ? authLinks : guestLinks}
@@ -86,8 +88,8 @@ Navbar.propTypes = {
 }
 
 Navbar.defaultProps = {
-    title: 'Training Planner',
-    icon: 'fa fa-calendar'
+    title: 'Kentai Plan'
+    // icon: 'fa fa-calendar'
 }
 
 export default Navbar;
