@@ -33,7 +33,7 @@ passport.use(new LocalStrategy({
         if (!isMatch) {
             return res.status(400).json({ msg: 'Ungültiges Passwort' });
         }
-        
+
         const payload = {
             member: {
                 id: member._id,
@@ -83,7 +83,7 @@ passport.use(new FacebookStrategy({
                     role: member.role
                 }
             }
-            
+
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 3600
             }, (error, token) => {
@@ -108,7 +108,7 @@ passport.use(new GoogleStrategy({
     clientID: config.GOOGLE_CLIENT_ID,
     clientSecret: config.GOOGLE_CLIENT_SECRET,
     callbackURL: "/api/auth/auth/google/callback",
-    profileFields: [ "email", "name" ]
+    profileFields: ["email", "name"]
 },
     async (token, tokenSecret, profile, done) => {
         try {
@@ -116,7 +116,6 @@ passport.use(new GoogleStrategy({
             let member = await Member.findOne({ email })
 
             if (!member) {
-                console.log('New Member');
                 member = new Member({
                     name,
                     email
@@ -136,7 +135,6 @@ passport.use(new GoogleStrategy({
                 expiresIn: 360000
             }, (error, token) => {
                 if (error) throw error;
-                console.log(token);
                 res.send({ token });
             });
         } catch (error) {
@@ -199,16 +197,15 @@ passport.deserializeUser(function (member, done) {
 // @routes    GET api/auth
 // @desc      Get logged in member
 // @access    Private
-router.get('/', auth, async(req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
-        const member = await Member.findById( req.member._id ).select('-password');
-        console.log('Mitglied ist da', member.role)
+        const member = await Member.findById(req.member._id).select('-password');
         res.json(member);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Fehler');
     }
-}); 
+});
 
 // @routes    POST api/auth
 // @desc      Auth member and get token
@@ -227,9 +224,9 @@ router.post('/', [
         const { email, password } = req.body;
         
         try {
-            console.log('hier');
+
             let emailUser = email.toLowerCase();
-            console.log(emailUser);
+          
             let member = await Member.findOne({ email: emailUser });
 
             if (!member) {
@@ -268,7 +265,7 @@ router.post('/', [
 // @routes    GET api/facebook
 // @desc      Auth facebook member and get token
 // @access    Public
- router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook'));
 
 // @routes    GET api/facebook/callback
 // @desc      Auth facebook member and get token
@@ -291,16 +288,14 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 // @routes    GET api/google/callback
 // @desc      Auth google member and get token
 // @access    
-router.get('/auth/google/callback', 
+router.get('/auth/google/callback',
     passport.authenticate('google'),
     async (req, res) => {
-        console.log('Ich warte hier ein bisschen');
         res.redirect('/');
     }
 );
 
 router.get('/fail', (req, res) => {
-    console.log('Das hat nicht geklappt');
     res.send('Authentifizierung fehlgeschlagen');
 });
 

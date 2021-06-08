@@ -37,6 +37,19 @@ const MemberForm = () => {
     }, [memberContext, current]);
 
 
+    const [member, setMember] = useState({
+        name: "",
+        email: "",
+        role: "",
+        trainingGroup: [],
+        trainingSessions: []
+    });
+    
+    const { name, email, role } = member;
+    
+    const [checked, setChecked] = useState(true);
+    const [checkedTrainer, setCheckedTrainer] = useState(false);
+    
     const onSubmit = e => {
         e.preventDefault();
         if (email === '') {
@@ -44,7 +57,6 @@ const MemberForm = () => {
         } else {
             checked === true ? current.role = "none" : current.role = "member";
             checkedTrainer === true ? current.role = "trainer" : current.role = "member";
-            console.log(checkedTrainer);
             
             const updMember = {
                 _id: current._id,

@@ -43,7 +43,7 @@ self.addEventListener('push', function (e) {
     },
     actions: [
       {
-        action: 'explore', title: 'Zum Kentai-Plan',
+        action: 'explore', title: 'Zum Training-Planner',
         icon: 'images/checkmark.png'
       },
       {
@@ -53,6 +53,6 @@ self.addEventListener('push', function (e) {
     ]
   };
   e.waitUntil(
-    self.registration.showNotification('Kentai-Plan', options)
+    self.registration.showNotification('Training Planner', options)
   );
 });

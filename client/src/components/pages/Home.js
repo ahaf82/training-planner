@@ -52,7 +52,9 @@ const Home = props => {
             <div>
                 <div className='center-cal fixed'>
                     {(role === 'admin' || role === 'superUser') &&
-                        <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
+
+                        <h4 className="text-primary large center">Trainingseinheiten am:</h4>}
+                        
                     {(role === 'admin' || role === 'superUser') &&
                         <SimpleReactCalendar activeMonth={new Date()} daysOfWeek={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']} onSelect={(e) => {
                             const actualDate = moment(e).format('YYYY-MM-DD');
@@ -64,7 +66,9 @@ const Home = props => {
                     {(role === 'member' || role === 'trainer') &&
                         <TrainingSession /> }
                     {role === 'none' &&
-                        <h2 className="text-dark large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
+
+                        <h2 className="text-primary large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
+                        
                     {(role === 'member' || role === 'trainer') &&
                         <PushNote />}                    
                     {(role === 'admin' || role === 'superUser') &&
@@ -75,7 +79,8 @@ const Home = props => {
                 {(role === 'admin' || role === 'superUser') &&
                     <PushNote />}
                 {(role === 'admin' || role === 'superUser') &&
-                    <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
+
+                    <h4 className="text-primary large center">Kommende Trainingseinheiten:</h4>}
                 {(role === 'admin' || role === 'superUser') &&
                     <HomeSessions /> }
             </div>

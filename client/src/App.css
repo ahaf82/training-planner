@@ -433,7 +433,9 @@ table th {
     padding: 30px;
     border-radius: 5px;
     border: 1px solid #e4e7ea;
-    background-color: var(--dark-color);
+
+    background-color: var(--primary-color);
+  
     color: var(--light-color);
     margin: auto;
     margin-top: 30px;
@@ -567,7 +569,9 @@ table th {
       align-items: center;
       justify-content: center;
       flex-basis: 15%;
-      background-color: var(--dark-color);
+
+      background-color: var(--primary-color);
+    
       color: var(--light-color);
       position: relative;
       border-radius: 50%;
