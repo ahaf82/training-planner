@@ -15,6 +15,7 @@ import TrainingGroupListModal from './components/member/TrainingGroupListModal';
 import ClearModalMember from './components/member/ClearModalMember';
 import ClearModalGroup from './components/trainingGroups/ClearModalGroup';
 import ClearModalSession from './components/trainingSessions/ClearModalSession';
+import ResetPassword from './components/auth/ResetPassword';
 
 import PrivatRoute from './components/routing/PrivateRoute';
 
@@ -43,9 +44,9 @@ const App = () => {
     <AuthState>
       <TrainingGroupState>
         <TrainingSessionState>
-        <MemberState>
-          <AlertState>
-            <Router>
+          <MemberState>
+            <AlertState>
+              <Router>
                 <Fragment >
                   <Navbar />
                   <div className="container top">
@@ -60,6 +61,7 @@ const App = () => {
                       < PrivatRoute exact path="/oldSess" component={OldSessions} />
                       < Route exact path="/register" component={Register} />
                       < Route exact path="/login" component={Login} />
+                      < Route exact path="/resetPassword" component={ResetPassword} />
                     </Switch>
                   </div>
                   <TrainingGroupListModal />
@@ -68,11 +70,11 @@ const App = () => {
                   <ClearModalSession />
                 </Fragment>
               </Router>
-          </AlertState>
-        </MemberState>
+            </AlertState>
+          </MemberState>
         </TrainingSessionState>
       </TrainingGroupState>
-    </AuthState> 
+    </AuthState>
   );
 }
 

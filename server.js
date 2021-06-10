@@ -29,6 +29,8 @@ app.use('/api/auth/auth/facebook', require('./routes/auth'));
 app.use('/api/auth/auth/facebook/callback', require('./routes/auth'));
 app.use('/api/auth/auth/google', require('./routes/auth'));
 app.use('/api/auth/auth/google/callback', require('./routes/auth'));
+app.use('/api/auth/request-password-reset', require('./routes/auth'));
+app.use('/api/auth/reset-password', require('./routes/auth'));
 app.use('/api/auth/fail', require('./routes/auth'));
 
 // Define private routes

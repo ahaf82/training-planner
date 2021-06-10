@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const sendEmail = require('../utils/email/sendEmail');
+const mongoose = require('mongoose');
 
 const auth = require('../middleware/auth');
 const passport = require('passport');
@@ -15,6 +18,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const { check, validationResult } = require('express-validator');
 
 const Member = require('../models/Member');
+const Token = require('../models/Token');
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -33,7 +37,7 @@ passport.use(new LocalStrategy({
         if (!isMatch) {
             return res.status(400).json({ msg: 'Ungültiges Passwort' });
         }
-        
+
         const payload = {
             member: {
                 id: member._id,
@@ -54,6 +58,63 @@ passport.use(new LocalStrategy({
 })
 );
 
+const requestPasswordReset = async (email, url) => {
+
+    console.log("reqpasswordreset", email)
+    const member = await Member.findOne({ email });
+    const clientURL = url;
+    const bcryptSalt = 10;
+    console.log("member", email, member, clientURL)
+
+    if (!member) throw new Error("Member does not exist");
+    let token = await Token.findOne({ memberId: member._id });
+    if (token) await token.deleteOne();
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
+
+    await new Token({
+        memberId: member._id,
+        token: hash,
+        createdAt: Date.now(),
+    }).save();
+    console.log("HEXTOK", resetToken)
+    const link = `${clientURL}/api/auth/reset-password?token=${resetToken}&id=${member._id}`;
+    sendEmail(member.email, "Password Reset Request", { name: member.name, link: link, }, "./template/requestResetPassword.handlebars");
+    return link;
+};
+
+
+const resetPassword = async (memberId, token, password, newPassword) => {
+    console.log("im in the reser", token);
+    let passwordResetToken = await Token.findOne({ memberId });
+    if (!passwordResetToken) {
+        throw new Error("Invalid or expired password reset token");
+    }
+    console.log("pwtoken", passwordResetToken);
+    console.log("token", token);
+    const isValid = await bcrypt.compare(token, passwordResetToken.token);
+    console.log("trueValid", isValid)
+    if (!isValid) {
+        throw new Error("Invalid or expired password reset token");
+    }
+    const hash = await bcrypt.hash(password, Number(10));
+    await Member.updateOne(
+        { _id: memberId },
+        { $set: { password: hash } },
+        { new: true }
+    );
+    const member = await Member.findById({ _id: memberId });
+    sendEmail(
+        member.email,
+        "Password Reset Successfully",
+        {
+            name: member.name, password: password
+        },
+        "./template/resetPassword.handlebars"
+    );
+    await passwordResetToken.deleteOne();
+    return true;
+};
 
 // FaceBook
 
@@ -83,7 +144,7 @@ passport.use(new FacebookStrategy({
                     role: member.role
                 }
             }
-            
+
             jwt.sign(payload, config.get('jwtSecret'), {
                 expiresIn: 3600
             }, (error, token) => {
@@ -108,7 +169,7 @@ passport.use(new GoogleStrategy({
     clientID: config.GOOGLE_CLIENT_ID,
     clientSecret: config.GOOGLE_CLIENT_SECRET,
     callbackURL: "/api/auth/auth/google/callback",
-    profileFields: [ "email", "name" ]
+    profileFields: ["email", "name"]
 },
     async (token, tokenSecret, profile, done) => {
         try {
@@ -199,16 +260,16 @@ passport.deserializeUser(function (member, done) {
 // @routes    GET api/auth
 // @desc      Get logged in member
 // @access    Private
-router.get('/', auth, async(req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
-        const member = await Member.findById( req.member._id ).select('-password');
+        const member = await Member.findById(req.member._id).select('-password');
         console.log('Mitglied ist da', member.role)
         res.json(member);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Fehler');
     }
-}); 
+});
 
 // @routes    POST api/auth
 // @desc      Auth member and get token
@@ -225,7 +286,7 @@ router.post('/', [
         }
 
         const { email, password } = req.body;
-        
+
         try {
             console.log('hier');
             let emailUser = email.toLowerCase();
@@ -268,7 +329,7 @@ router.post('/', [
 // @routes    GET api/facebook
 // @desc      Auth facebook member and get token
 // @access    Public
- router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook'));
 
 // @routes    GET api/facebook/callback
 // @desc      Auth facebook member and get token
@@ -291,7 +352,7 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
 // @routes    GET api/google/callback
 // @desc      Auth google member and get token
 // @access    
-router.get('/auth/google/callback', 
+router.get('/auth/google/callback',
     passport.authenticate('google'),
     async (req, res) => {
         console.log('Ich warte hier ein bisschen');
@@ -299,20 +360,47 @@ router.get('/auth/google/callback',
     }
 );
 
+// @routes    GET api/auth/request-password-reset
+// @desc      Get logged in member
+// @access 
+router.post('/request-password-reset', async (req, res) => {
+    try {
+        console.log("request pw reset", req.body.email);
+        const requestPasswordResetService = await requestPasswordReset(
+            req.body.email, req.get('host')
+        );
+        return res.json(requestPasswordResetService);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Fehler');
+    }
+});
+
+// @routes    GET api/auth/reset-password
+// @desc      Get logged in member
+// @access 
+router.get('/reset-password', async (req, res) => {
+    try {
+        console.log("boooday", req.query.id);
+        console.log(req.query.npw);
+        const member = await Member.findOne({ _id: req.query.id });
+        console.log("member", member)
+        const resetPasswordService = await resetPassword(
+            member._id,
+            req.query.token,
+            member.password,
+            req.query.npw
+        );
+        return res.json(resetPasswordService);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Fehler');
+    }
+});
+
 router.get('/fail', (req, res) => {
     console.log('Das hat nicht geklappt');
     res.send('Authentifizierung fehlgeschlagen');
 });
 
 module.exports = router;
-
-// GET /auth/google/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-/*app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/ail' }),
-    function (req, res) {
-        res.redirect('/');
-    });*/

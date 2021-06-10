@@ -49,43 +49,6 @@ const PushNote = () => {
         return outputArray;
     }
 
-    // async function start() {
-    //     if ("serviceWorker" in navigator) {
-    //         const register = await navigator.serviceWorker.register("./custom-sw.js");
-    //         console.log('Service worker in navigator');
-    //         const sw = await navigator.serviceWorker.ready;
-
-    //         // Register Push
-    //         console.log("Registering Push...");
-    //         const subscription = await sw.pushManager.subscribe({
-    //             userVisibleOnly: true,
-    //             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-    //         });
-
-    //         const subscribeData = {
-    //             endpoint: subscription.endpoint,
-    //             expirationTime: 7200,
-    //             keys: {
-    //                 p256dh: subscription.toJSON().keys.p256dh,
-    //                 auth: subscription.toJSON().keys.auth
-    //             }
-    //         };
-
-    //         if (subscription && members) console.log('Ergebnis filter', (members.filter(item => item.endpoint === subscription.endpoint)));
-
-    //         if (subscription.endpoint && members) {
-    //             if (members.filter(item => item.endpoint === subscription.endpoint).length > 0) {
-    //                 setChecked(true);
-    //                 console.log('Endpoint vorhanden: ', subscription.endpoint);
-    //                 console.log(members.filter(item => item.endpoint === subscription.endpoint).length);
-    //             } else {
-    //                 setChecked(false);
-    //                 console.log(members.filter(item => item.endpoint === subscription.endpoint).length);
-    //             }
-    //         }
-    //     }
-    // }
-
     async function start() {
         if ((member.devices.length > 0) && unsubscribe !== null) {
             navigator.serviceWorker.ready
@@ -166,11 +129,6 @@ const PushNote = () => {
     async function send(pushData) {
         // Send Push Notification
         console.log("Sending Push...");
-
-        // console.log(member.role);
-
-        // console.log(members.filter(memb => memb.trainingGroup.map(item => item === trainingGroup) || (member.role === 'admin')));
-        // console.log(members.filter(memb => memb.trainingGroup.map(item => item !== trainingGroup)));
         
         if (trainingGroup) {
             console.log(members.filter(memb => memb.trainingGroup.includes(trainingGroup.trainingGroup) || (memb.role === 'admin')));

@@ -1,13 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
+import ResetPassword from './ResetPassword';
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { login, error, clearErrors, isAuthenticated } = authContext;
+    const { login, error, clearErrors, isAuthenticated, resetPassword } = authContext;
 
     useEffect(() => {
         if(isAuthenticated) {
@@ -46,7 +48,7 @@ const Login = (props) => {
     return (
         <div className='form-container'>
             <h1>
-                <span className='text-dark x-large'>Login</span>
+                <span className='text-dark large'>Login</span>
             </h1>
             <form onSubmit={onSubmit}>
                 <div className='form-group'>
@@ -59,7 +61,11 @@ const Login = (props) => {
                 </div>
                 <input type="submit" value="Login" className="btn btn-dark btn-block" />
             </form>
+            <li>
+                <Link to='/resetPassword'><span className='text-dark small'>Passwort zurücksetzen</span></Link>
+            </li>
         </div>
+        
     )
 }
 

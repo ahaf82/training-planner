@@ -23,6 +23,9 @@ const MemberSchema = mongoose.Schema({
     password: {
         type: String
     },
+    passwordReset: { 
+        type: String, select: false 
+    },
     address: {
         street: {
             type: String
@@ -58,6 +61,9 @@ const MemberSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
+},
+{
+  timestamps: true,
 })
 
 module.exports = mongoose.model('member', MemberSchema);

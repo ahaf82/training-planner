@@ -6,6 +6,7 @@ import setAuthToken from '../../utils/setAuthToken'
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
+    RESET_PASSWORD,
     MEMBER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
@@ -97,6 +98,31 @@ const AuthState = props => {
         }
     }
 
+    //reset Password
+    const resetPassword = async (email) => {   
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };   
+                     
+        try {
+            console.log("tretre");
+            const res = await axios.post('/api/auth/request-password-reset', email, config);
+            console.log("result", res)
+            dispatch({
+                type: RESET_PASSWORD,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error.response.data.msg);
+            dispatch({
+                type: REGISTER_FAIL,
+                payload: error.response.data.msg
+            })
+        }
+    }
+
 
 
     // Logout
@@ -119,7 +145,8 @@ const AuthState = props => {
                 loadMember,
                 login,
                 logout,
-                clearErrors
+                clearErrors,
+                resetPassword
             }}>
             {props.children}
         </AuthContext.Provider>
