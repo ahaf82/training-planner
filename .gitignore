@@ -15,7 +15,7 @@ firebase-messaging.js
 /client/.env.test.local
 /client/.env.production.local
 
-
+.env
 
 /src/components/auth/PrivacyPolicy.js*
 
