@@ -54,7 +54,7 @@ const ResetPassword = (props) => {
                     <label htmlFor='email'>E-Mail Adresse</label>
                     <input type='email' name='email' value={email} onChange={onChange} />
                 </div>
-                <input type="submit" value="Adresse senden" className="btn btn-dark btn-block"/>
+                <input type="submit" value="Abschicken" className="btn btn-dark btn-block"/>
             </form>
         </div>
     )

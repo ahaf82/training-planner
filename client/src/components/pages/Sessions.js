@@ -22,15 +22,12 @@ const Sessions = props => {
     return (
         <div className={`grid-${columns}`}>
             <div className='fixed'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingSessionForm />}
+                {(role === 'admin' || role === 'superUser') && <TrainingSessionForm />}
                 <br/>
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingSessionFilter />}
+                {(role === 'admin' || role === 'superUser') && <TrainingSessionFilter />}
             </div>
             <div className='card-grid-2 card-grid-3'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingSession />}
+                {(role === 'admin' || role === 'superUser') && <TrainingSession />}
             </div>
         </div>
     )

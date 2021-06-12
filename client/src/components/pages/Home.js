@@ -59,25 +59,18 @@ const Home = props => {
                             filterTrainingSessions(actualDate);
                         }} /> }
                     <br/>
-                    {(role === 'admin' || role === 'superUser') &&
-                        <TrainingSessionFilter /> }
-                    {(role === 'member' || role === 'trainer') &&
-                        <TrainingSession /> }
+                    {(role === 'admin' || role === 'superUser') && <TrainingSessionFilter /> }
+                    {(role === 'member' || role === 'trainer') && <TrainingSession /> }
                     {role === 'none' &&
                         <h2 className="text-dark large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
-                    {(role === 'member' || role === 'trainer') &&
-                        <PushNote />}                    
-                    {(role === 'admin' || role === 'superUser') &&
-                        <PushNoteAd />}
+                    {(role === 'member' || role === 'trainer') && <PushNote /> }                    
+                    {(role === 'admin' || role === 'superUser') && <PushNoteAd /> }
                 </div>
             </div>
             <div className='card-grid-3'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <PushNote />}
-                {(role === 'admin' || role === 'superUser') &&
-                    <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
-                {(role === 'admin' || role === 'superUser') &&
-                    <HomeSessions /> }
+                {(role === 'admin' || role === 'superUser') && <PushNote />}
+                {(role === 'admin' || role === 'superUser') && <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
+                {(role === 'admin' || role === 'superUser') && <HomeSessions /> }
             </div>
         </div>
     )

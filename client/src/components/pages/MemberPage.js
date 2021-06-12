@@ -22,16 +22,12 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div className='fixed'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <MemberForm />
-                }
+                {(role === 'admin' || role === 'superUser') && <MemberForm /> }
                 <br/>
-                {(role === 'admin' || role === 'superUser') &&
-                    <MemberFilter />}
+                {(role === 'admin' || role === 'superUser') && <MemberFilter /> }
             </div>
             <div className='card-grid-2 card-grid-3'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <Member />}
+                {(role === 'admin' || role === 'superUser') && <Member /> }
             </div>
         </div>
     )

@@ -22,15 +22,12 @@ const Groups = props => {
     return (
         <div className={`grid-${columns}`}>
             <div className='fixed'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingGroupForm />}
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingGroupFilter />}
+                {(role === 'admin' || role === 'superUser') && <TrainingGroupForm />}
+                {(role === 'admin' || role === 'superUser') && <TrainingGroupFilter />}
             <br/>
             </div>
             <div className='card-grid-2 card-grid-3'>
-                {(role === 'admin' || role === 'superUser') &&
-                    <TrainingGroups />}
+                {(role === 'admin' || role === 'superUser') && <TrainingGroups />}
             </div>
         </div>
     )

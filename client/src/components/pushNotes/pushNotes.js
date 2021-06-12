@@ -5,9 +5,6 @@ import MemberContext from '../../context/member/memberContext';
 import TrainingGroupOptions from '../trainingSessions/TrainingGroupOptions';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-// import { messaging } from "../../init-fcm";
-// import { compose, lifecycle, withHandlers, withState } from "recompose";
-
 const PushNote = () => {
     const authContext = useContext(AuthContext);
     const { member } = authContext;
@@ -195,89 +192,3 @@ const PushNote = () => {
 };
 
 export default PushNote;
-
-
-
-// <div class='switch'>
-//     <label>
-//         Nein
-//                             <input type="checkbox" name="role" value={checked} onClick={onChange} />
-//         <span class="lever"></span>
-//                             Ja
-//                         </label>
-// </div>
-
-// Firebase Notifications
-
-    // <div className="card bg-light">
-    //     <h1>React + Firebase Cloud Messaging (Push Notifications)</h1>
-    //     <div>
-    //         Current token is: <p>{token}</p>
-    //     </div>
-    //     <ul>
-    //         Notifications List:
-    //         {notifications.map(renderNotification)}
-    //     </ul>
-    // </div>
-
-// export const requestFirebaseNotificationPermission = () =>
-//     new Promise((resolve, reject) => {
-//         messaging
-//             .requestPermission()
-//             .then(() => messaging.getToken())
-//             .then((firebaseToken) => {
-//                 resolve(firebaseToken);
-//             })
-//             .catch((err) => {
-//                 reject(err);
-//             });
-//     });
-
-// export const onMessageListener = () =>
-//     new Promise((resolve) => {
-//         messaging.onMessage((payload) => {
-//             resolve(payload);
-//         });
-//     });
-
-// const renderNotification = (notification, i) => <li key={i}>{notification}</li>;
-
-// const registerPushListener = pushNotification =>
-//     navigator.serviceWorker.addEventListener("message", ({ data }) =>
-//         pushNotification(
-//             data.data
-//                 ? data.data.message
-//                 : data["firebase-messaging-msg-data"].data.message
-//         )
-//     );
-
-
-// export default compose(
-//     withState("token", "setToken", ""),
-//     withState("notifications", "setNotifications", []),
-//     withHandlers({
-//         pushNotification: ({
-//             setNotifications,
-//             notifications
-//         }) => newNotification =>
-//                 setNotifications(notifications.concat(newNotification))
-//     }),
-//     lifecycle({
-//         async componentDidMount() {
-//             const { pushNotification, setToken } = this.props;
-
-//             messaging
-//                 .requestPermission()
-//                 .then(async function () {
-//                     const token = await messaging.getToken();
-//                     console.log(token);
-//                     setToken(token);
-//                 })
-//                 .catch(function (err) {
-//                     console.log("Unable to get permission to notify.", err);
-//                 });
-
-//             registerPushListener(pushNotification);
-//         }
-//     })
-// )(PushNote);
