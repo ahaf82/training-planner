@@ -79,7 +79,7 @@ const requestPasswordReset = async (email, url) => {
     }).save();
     console.log("HEXTOK", resetToken)
     const link = `${clientURL}/api/auth/reset-password?token=${resetToken}&id=${member._id}`;
-    sendEmail(member.email, "Password Reset Request", { name: member.name, link: link, }, "./template/requestResetPassword.handlebars");
+    sendEmail(member.email, "Rücksetzung deines Passworts", { name: member.name, link: link, }, "./template/requestResetPassword.handlebars");
     return link;
 };
 
@@ -106,7 +106,7 @@ const resetPassword = async (memberId, token, password, newPassword) => {
     const member = await Member.findById({ _id: memberId });
     sendEmail(
         member.email,
-        "Password Reset Successfully",
+        "Du hast dein Passwort erfolgreich zruückgesetzt",
         {
             name: member.name, password: password
         },
