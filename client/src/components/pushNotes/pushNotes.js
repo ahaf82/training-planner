@@ -66,12 +66,16 @@ const PushNote = () => {
         const sw = await navigator.serviceWorker.ready;
 
         // Register Push
-        console.log("Registering Push...");
+        console.log("Registering Push...", _id, email);
+        console.log(sw);
+        console.log(publicVapidKey);
+        console.log(urlBase64ToUint8Array(publicVapidKey));
         const subscription = await sw.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
         });
-
+        
+        console.log("subscription", subscription);
         const subscribeData = {
             endpoint: subscription.endpoint,
             expirationTime: 7200,
@@ -80,6 +84,8 @@ const PushNote = () => {
                 auth: subscription.toJSON().keys.auth
             }
         };
+
+        console.log("subscribeData", subscribeData);
 
         const updMember = {
             _id,
@@ -176,14 +182,14 @@ const PushNote = () => {
             </div>}
             {(role === 'admin' || role === 'superUser') &&
             <div className="card bg-light">
-                {/* <div className="input-field">
+                {<div className="input-field">
                     <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup}>
                         <option value="" disabled selected>
                             Trainingsgruppe...
                     </option>
                         <TrainingGroupOptions />
                     </select>
-                </div> */}
+                </div>  }
                 <input type="text" placeholder="Sende Nachricht" name="pushData" value={pushData} onChange={onChangeInput} /> 
                 <button className="btn btn-dark btn-sm" variant="warning" onClick={(e) => send(pushData)}>Sende Push-Nachricht</button> 
             </div> }
