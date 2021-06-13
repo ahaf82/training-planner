@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import MemberPage from './components/pages/MemberPage';
@@ -35,46 +36,54 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  const [shouldRefresh, setShouldRefresh] = useState(false);
   useEffect(() => {
     // Initializes Materialize JS
     M.AutoInit();
+    const id = setTimeout(
+      () => setShouldRefresh(true), 
+      1000 * 60 * 60 * 6 // 6 hours in milliseconds
+    );
+    return () => clearTimeout(id);
   });
 
   return (
-    <AuthState>
-      <TrainingGroupState>
-        <TrainingSessionState>
-          <MemberState>
-            <AlertState>
-              <Router>
-                <Fragment >
-                  <Navbar />
-                  <div className="container top">
-                    <Alerts />
-                    <Switch>
-                      < PrivatRoute exact path="/" component={Home} />
-                      < Route exact path="/about" component={About} />
-                      {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
-                      < PrivatRoute exact path="/sessions" component={Sessions} />
-                      < PrivatRoute exact path="/memberPage" component={MemberPage} />
-                      < PrivatRoute exact path="/groups" component={Groups} />
-                      < PrivatRoute exact path="/oldSess" component={OldSessions} />
-                      < Route exact path="/register" component={Register} />
-                      < Route exact path="/login" component={Login} />
-                      < Route exact path="/resetPassword" component={ResetPassword} />
-                    </Switch>
-                  </div>
-                  <TrainingGroupListModal />
-                  <ClearModalMember />
-                  <ClearModalGroup />
-                  <ClearModalSession />
-                </Fragment>
-              </Router>
-            </AlertState>
-          </MemberState>
-        </TrainingSessionState>
-      </TrainingGroupState>
-    </AuthState>
+    <BrowserRouter forceRefresh={shouldRefresh}>
+      <AuthState>
+        <TrainingGroupState>
+          <TrainingSessionState>
+            <MemberState>
+              <AlertState>
+                <Router>
+                  <Fragment >
+                    <Navbar />
+                    <div className="container top">
+                      <Alerts />
+                      <Switch>
+                        < PrivatRoute exact path="/" component={Home} />
+                        < Route exact path="/about" component={About} />
+                        {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
+                        < PrivatRoute exact path="/sessions" component={Sessions} />
+                        < PrivatRoute exact path="/memberPage" component={MemberPage} />
+                        < PrivatRoute exact path="/groups" component={Groups} />
+                        < PrivatRoute exact path="/oldSess" component={OldSessions} />
+                        < Route exact path="/register" component={Register} />
+                        < Route exact path="/login" component={Login} />
+                        < Route exact path="/resetPassword" component={ResetPassword} />
+                      </Switch>
+                    </div>
+                    <TrainingGroupListModal />
+                    <ClearModalMember />
+                    <ClearModalGroup />
+                    <ClearModalSession />
+                  </Fragment>
+                </Router>
+              </AlertState>
+            </MemberState>
+          </TrainingSessionState>
+        </TrainingGroupState>
+      </AuthState>
+    </BrowserRouter>
   );
 }
 
