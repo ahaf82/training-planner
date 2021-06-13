@@ -41,6 +41,7 @@ const ResetPassword = (props) => {
             resetPassword({
                 email
             });
+            setAlert('Wir haben dir eine Mail zum Zurücksetzen des Passworts zugesendet', 'dark');
         }
     }
 

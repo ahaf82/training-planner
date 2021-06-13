@@ -106,7 +106,7 @@ const resetPassword = async (memberId, token, password, newPassword) => {
     const member = await Member.findById({ _id: memberId });
     sendEmail(
         member.email,
-        "Du hast dein Passwort erfolgreich zruückgesetzt",
+        "Du hast dein Passwort erfolgreich zurückgesetzt",
         {
             name: member.name, password: password
         },
@@ -367,7 +367,7 @@ router.post('/request-password-reset', async (req, res) => {
     try {
         console.log("request pw reset", req.body.email);
         const requestPasswordResetService = await requestPasswordReset(
-            req.body.email, req.get('host')
+            req.body.email.toLowerCase(), req.get('host')
         );
         return res.json(requestPasswordResetService);
     } catch (error) {

@@ -107,7 +107,6 @@ const AuthState = props => {
         };   
                      
         try {
-            console.log("tretre");
             const res = await axios.post('/api/auth/request-password-reset', email, config);
             console.log("result", res)
             dispatch({
