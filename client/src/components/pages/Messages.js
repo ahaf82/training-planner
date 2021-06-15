@@ -1,8 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import SimpleReactCalendar from 'simple-react-calendar';
-import TrainingSession from '../trainingSessions/TrainingSessions';
-import HomeSessions from '../trainingSessions/HomeSessions';
-import TrainingSessionFilter from '../trainingSessions/TrainingSessionFilter';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
 import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
@@ -16,7 +13,7 @@ import 'moment/locale/de';
 
 Moment.globalLocale = 'de';
 
-const Home = props => {
+const Messages = props => {
     const authContext = useContext(AuthContext);
     const { role } = authContext;
 
@@ -50,7 +47,7 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div>
-                <div className='center-cal'>
+                <div className='center-cal fixed'>
                     {(role === 'admin' || role === 'superUser') &&
                         <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
                     {(role === 'admin' || role === 'superUser') &&
@@ -59,20 +56,15 @@ const Home = props => {
                             filterTrainingSessions(actualDate);
                         }} /> }
                     <br/>
-                    {(role === 'admin' || role === 'superUser') && <TrainingSessionFilter /> }
-                    {(role === 'member' || role === 'trainer') && <TrainingSession /> }
-                    {role === 'none' &&
-                        <h2 className="text-dark large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
                     {(role === 'member' || role === 'trainer') && <PushNote /> }                    
                     {(role === 'admin' || role === 'superUser') && <PushNoteAd /> }
                 </div>
             </div>
             <div className='card-grid-3'>
-                {(role === 'admin' || role === 'superUser') && <h4 className="text-dark large center">Kommende Trainingseinheiten:</h4>}
-                {(role === 'admin' || role === 'superUser') && <HomeSessions /> }
+                {(role === 'admin' || role === 'superUser') && <PushNote />}
             </div>
         </div>
     )
 }
 
-export default Home;
+export default Messages;

@@ -48,9 +48,13 @@ const PushNote = () => {
 
     async function start() {
         if ((member.devices.length > 0) && unsubscribe !== null) {
+            console.log(navigator.serviceWorker)
             navigator.serviceWorker.ready
                 .then(function (registration) {
-                    return registration.pushManager.getSubscription();
+                    if (!!registration.pushManager) {
+                        return registration.pushManager.getSubscription();
+                    }
+                    return registration.safari.pushNotification()
                 }).then(function (subscription) {
                     if (subscription && member.devices.filter(item => item.endpoint === subscription.endpoint) !== '') {
                         console.log('true');
@@ -63,19 +67,28 @@ const PushNote = () => {
     async function subscribe() {
         const register = await navigator.serviceWorker.register(`/custom-sw.js`);
 
+        console.log("reg", register)
         const sw = await navigator.serviceWorker.ready;
 
         // Register Push
         console.log("Registering Push...", _id, email);
-        console.log(sw);
-        console.log(publicVapidKey);
-        console.log(urlBase64ToUint8Array(publicVapidKey));
-        const subscription = await sw.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-        });
+        console.log("service worker", sw);
+        console.log("reg", register);
+        let subscription;
+        if (!!sw.pushManager) {
+            subscription = await sw.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+            });
+        } else {
+            console.log("sw", sw)
+            subscription = await sw.safari.pushNotification({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+            })
+        }
         
-        console.log("subscription", subscription);
+        console.log("subscription");
         const subscribeData = {
             endpoint: subscription.endpoint,
             expirationTime: 7200,
@@ -183,8 +196,8 @@ const PushNote = () => {
             {(role === 'admin' || role === 'superUser') &&
             <div className="card bg-light">
                 {<div className="input-field">
-                    <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup}>
-                        <option value="" disabled selected>
+                    <select name="trainingGroup" key={trainingGroupContext._id} value={trainingGroupContext._id} className="browser-default" onChange={onChangeGroup} defaultValue="">
+                        <option value="" disabled>
                             Trainingsgruppe...
                     </option>
                         <TrainingGroupOptions />

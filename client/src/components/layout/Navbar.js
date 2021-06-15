@@ -37,6 +37,10 @@ const Navbar = ({ title, icon }) => {
             </li>}            
             {(role === 'admin' || role === 'superUser') &&
             <li>
+                <Link to='/messages'><i className="fa fa-envelope-open-text" aria-hidden="true"></i><span className="hide-sm"> Nachrichten</span></Link>
+            </li>}            
+            {(role === 'admin' || role === 'superUser') &&
+            <li>
                 <Link to='/memberPage'><i className="fa fa-user-circle" aria-hidden="true"></i><span className="hide-sm"> Mitglieder</span></Link>
             </li>}            
             {(role === 'admin' || role === 'superUser') &&
