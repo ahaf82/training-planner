@@ -23,10 +23,9 @@ const Navbar = ({ title, icon }) => {
     
     const authLinks = (
         <Fragment>
-            {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/'><i className="fa fa-list-alt" aria-hidden="true"></i><span className="hide-sm"> Übersicht</span></Link>
-            </li>}            
+            </li>
             {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/sessions'><i className="fa fa-calendar" aria-hidden="true"></i><span className="hide-sm"> Trainingsplanung</span></Link>
@@ -38,11 +37,11 @@ const Navbar = ({ title, icon }) => {
             {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/messages'><i className="fa fa-envelope-open-text" aria-hidden="true"></i><span className="hide-sm"> Nachrichten</span></Link>
-            </li>}            
-            {(role === 'admin' || role === 'superUser') &&
+            </li>}
+            {(role === 'admin' || role === 'superUser') &&         
             <li>
                 <Link to='/memberPage'><i className="fa fa-user-circle" aria-hidden="true"></i><span className="hide-sm"> Mitglieder</span></Link>
-            </li>}            
+            </li>}
             {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/oldSess'><i class="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>

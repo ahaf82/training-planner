@@ -60,7 +60,21 @@ const MemberSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    familyMember: [{
+        name: {
+            type: String,
+            required: true
+        },
+        trainingGroup: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'trainingGroup'
+        }],
+        trainingSessions: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'trainingSession'
+        }]
+    }]
 },
 {
   timestamps: true,

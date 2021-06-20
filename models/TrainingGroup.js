@@ -7,6 +7,9 @@ const TrainingGroupSchema = mongoose.Schema({
     },
     members: [{
         type: mongoose.Schema.Types.ObjectId,
+        familyMember: [{
+            type: mongoose.Types.ObjectId
+        }],
         ref: 'member'
     }], 
     trainingSessions: [{

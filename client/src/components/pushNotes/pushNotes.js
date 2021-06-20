@@ -48,7 +48,6 @@ const PushNote = () => {
 
     async function start() {
         if ((member.devices.length > 0) && unsubscribe !== null) {
-            console.log(navigator.serviceWorker)
             navigator.serviceWorker.ready
                 .then(function (registration) {
                     if (!!registration.pushManager) {

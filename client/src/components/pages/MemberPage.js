@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Member from '../member/Members';
 import MemberForm from '../member/MemberForm';
+import EditOwnData from '../member/EditOwnData';
 import MemberFilter from '../member/MemberFilter';
 import AuthContext from '../../context/auth/authContext';
 
@@ -22,7 +23,12 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div className='fixed'>
-                {(role === 'admin' || role === 'superUser') && <MemberForm /> }
+
+                {(role === 'admin' || role === 'superUser') &&
+                    <MemberForm />}
+
+                {(role === 'trainer' || role === 'member' || role === 'none') &&
+                    <EditOwnData />}
                 <br/>
                 {(role === 'admin' || role === 'superUser') && <MemberFilter /> }
             </div>

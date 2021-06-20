@@ -4,7 +4,6 @@ node_modules/
 /settings
 /client/build/fire.js
 /client/build/request.js
-/client/build/training-planner-bafd0*
 /client/build/init-fcm.js
 
 pushVariable.js

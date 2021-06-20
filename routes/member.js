@@ -38,6 +38,7 @@ router.post('/', [
                 password,
                 trainingGroup: [],
                 trainingSessions: [],
+                familyMember: [],
                 role: "none"
             });
 
@@ -94,7 +95,7 @@ router.get("/", auth, async (req, res) => {
 // @desc      Update member
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    const { name, email, role, trainingGroup, trainingSessions, devices } = req.body;
+    const { name, email, role, trainingGroup, trainingSessions, familyMember, devices } = req.body;
 
     // Build member object
     const memberFields = {};
@@ -103,6 +104,7 @@ router.put("/:_id", auth, async (req, res) => {
     if (trainingGroup) memberFields.trainingGroup = trainingGroup;
     if (role) memberFields.role = role;
     if (trainingSessions) memberFields.trainingSessions = trainingSessions;
+    if (familyMember) memberFields.familyMember = familyMember;
     if (devices) memberFields.devices = devices;
     try {
         let editMember = await Member.findById(req.params._id);
