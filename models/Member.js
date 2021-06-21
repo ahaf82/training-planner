@@ -45,9 +45,6 @@ const MemberSchema = mongoose.Schema({
         endpoint: {
             type: String
         },
-        expirationTime: {
-            type: String
-        },
         keys: {
             p256dh: {
                 type: String

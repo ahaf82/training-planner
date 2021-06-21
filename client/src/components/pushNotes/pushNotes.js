@@ -90,7 +90,6 @@ const PushNote = () => {
         console.log("subscription");
         const subscribeData = {
             endpoint: subscription.endpoint,
-            expirationTime: 7200,
             keys: {
                 p256dh: subscription.toJSON().keys.p256dh,
                 auth: subscription.toJSON().keys.auth
