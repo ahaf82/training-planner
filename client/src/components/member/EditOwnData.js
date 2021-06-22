@@ -1,122 +1,78 @@
 import React, { useState, useContext, useEffect } from 'react';
+import AlertContext from '../../context/alert/alertContext';
 import MemberContext from '../../context/member/memberContext';
 import AuthContext from '../../context/auth/authContext';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const EditOwnData = () => {    
-    const authContext = useContext(AuthContext);
+const EditOwnData = () => {
+    const alertContext = useContext(AlertContext);
+    const { setAlert } = alertContext;
 
+    const authContext = useContext(AuthContext);
+    
     const memberContext = useContext(MemberContext);
-    const { updateMember, clearCurrent, current } = memberContext;
+    const { updateMember } = memberContext;
+
+    const subuser = { name: "" }
 
     const [member, setMember] = useState({
         name: "",
         email: "",
         role: "",
         trainingGroup: [],
-        trainingSessions: []
+        trainingSessions: [],
+        familyMember: []
     });
     
-    const { name, email, role } = member;
-    
-    const [checked, setChecked] = useState(true);
-    const [checkedTrainer, setCheckedTrainer] = useState(false);
-    const [familyMember, setFamilyMember] = useState([]);
-    
     useEffect(() => {
-        if (authContext.member !== null) {
-            setMember(authContext.member);
-            if (authContext.member.role === 'trainer') {
-                setCheckedTrainer(true);
-            }
-        } else {
-            setMember({
-              name: "",
-              email: "",
-              role: "",
-              trainingGroup: [],
-              trainingSessions: []
-            });
-        }
-    }, [memberContext, current]);
+        setMember(authContext.member);
+    }, [authContext.member]);
 
     useEffect(() => {
         authContext.loadMember();
         // eslint-disable-next-line
     }, []);
 
+    const onChange = e => setMember( authContext.member.familyMember, [ ...authContext.member.familyMember, { name: e.target.value } ] ); 
 
     const onSubmit = e => {
         e.preventDefault();
-        if (email === '') {
-            M.toast({ html: 'Bitte eine gültige E-Mail Adresse eingeben', classes: 'red darken-1', displayLength: 1500 });
-        } else {
-            checked === true ? current.role = "none" : current.role = "member";
-            checkedTrainer === true ? current.role = "trainer" : current.role = "member";
-            console.log(checkedTrainer);
-            
-            const updMember = {
-                _id: current._id,
-                name,
-                email,
-                role: current.role,
-                trainingGroup: current.trainingGroup,
-                familyMember: current.familyMember,
-                date: new Date()
-            }
-            
-            updateMember(updMember);
-        }
-    }
 
-    const clearAll = () => {
-        clearCurrent();
+        if (member.name == "") return M.toast({ html: 'Bitte gib einen Namen ein...', classes: 'red darken-1', displayLength: 1500 });
+
+        const updMember = {
+            _id: authContext.member._id,
+            name: authContext.member.name,
+            email: authContext.member.email,
+            role: authContext.member.role,
+            trainingGroup: authContext.member.trainingGroup,
+            trainingSessions: authContext.member.trainingSessions,
+            familyMember: authContext.member.familyMember.push({ 
+                name: subuser.name,
+                role: "none"
+            }),
+            date: new Date()
+        }
+        
+        updateMember(updMember);
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <h2 className="text-dark large">Mitglied ändern</h2>
-            <h2 className="text-dark large">{name}</h2>
-            {role === "none" && 
-                <div className="switch">
-                    Berechtigung
-                <label>
-                        :  kein Mitglied
-                    <input type="checkbox" name="role" value={checked} onClick={() => setChecked(!checked)} />
-                        <span class="lever"></span>
-                    Mitglied
-                </label>
-                </div>}
-            <br />        
-            {(role === "member" || role === "trainer") &&     
-            <div class='switch'>
-                <label>
-                    Mitglied 
-                    <input type="checkbox" name="role" value={checkedTrainer} onClick={() => setCheckedTrainer(!checkedTrainer)} />
-                    <span class="lever"></span>
-                    Trainer
-                </label>
-            </div>}
-            <br />
-            <div>
-                <a href="#trainingGroup-list-modal" className="btn btn-dark btn-block modal-trigger">
-                    Trainingsgruppen
-                </a>
-            </div>
-            {current && <div>
-                {(role === "none" || role === "member" || role === "trainer") && <div>
-                    <br/>
-                    <a href="#clear-modal-member" className="btn btn-danger btn-block modal-trigger">
-                        Löschen
-                    </a>
-                    <input type="submit" value={'Mitglied aktualisieren'} className="btn btn-primary btn-block"/>
-                </div>}
-                <br/>
-                <div>
-                    <button className="btn btn-light btn-block" onClick={clearAll}>Formular leeren</button>
+        <div>
+            <form onSubmit={onSubmit}>
+                <h2 className="text-dark large">Familienmitglied hinzufügen oder löschen</h2>
+                <div className='form-group'>
+                    <label htmlFor='name'>Name</label>
+                    <input type='text' name='subuser.name' value={subuser.name} onChange={onChange} />
                 </div>
-            </div>}
-        </form>
+                <input type="submit" value="Unternutzer hinzufügen" className="btn btn-dark btn-block"/>
+                {authContext.member.familyMember !== null && authContext.member.familyMember.map(familyMember => (
+                    <li>
+                        <div>{familyMember.name}</div>
+                    </li>
+                ))}
+            </form>
+        </div>
     )
 }
 

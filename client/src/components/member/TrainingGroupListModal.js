@@ -34,7 +34,8 @@ const TrainingGroupListModal = () => {
         email: "",
         role: "",
         trainingGroup: [],
-        trainingSessions: []
+        trainingSessions: [],
+        familyMember: []
     });
     
     const { name, email } = member;
