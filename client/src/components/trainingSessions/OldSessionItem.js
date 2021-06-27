@@ -46,7 +46,13 @@ const OldSessionItem = ({ session }) => {
     // Convert ObjectMember Id to Name
     let sessionMembers;
     if (memberContext.members) {
-        sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
+        // console.log("context", memberContext.members);
+        let subMembers = [ ...memberContext.members.filter(element => element.familyMember.length > 0).map(element => element.familyMember).flat(1) ];
+        // console.log("subs", subMembers);
+        let sessionSubMembers = subMembers.filter(obj => session.members.includes(obj._id));
+        // console.log("groupsubs", sessionSubMembers);
+        sessionMembers = [ ...memberContext.members.filter(element => session.members.includes(element._id)), ...sessionSubMembers ];     
+        // sessionMembers = [...new Set(memberContext.members.filter(element => session.members.includes(element._id)))];
     }
 
     // Convert ObjectTrainer Id to Name

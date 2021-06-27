@@ -20,7 +20,7 @@ const MemberState = props => {
         members: null,
         current: null,
         filtered: null,
-        error: null 
+        error: null
     };
 
     const [state, dispatch] = useReducer(memberReducer, initialState);
@@ -55,14 +55,14 @@ const MemberState = props => {
             console.log(res.data);
             dispatch({
                 type: ADD_MEMBER,
-                payload: res.data 
+                payload: res.data
             });
         } catch (error) {
             dispatch({
                 type: MEMBER_ERROR,
                 payload: error.response.msg
             })
-            
+
         }
     };
 
@@ -115,15 +115,16 @@ const MemberState = props => {
     }
 
     // Set Current 
-     const setCurrent = member => {
-       dispatch({ type: SET_CURRENT, payload: member });
-     };
-   
+    const setCurrent = member => {
+        console.log(member);
+        dispatch({ type: SET_CURRENT, payload: member });
+    };
+
     // Clear Current Member
-     const clearCurrent = () => {
-       dispatch({ type: CLEAR_CURRENT });
-     };
-   
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT });
+    };
+
     // Filter Members
     const filterMembers = (text) => {
         dispatch({ type: FILTER_MEMBERS, payload: text });
@@ -136,9 +137,9 @@ const MemberState = props => {
     };
 
 
-    return(
+    return (
         <MemberContext.Provider
-            value = {{
+            value={{
                 members: state.members,
                 current: state.current,
                 filtered: state.filtered,
@@ -153,7 +154,7 @@ const MemberState = props => {
                 getMembers,
                 clearMembers
             }}>
-            { props.children }
+            {props.children}
         </MemberContext.Provider>
     )
 };

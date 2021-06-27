@@ -118,6 +118,15 @@ img {
     margin: 0.5rem;
 }
 
+/* Dropdown */
+
+.dropdown-member {
+    padding: 1rem;
+    border: none;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
 
 /* List */
 
@@ -127,6 +136,15 @@ img {
 
 .list li {
     padding-bottom: 0.3rem;
+}
+
+.list-block {
+    display: block;
+}
+
+.list-button {
+    float: right;
+    margin-right: 0.2em;
 }
 
 
@@ -197,6 +215,10 @@ img {
 
 .my-3 {
     margin: 3rem 0;
+}
+
+.mt-2 {
+    margin-top: 1.5em;
 }
 
 

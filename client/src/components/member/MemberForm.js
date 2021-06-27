@@ -78,7 +78,7 @@ const MemberForm = () => {
                 </label>
                 </div>}
             <br />        
-            {(role === "member" || role === "trainer") &&     
+            {(role === "member" || role === "trainer") &&  !!member.email &&   
             <div class='switch'>
                 <label>
                     Mitglied 

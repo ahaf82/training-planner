@@ -32,9 +32,16 @@ const Member = () => {
                     </CSSTransition>
                 )) 
                 : members.map(member => (
-                    <CSSTransition key={member._id} timeout={300} classNames="item">
-                    <MemberItem member={member} />
-                    </CSSTransition>
+                    <Fragment>
+                        <CSSTransition key={member._id} timeout={300} classNames="item">
+                        <MemberItem member={member} />
+                        </CSSTransition>
+                        {member.familyMember !== null && member.familyMember.map(subuser => (
+                            <CSSTransition key={subuser._id} timeout={300} classNames="item">
+                            <MemberItem member={subuser} />
+                            </CSSTransition>
+                        ))}
+                    </Fragment>
                 ))}
                 </TransitionGroup>
                 ) : <Spinner />}

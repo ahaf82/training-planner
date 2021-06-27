@@ -23,7 +23,6 @@ const Home = props => {
     return (
         <div className={`grid-${columns}`}>
             <div className='fixed'>
-
                 {(role === 'admin' || role === 'superUser') &&
                     <MemberForm />}
 

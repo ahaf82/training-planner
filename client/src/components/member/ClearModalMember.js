@@ -37,6 +37,7 @@ const ClearModalMember = () => {
     const onDelete = () => {
         deleteMember(current._id);
         clearCurrent();
+        window.location.reload();
     }
 
     return (

@@ -38,13 +38,13 @@ const Navbar = ({ title, icon }) => {
             <li>
                 <Link to='/messages'><i className="fa fa-envelope-open-text" aria-hidden="true"></i><span className="hide-sm"> Nachrichten</span></Link>
             </li>}
-            {(role === 'admin' || role === 'superUser') &&
+            {/* {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/memberPage'><i className="fa fa-user-circle" aria-hidden="true"></i><span className="hide-sm"> Mitglieder</span></Link>
-            </li>}
-            {/* <li>
+            </li>} */}
+            <li>
                 <Link to='/memberPage'><i className="fa fa-user-circle" aria-hidden="true"></i><span className="hide-sm"> Mitglieder</span></Link>
-            </li> */}
+            </li>
             {(role === 'admin' || role === 'superUser') &&
             <li>
                 <Link to='/oldSess'><i class="fa fa-reply-all" aria-hidden="true"></i><span className="hide-sm"> Alte Einträge</span></Link>

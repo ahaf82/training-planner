@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
@@ -25,8 +25,15 @@ const TrainingGroupItem = ({ group }) => {
 
     // Convert Object Id to Name
     let groupMembers;
+    let subMembers = members.filter(element => element.familyMember.length > 0).map(element => element.familyMember)[0];
+    let groupSubMembers = subMembers.filter(obj => group.members.includes(obj._id));
+    console.log(groupSubMembers);
+
     if (members) {
-        groupMembers = [...new Set(members.filter(element => group.members.includes(element._id)))];
+        groupMembers = [ ...members.filter(element => group.members.includes(element._id)), ...groupSubMembers]
+        // groupMembers = [...new Set(members.filter(element => group.members.includes(element._id)), ...groupSubMembers)];
+        groupMembers = [...new Set(groupMembers)];
+        console.log("groups", groupMembers);
     }
 
     return (
@@ -38,7 +45,9 @@ const TrainingGroupItem = ({ group }) => {
                     </h3>
                     {groupMembers && <div>
                         <i className="fa fa-user"></i> Mitglieder:
-                            {groupMembers.map(member => <li key={member._id}>{member.name}</li>)}
+                            {groupMembers.map(member => (
+                                <li key={member._id}>{member.name}</li>
+                            ))}
                     </div>}
                     <p>
                         <button className="btn btn-dark btn-sm" onClick={() => setCurrent(group)}>Ändern</button>

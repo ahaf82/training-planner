@@ -67,6 +67,12 @@ const MemberSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'trainingGroup'
         }],
+        role: {
+            type: String,
+            required: true,
+            default: "none",
+            enum: ["none", "member", "trainer", "admin", "superUser"]
+        },  
         trainingSessions: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'trainingSession'

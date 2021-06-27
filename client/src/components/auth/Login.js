@@ -2,14 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
-import ResetPassword from './ResetPassword';
+// import ResetPassword from './ResetPassword';
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { login, error, clearErrors, isAuthenticated, resetPassword } = authContext;
+    const { login, error, clearErrors, isAuthenticated } = authContext;
 
     useEffect(() => {
         if(isAuthenticated) {

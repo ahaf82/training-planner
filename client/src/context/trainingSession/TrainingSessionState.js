@@ -29,6 +29,8 @@ const TrainingSessionState = props => {
     const getTrainingSessions = async () => {
         try {
             const res = await axios.get('/api/training-session');
+
+            console.log("sessions", res.data);
             
             dispatch({
                 type: GET_TRAININGSESSIONS,
