@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import MemberContext from '../../context/member/memberContext';
 import AuthContext from '../../context/auth/authContext';
+import PushNote from '../pushNotes/pushNotes';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const EditOwnData = () => {
@@ -99,6 +100,7 @@ const EditOwnData = () => {
                     </li>
                 </div>
             ))}
+            {(authContext.member.role === 'member' || authContext.member.role === 'trainer') && <PushNote /> }       
         </div>
     )
 }

@@ -63,7 +63,7 @@ const Home = props => {
                     {(role === 'member' || role === 'trainer') && <TrainingSession /> }
                     {role === 'none' &&
                         <h2 className="text-dark large">Melde dich bei deinem Trainer, damit er dich eincheckt</h2>}
-                    {(role === 'member' || role === 'trainer') && <PushNote /> }                    
+                    {/* {(role === 'member' || role === 'trainer') && <PushNote /> }                     */}
                     {(role === 'admin' || role === 'superUser') && <PushNoteAd /> }
                 </div>
             </div>
