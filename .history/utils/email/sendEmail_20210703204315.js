@@ -9,7 +9,7 @@ const sendEmail = async (email, subject, payload, template) => {
 		// create reusable transporter object using the default SMTP transport
 		console.log("now in the nodemailer")
 		const transporter = nodemailer.createTransport({
-			host: process.env.EMAIL_HOST || "localhost:5050",
+			host: process.env.EMAIL_HOST || "localhost:50",
 			port: 465,
 			auth: {
 				user: process.env.EMAIL_USERNAME,
