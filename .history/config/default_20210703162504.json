@@ -1,0 +1,9 @@
+{
+  "mongoURI": "
+  mongodb+srv://ahaf82:@cluster0.wucbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "Dostrid",
+  "FACEBOOK_APP_ID": "qwerer",
+  "FACEBOOK_APP_SECRET": "qrewqre",
+  "GOOGLE_CLIENT_ID": "qerwreq",
+  "GOOGLE_CLIENT_SECRET": "qrewrqe"
+}

@@ -1,0 +1,8 @@
+{
+  "mongoURI": "mongodb+srv://Guest:GuestSession@cluster0.wucbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "ownSecret",
+  "FACEBOOK_APP_ID": "qwerer",
+  "FACEBOOK_APP_SECRET": "qrewqre",
+  "GOOGLE_CLIENT_ID": "1007573378490-nagjgdqd4boq5btohp89ief0kd",
+  "GOOGLE_CLIENT_SECRET": "qrewrqe"
+}

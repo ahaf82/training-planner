@@ -1,0 +1,8 @@
+{
+  "mongoURI": "mongodb+srv://kentai-admin:Lutzinator_01@kentai.e4nq2.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "Dostrid",
+  "FACEBOOK_APP_ID": "qwerer",
+  "FACEBOOK_APP_SECRET": "qrewqre",
+  "GOOGLE_CLIENT_ID": "qerwreq",
+  "GOOGLE_CLIENT_SECRET": "qrewrqe"
+}

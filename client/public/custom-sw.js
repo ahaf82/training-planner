@@ -43,7 +43,7 @@ self.addEventListener('push', function (e) {
     },
     actions: [
       {
-        action: 'explore', title: 'Zum Training-Planner',
+        action: 'explore', title: 'Zum Training Planer',
         icon: 'images/checkmark.png'
       },
       {
@@ -53,6 +53,6 @@ self.addEventListener('push', function (e) {
     ]
   };
   e.waitUntil(
-    self.registration.showNotification('Training Planner', options)
+    self.registration.showNotification('Training Planer', options)
   );
 });
