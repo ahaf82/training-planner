@@ -64,7 +64,9 @@ const OldSessionItem = ({ session }) => {
     return (
         <div className='column'>
             <div className={'card bg-light card-content'}>
-                <h3 className={'text-dark text-left large'}>
+
+                <h3 className={'text-primary text-left large'}>
+                  
                     {description}{' '}
                 </h3>
                 <ul className="list">
