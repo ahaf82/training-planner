@@ -1,4 +1,4 @@
-# Training-planner
+# Training-Planer
 
 Please scroll down for description in English. Thank you!
 
