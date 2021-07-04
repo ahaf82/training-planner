@@ -15,44 +15,44 @@ Der Administrator ist die einzige Rolle, die in der MongoDB-Datenbank zugewiesen
 Der Administrator kann auf der Trainingsgruppenseite, Trainingsgruppen erstellen. 
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Gruppen.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Gruppen.png"></kbd>
 <br/><br/>
 
 Für jede Trainingsgruppe sind dann Trainingseinheiten mit Beschreibung der Trainingseinheit, Trainer, Beginn- und Endzeit sowie bei Bedarf einer Höchstgrenze an Teilnehmern auf der Trainingseinheitenseite erstellbar.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Einheit.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Einheit.png"></kbd>
 <br/><br/>
 
 Einfache Benutzer können sich mit Namen, E-Mail Adresse und Passwort registrieren, zusätzlich können auch Familienmitglieder angelegt werden. 
 
 <br/>
-<kbd><img src="client/descriptPics/Familienmitgliedereingabe.PNG"></kbd>
+<kbd><img src="client/descriptPics/Familienmitgliedereingabe.png"></kbd>
 <br/><br/>
 
 Der Administrator weist diesen dann auf der Mitgliederseite die Benutzerrolle zu und teilt das neue Mitglied dann in die gewünschten Trainingsgruppen ein. Alternativ kann jedes Mitglied nach der Zuweisung der Mitgliedsrolle auch die Rolle als Trainer zugewiesen bekommen und für eine Trainingseinheit als Trainer eingeteilt werden.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Mitglieder.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Mitglieder.png"></kbd>
 <br/><br/>
 
 Wenn ein Mitglied in eine Trainingsgruppe eingeteilt ist, kann es in seinem Account die geplanten Trainingseinheiten der zugeteilten Trainingsgruppen sehen und sich über einen Switch-Button an- und abmelden. Das Kärtchen mit der Trainingseinheit wechselt beim Ein- und Auschecken zur besseren Übersicht die Farbe. Bei einer voreingestellten Maximalteilnehmeranzahl ist dies nur bis zu dieser Teilnehmerzahl möglich.
 
 <br/>
-<kbd><img src="client/descriptPics/User-Trainingseinheiten.PNG"></kbd>
-<kbd><img src="client/descriptPics/User-Familienmitglied eingecheckt.PNG"></kbd>
+<kbd><img src="client/descriptPics/User-Trainingseinheiten.png"></kbd>
+<kbd><img src="client/descriptPics/User-Familienmitglied eingecheckt.png"></kbd>
 <br/><br/>
 
 Der Administrator kann in seiner Übersicht sehen, wie viele Leute und wer sich für eine Trainingseinheit eingecheckt hat. Außerdem hat er in der Übersicht einen Kalender an dem er die Trainingseinheiten des jeweiligen Tages überblicken kann.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Uebersicht.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Uebersicht.png"></kbd>
 <br/><br/>
 
 Alte Trainingseinheiten verschwinden aus dem Überblick von Administrator und Mitglied. Es gibt einen Reiter mit den vergangenen Trainingseinheiten im admin-Bereich. Dort können die alten Trainingseinheiten vom Administrator eingesehen sowie als Excel-Liste exportiert werden. Ein Löschen aus der Datenbank ist dort ebenfalls möglich.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Alte-Einheiten.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Alte-Einheiten.png"></kbd>
 <br/><br/>
 
 In Bearbeitung ist derzeit eine Versorgung mit E-Mails über Registrierung von neuen Mitgliedern als Hinweis für den admin sowie als Information über neu erstellte oder abgesagte Trainingseinheiten für die Mitglieder, sowie Eingabe eines eigenen Passworts beim Zurücksetzen.
@@ -112,26 +112,26 @@ The admin-role is the only role, which has to be set in the MongoDB database.
 The admins can create training groups. 
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Gruppen.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Gruppen.png"></kbd>
 <br/><br/>
 
 For each training group training sessions with description, trainer, date, begin- and endtime can be created by the admins.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Einheit.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Einheit.png"></kbd>
 <br/><br/>
 
 Members should be able to register via e-mail address and password, later via Google or Facebook. First they have no role and no rights (none). They have to be set to member by an admin. Then they can be put into the created training groups.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Mitglieder.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Mitglieder.png"></kbd>
 <br/><br/>
 
 When members are put into a training group they can subscribe to the sessions of the respective training-group. 
 
 <br/>
-<kbd><img src="client/descriptPics/User-Trainingseinheiten.PNG"></kbd>
-<kbd><img src="client/descriptPics/User-Familienmitglied eingecheckt.PNG"></kbd>
+<kbd><img src="client/descriptPics/User-Trainingseinheiten.png"></kbd>
+<kbd><img src="client/descriptPics/User-Familienmitglied eingecheckt.png"></kbd>
 <br/><br/>
 
 The training-session can be set to a maximum of members who can subscribe by the admins.
@@ -141,13 +141,13 @@ The admin can see the training sessions of a training group and who subscribed t
 There is also an overview for the admins with a calendar and the actual training sessions.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Uebersicht.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Uebersicht.png"></kbd>
 <br/><br/>
 
 A list with old sessions can be seen and exported as excel-file.
 
 <br/>
-<kbd><img src="client/descriptPics/Training-Planer-Alte-Einheiten.PNG"></kbd>
+<kbd><img src="client/descriptPics/Training-Planer-Alte-Einheiten.png"></kbd>
 <br/><br/>
 
 
