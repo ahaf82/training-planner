@@ -18,7 +18,7 @@ Der Administrator kann auf der Trainingsgruppenseite, Trainingsgruppen erstellen
 <kbd><img src="client/descriptPics/Training-Planner-Einheit.PNG"></kbd>
 <br/><br/>
 
-Einfache Benutzer können sich mit Namen, E-Mail Adresse und Passwort registrieren (In Planung ist auch die Registrierung mit Google, Twitter und Facebook). Der Administrator weist diesen dann auf der Mitgliederseite der Benutzerrolle Mitglied zu und teilt das neue Mitglied dann in die gewünschten Trainingsgruppen ein. Alternativ kann jedes Mitglied nach der Zuweisung der Mitgliedsrolle auch die Rolle als Trainer zugewiesen bekommen und für eine Trainingseinheit als Trainer eingeteilt werden.
+Einfache Benutzer können sich mit Namen, E-Mail Adresse und Passwort registrieren, zusätzlich können auch Familienmitglieder angelegt werden. Der Administrator weist diesen dann auf der Mitgliederseite die Benutzerrolle zu und teilt das neue Mitglied dann in die gewünschten Trainingsgruppen ein. Alternativ kann jedes Mitglied nach der Zuweisung der Mitgliedsrolle auch die Rolle als Trainer zugewiesen bekommen und für eine Trainingseinheit als Trainer eingeteilt werden.
 
 <br/>
 <kbd><img src="client/descriptPics/Training-Planner-Mitglieder.PNG"></kbd>
@@ -42,20 +42,30 @@ Alte Trainingseinheiten verschwinden aus dem Überblick von Administrator und Mi
 <kbd><img src="client/descriptPics/Training-Planner-Alte-Einheiten.PNG"></kbd>
 <br/><br/>
 
-In Bearbeitung ist derzeit eine Versorgung mit Push-Nachrichten über Registrierung von neuen Mitgliedern als Hinweis für den admin sowie als Information über neu erstellte oder abgesagte Trainingseinheiten für die Mitglieder.
+In Bearbeitung ist derzeit eine Versorgung mit E-Mails über Registrierung von neuen Mitgliedern als Hinweis für den admin sowie als Information über neu erstellte oder abgesagte Trainingseinheiten für die Mitglieder, sowie Eingabe eines eigenen Passworts beim Zurücksetzen.
 
 </br>
 
-### Link zum aktuellen Fortschritt der App auf Heroku:
+### Link zum aktuellen Fortschritt der App:
 
-https://fierce-journey-98537.herokuapp.com/
+https://training-planer.de/
 
-Zum Testen als Administrator registriere dich mit:
+Zum Testen als Administrator registriere dich mit
 
 E-Mail: admin@admin.com,
 PW: adminUser_01
 
-oder als einfacher Benutzer mit Namen, E-Mail Adresse und Passwort
+als Trainer mit:
+
+E-Mail: trainer@test.com,
+PW: Trainertest_01
+
+als normaler Nutzer mit:
+
+E-Mail: user@test.com,
+PW: Usertest_01
+
+oder registriere dich selbst als einfachen Benutzer mit Namen, E-Mail Adresse und Passwort
 
 </br>
 
@@ -123,12 +133,22 @@ A list with old sessions can be seen and exported as excel-file.
 
 ### Link to the actual Progress of the app on Heroku:
 
-https://fierce-journey-98537.herokuapp.com/
+https://training-planer.de/
 
 You can register with your own data or use admin rights with:
 
 E-Mail: admin@admin.com,
 PW: adminUser_01
+
+use trainer rights with:
+
+E-Mail: trainer@test.com,
+PW: Trainertest_01
+
+or use user rights witch:
+
+E-Mail: user@test.com,
+PW: Usertest_01
 
 </br>
 
