@@ -25,7 +25,8 @@ const TrainingGroupItem = ({ group }) => {
 
     // Convert Object Id to Name
     let groupMembers;
-    let subMembers = members.filter(element => element.familyMember.length > 0).map(element => element.familyMember)[0];
+    let subMembers = [];
+    if (members !== undefined) subMembers = members.filter(element => element.familyMember.length > 0).map(element => element.familyMember)[0];
     let groupSubMembers = subMembers.filter(obj => group.members.includes(obj._id));
     console.log(groupSubMembers);
 

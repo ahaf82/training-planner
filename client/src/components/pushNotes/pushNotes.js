@@ -171,7 +171,15 @@ const PushNote = () => {
                     headers: {
                         "content-type": "application/json"
                     }
-                });
+                })
+                .then(async response => {
+                    console.log("resp", response);
+                    if (response.status == 410) {
+                        await unsubscribe();
+                        await subscribe();
+                        console.log("subscription renewed");
+                    }
+                })
                 console.log("Push Sent...");
             }));
         }
