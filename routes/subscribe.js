@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
     const subscription = req.body;
 
     // Send 201 - resource created
-    // res.status(201).json({});
+    res.status(201).json({});
 
     // Create payload
     const payload = subscription.payload;
@@ -32,13 +32,14 @@ router.post("/", async (req, res) => {
     // Pass object into sendNotification
     webpush
         .sendNotification(subscription, payload)
-        .then(response => console.log("res", response))
-        .catch(err => {
-            if(err.statusCode == 410) {
-                res.status(410).json({});
-            }
-            else console.log(err)
-        });
+        .catch(err => console.error(err));
+        // .then(response => console.log("res", response))
+        // .catch(err => {
+        //     if(err.statusCode == 410) {
+        //         res.status(410).json({});
+        //     }
+        //     else console.log(err)
+        // });
 });
 
 module.exports = router;
