@@ -78,26 +78,27 @@ const requestPasswordReset = async (email, url) => {
         createdAt: Date.now(),
     }).save();
     console.log("HEXTOK", resetToken)
-    const link = `${clientURL}/api/auth/reset-password?token=${resetToken}&id=${member._id}`;
+    // const link = `${clientURL}/api/auth/reset-password?token=${resetToken}&id=${member._id}`;
+    const link = `${clientURL}/newPassword?token=${resetToken}&id=${member._id}`;
     sendEmail(member.email, "Rücksetzung deines Passworts", { name: member.name, link: link, }, "./template/requestResetPassword.handlebars");
     return link;
 };
 
 
-const resetPassword = async (memberId, token, password, newPassword) => {
+const resetPassword = async (memberId, token, newPassword) => {
     console.log("im in the reser", token);
     let passwordResetToken = await Token.findOne({ memberId });
     if (!passwordResetToken) {
         throw new Error("Invalid or expired password reset token");
     }
-    console.log("pwtoken", passwordResetToken);
-    console.log("token", token);
+    // console.log("pwtoken", passwordResetToken);
+    // console.log("token", token);
     const isValid = await bcrypt.compare(token, passwordResetToken.token);
-    console.log("trueValid", isValid)
+    // console.log("trueValid", isValid)
     if (!isValid) {
         throw new Error("Invalid or expired password reset token");
     }
-    const hash = await bcrypt.hash(password, Number(10));
+    const hash = await bcrypt.hash(newPassword, Number(10));
     await Member.updateOne(
         { _id: memberId },
         { $set: { password: hash } },
@@ -108,7 +109,7 @@ const resetPassword = async (memberId, token, password, newPassword) => {
         member.email,
         "Du hast dein Passwort erfolgreich zurückgesetzt",
         {
-            name: member.name, password: password
+            name: member.name, password: newPassword
         },
         "./template/resetPassword.handlebars"
     );
@@ -365,9 +366,10 @@ router.get('/auth/google/callback',
 // @access 
 router.post('/request-password-reset', async (req, res) => {
     try {
-        console.log("request pw reset", req.body.email);
+        // console.log("request pw reset", req.body.email);
+        // console.log("request pw reset", req.body.url);
         const requestPasswordResetService = await requestPasswordReset(
-            req.body.email.toLowerCase(), req.get('host')
+            req.body.email.toLowerCase(), req.body.url
         );
         return res.json(requestPasswordResetService);
     } catch (error) {
@@ -379,17 +381,17 @@ router.post('/request-password-reset', async (req, res) => {
 // @routes    GET api/auth/reset-password
 // @desc      Get logged in member
 // @access 
-router.get('/reset-password', async (req, res) => {
+router.post('/reset-password', async (req, res) => {
     try {
-        console.log("boooday", req.query.id);
-        console.log(req.query.npw);
-        const member = await Member.findOne({ _id: req.query.id });
-        console.log("member", member)
+        // console.log("dataqu", req.body);
+        // console.log(req.query.npw);
+
+        const member = await Member.findOne({ _id: req.body.data.id });
+        // console.log("member", member)
         const resetPasswordService = await resetPassword(
             member._id,
-            req.query.token,
-            member.password,
-            req.query.npw
+            req.body.data.token,
+            req.body.data.password
         );
         return res.json(resetPasswordService);
     } catch (error) {

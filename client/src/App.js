@@ -18,6 +18,7 @@ import ClearModalMember from './components/member/ClearModalMember';
 import ClearModalGroup from './components/trainingGroups/ClearModalGroup';
 import ClearModalSession from './components/trainingSessions/ClearModalSession';
 import ResetPassword from './components/auth/ResetPassword';
+import NewPassword from './components/auth/NewPassword';
 
 import PrivatRoute from './components/routing/PrivateRoute';
 
@@ -72,6 +73,7 @@ const App = () => {
                         < Route exact path="/register" component={Register} />
                         < Route exact path="/login" component={Login} />
                         < Route exact path="/resetPassword" component={ResetPassword} />
+                        < Route path="/newPassword" component={NewPassword} />
                       </Switch>
                     </div>
                     <TrainingGroupListModal />

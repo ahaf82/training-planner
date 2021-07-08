@@ -23,7 +23,7 @@ self.addEventListener('notificationclick', function (e) {
   }
 });
 
-self.addEventListener('push', function (e) {
+self.addEventListener('push', async function (e) {
   var body;
   console.log('received...')
 
@@ -53,7 +53,7 @@ self.addEventListener('push', function (e) {
     ]
   };
   e.waitUntil(
-    self.registration.showNotification('Kentai-Plan', options)
+    await new Promise(self.registration.showNotification('Kentai-Plan', options))
   );
 });
 
