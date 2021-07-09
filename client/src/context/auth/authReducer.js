@@ -8,6 +8,7 @@ import {
     LOGOUT,
     RESET_PASSWORD,
     CLEAR_ERRORS,
+    NEW_PASSWORD,
 } from '../types';
 
 export default(state, action) => {
@@ -22,6 +23,7 @@ export default(state, action) => {
             }
         case REGISTER_SUCCESS:
         case RESET_PASSWORD:
+        case NEW_PASSWORD:
         case LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload.token);
             return {

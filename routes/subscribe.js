@@ -32,13 +32,14 @@ router.post("/", async (req, res) => {
     // Pass object into sendNotification
     webpush
         .sendNotification(subscription, payload)
-        .then(response => console.log("res", response))
-        .catch(err => {
-            if(err.statusCode == 410) {
-                res.status(410).json({});
-            }
-            else console.log(err)
-        });
+        .catch(err => console.error(err));
+        // .then(response => console.log("res", response))
+        // .catch(err => {
+        //     if(err.statusCode == 410) {
+        //         res.status(410).json({});
+        //     }
+        //     else console.log(err)
+        // });
 });
 
 module.exports = router;

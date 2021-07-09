@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -8,6 +9,8 @@ const ResetPassword = (props) => {
 
     const { setAlert } = alertContext;
     const { resetPassword, error, clearErrors } = authContext;
+
+    const history = useHistory();
 
     // useEffect(() => {
     //     if(isAuthenticated) {
@@ -42,6 +45,7 @@ const ResetPassword = (props) => {
                 email
             });
             setAlert('Wir haben dir eine Mail zum Zurücksetzen des Passworts zugesendet', 'dark');
+            history.push("/login");
         }
     }
 

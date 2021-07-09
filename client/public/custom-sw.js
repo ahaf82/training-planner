@@ -23,7 +23,7 @@ self.addEventListener('notificationclick', function (e) {
   }
 });
 
-self.addEventListener('push', function (e) {
+self.addEventListener('push', async function (e) {
   var body;
   console.log('received...')
 
@@ -53,6 +53,23 @@ self.addEventListener('push', function (e) {
     ]
   };
   e.waitUntil(
-    self.registration.showNotification('Training Planer', options)
+    await new Promise(self.registration.showNotification('Kentai-Plan', options))
+  );
+});
+
+self.addEventListener('pushsubscriptionchange', function (event) {
+  console.log('Subscription expired');
+  event.waitUntil(
+    self.registration.pushManager.subscribe({ userVisibleOnly: true })
+      .then(function (subscription) {
+        console.log('Subscribed after expiration', subscription.endpoint);
+        return fetch("/subscribe", {
+          method: "POST",
+          body: JSON.stringify(element),
+          headers: {
+              "content-type": "application/json"
+          }
+      });
+      })
   );
 });

@@ -7,6 +7,7 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     RESET_PASSWORD,
+    NEW_PASSWORD,
     MEMBER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
@@ -104,7 +105,9 @@ const AuthState = props => {
             headers: {
                 'Content-Type': 'application/json'
             }
-        };   
+        };
+
+        email.url = window.location.origin;
                      
         try {
             const res = await axios.post('/api/auth/request-password-reset', email, config);
@@ -122,6 +125,29 @@ const AuthState = props => {
         }
     }
 
+    // set new password
+    const newPassword = async (data) => {   
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        console.log("data in state", data)
+        try {
+            const res = await axios.post('/api/auth/reset-password', data, config);
+            console.log("result", res)
+            dispatch({
+                type: NEW_PASSWORD,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error.response.data.msg);
+            dispatch({
+                type: REGISTER_FAIL,
+                payload: error.response.data.msg
+            })
+        }
+    }
 
 
     // Logout
@@ -145,7 +171,8 @@ const AuthState = props => {
                 login,
                 logout,
                 clearErrors,
-                resetPassword
+                resetPassword,
+                newPassword
             }}>
             {props.children}
         </AuthContext.Provider>

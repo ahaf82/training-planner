@@ -103,6 +103,7 @@ const PushNote = () => {
             email,
             devices: [...member.devices, subscribeData]
         }
+        console.log("subscribe member", updMember)
 
         if (member.devices.includes(subscription.endpoint) === false) {
             updateMember(updMember);    
@@ -123,7 +124,7 @@ const PushNote = () => {
                                 email,
                                 devices: member.devices.filter(element => element.endpoint !== subscription.endpoint)
                             }
-                            
+                            console.log("unsubscribe member", unsubscribeMember)
                             updateMember(unsubscribeMember);
                         });
                     };
@@ -171,15 +172,26 @@ const PushNote = () => {
                     headers: {
                         "content-type": "application/json"
                     }
-                })
-                .then(async response => {
-                    console.log("resp", response);
-                    if (response.status == 410) {
-                        await unsubscribe();
-                        await subscribe();
-                        console.log("subscription renewed");
-                    }
-                })
+                });
+                // .then(async response => {
+                //     console.log("resp", response);
+                //     if (response.status === 410) {
+                //         await unsubscribe();
+                //         await subscribe();
+                //         console.log("subscription renewed");
+                //         await fetch("/subscribe", {
+                //             method: "POST",
+                //             body: JSON.stringify(item),
+                //             headers: {
+                //                 "content-type": "application/json"
+                //             }
+                //         })
+                //         .then(async response => {
+                //             console.log("resp", response);
+                //             console.log("Push Sent again...");
+                //         });
+                //     }
+                // })
                 console.log("Push Sent...");
             }));
         }
