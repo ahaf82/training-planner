@@ -19,8 +19,11 @@ const MemberForm = () => {
     const [checked, setChecked] = useState(true);
     const [checkedTrainer, setCheckedTrainer] = useState(false);
     
+    const [mail, setMail] = useState(false);
+    
     useEffect(() => {
         if (current !== null) {
+            if (current.role === "none") setMail(true);
             setMember(current);
             if (current.role === 'trainer') {
                 setCheckedTrainer(true);
@@ -55,7 +58,13 @@ const MemberForm = () => {
                 date: new Date()
             }
             
+            if ((current.role === "member" || current.role === "trainer") && mail === true) updMember.sendMail = true;
+            console.log("uopdme", updMember);
+            console.log("roole", current.role);
+            console.log("mail", mail);
+            
             updateMember(updMember);
+            setMail(false);
         }
     }
 
@@ -88,11 +97,12 @@ const MemberForm = () => {
                 </label>
             </div>}
             <br />
+            {(role === "member" || role === "trainer") &&
             <div>
                 <a href="#trainingGroup-list-modal" className="btn btn-dark btn-block modal-trigger">
                     Trainingsgruppen
                 </a>
-            </div>
+            </div>}
             {current && <div>
                 {(role === "none" || role === "member" || role === "trainer") && <div>
                     <br/>

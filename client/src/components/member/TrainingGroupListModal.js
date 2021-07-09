@@ -12,9 +12,12 @@ const TrainingGroupListModal = () => {
     
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup, getTrainingGroups, updateTrainingGroup } = trainingGroupContext;
+
+    const [mail, setMail] = useState(false);
     
     useEffect(() => {
         if (current !== null) {
+            if (current.role === "none") setMail(true);
             setMember(current);
         } else {
             setMember({
@@ -67,23 +70,18 @@ const TrainingGroupListModal = () => {
             const updMember = {
                 _id: current._id,
                 name,
-                email,
+                email: current.email,
                 role: current.role,
                 trainingGroup: member.trainingGroup,
                 date: new Date()
             }
             
+            if ((current.role === "member" || current.role === "trainer") && mail === true) updMember.sendMail = true;
             updateMember(updMember);
-            // console.log("upodmemb", updateMember);
-            // console.log("upodmemb", member);
-            // console.log("memberid", member._id);
-            // console.log("currentid", current._id);
+            setMail(false);
 
             // Update members in trainingGroups
             trainingGroup.map((item) => {
-                // console.log("before item", item);
-                // console.log("before traininggroup filter bool", member.trainingGroup.filter(element => element === item._id) != '');
-                // console.log("before item", member.trainingGroup.filter(element => element === item._id));
                 if (member.trainingGroup.filter(element => element === item._id) != '') {
                     console.log('add: ' + member.trainingGroup.filter(element => element === item._id));
                 	updateTrainingGroup({ _id: item._id, members: [...item.members, current._id] })

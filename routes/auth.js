@@ -208,47 +208,6 @@ passport.use(new GoogleStrategy({
     })
 );
 
-// Twitter
-/*
-passport.use(new TwitterStrategy({
-    consumerKey: TWITTER_CONSUMER_KEY,
-    consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://www.example.com/auth/twitter/callback"
-},
-    function (token, tokenSecret, profile, done) {
-        try {
-            let member = await Member.findOne({ email: profile.emails.value })
-
-            if (!member) {
-                return res.status(400).json({ msg: 'Ungültige E-Mail Adresse' });
-            }
-
-            const isMatch = await bcrypt.compare(password, member.password);
-
-            if (!isMatch) {
-                return res.status(400).json({ msg: 'Ungültiges Passwort' });
-            }
-
-            const payload = {
-                member: {
-                    id: member._id,
-                    role: member.role
-                }
-            }
-
-            jwt.sign(payload, config.get('jwtSecret'), {
-                expiresIn: 360000
-            }, (error, token) => {
-                if (error) throw error;
-                res.send({ token });
-            });
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).send('Server Error');
-        }
-    })
-);*/
-
 
 passport.serializeUser(function (member, done) {
     done(null, member);
