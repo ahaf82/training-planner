@@ -1,14 +1,13 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import MemberContext from '../../context/member/memberContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 const MemberItem = ({ member }) => {
     const memberContext = useContext(MemberContext);
-    const { deleteMember, setCurrent, clearCurrent } = memberContext;
+    const { setCurrent } = memberContext;
 
-    const { _id, name, email, role } = member;
+    const { name, email, role } = member;
 
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { trainingGroup } = trainingGroupContext;

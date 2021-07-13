@@ -17,6 +17,7 @@ import TrainingGroupListModal from './components/member/TrainingGroupListModal';
 import ClearModalMember from './components/member/ClearModalMember';
 import ClearModalGroup from './components/trainingGroups/ClearModalGroup';
 import ClearModalSession from './components/trainingSessions/ClearModalSession';
+import ClearModalEmail from './components/emails/ClearModalEmail';
 import ResetPassword from './components/auth/ResetPassword';
 import NewPassword from './components/auth/NewPassword';
 
@@ -28,6 +29,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import TrainingGroupState from './context/trainingGroup/TrainingGroupState';
 import TrainingSessionState from './context/trainingSession/TrainingSessionState';
 import MemberState from './context/member/MemberState';
+import EmailState from './context/email/EmailState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
 import setAuthToken from './utils/setAuthToken';
@@ -55,34 +57,37 @@ const App = () => {
         <TrainingGroupState>
           <TrainingSessionState>
             <MemberState>
-              <AlertState>
-                <Router>
-                  <Fragment >
-                    <Navbar />
-                    <div className="container top">
-                      <Alerts />
-                      <Switch>
-                        < PrivatRoute exact path="/" component={Home} />
-                        < Route exact path="/about" component={About} />
-                        {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
-                        < PrivatRoute exact path="/sessions" component={Sessions} />
-                        < PrivatRoute exact path="/messages" component={Messages} />
-                        < PrivatRoute exact path="/memberPage" component={MemberPage} />
-                        < PrivatRoute exact path="/groups" component={Groups} />
-                        < PrivatRoute exact path="/oldSess" component={OldSessions} />
-                        < Route exact path="/register" component={Register} />
-                        < Route exact path="/login" component={Login} />
-                        < Route exact path="/resetPassword" component={ResetPassword} />
-                        < Route path="/newPassword" component={NewPassword} />
-                      </Switch>
-                    </div>
-                    <TrainingGroupListModal />
-                    <ClearModalMember />
-                    <ClearModalGroup />
-                    <ClearModalSession />
-                  </Fragment>
-                </Router>
-              </AlertState>
+              <EmailState>
+                <AlertState>
+                  <Router>
+                    <Fragment >
+                      <Navbar />
+                      <div className="container top">
+                        <Alerts />
+                        <Switch>
+                          < PrivatRoute exact path="/" component={Home} />
+                          < Route exact path="/about" component={About} />
+                          {/* < Route exact path="/policy" component={PrivacyPolicy} /> */}
+                          < PrivatRoute exact path="/sessions" component={Sessions} />
+                          < PrivatRoute exact path="/messages" component={Messages} />
+                          < PrivatRoute exact path="/memberPage" component={MemberPage} />
+                          < PrivatRoute exact path="/groups" component={Groups} />
+                          < PrivatRoute exact path="/oldSess" component={OldSessions} />
+                          < Route exact path="/register" component={Register} />
+                          < Route exact path="/login" component={Login} />
+                          < Route exact path="/resetPassword" component={ResetPassword} />
+                          < Route path="/newPassword" component={NewPassword} />
+                        </Switch>
+                      </div>
+                      <TrainingGroupListModal />
+                      <ClearModalMember />
+                      <ClearModalGroup />
+                      <ClearModalSession />
+                      <ClearModalEmail />
+                    </Fragment>
+                  </Router>
+                </AlertState>
+              </EmailState>
             </MemberState>
           </TrainingSessionState>
         </TrainingGroupState>

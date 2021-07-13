@@ -9,6 +9,7 @@ const { check, validationResult } = require('express-validator');
 const util = require('util');
 
 const Member = require('../models/Member');
+const sendEmail = require('../utils/email/sendEmail');
 
 // @routes    POST api/member
 // @desc      Register a member
@@ -49,6 +50,20 @@ router.post('/', [
             member.password = await bcrypt.hash(password, salt);
 
             await member.save();
+
+            const adminMails = [ { mail: "info@kentai-plan.de", firstName: "Armin" }, { mail: "Lubehrla@gmail.com", firstName: "Lutz" } ];
+
+            for (let admin of adminMails) {
+                sendEmail(
+                    admin.mail,
+                    "Ein neues Mitglied hat sich angemeldet",
+                    {
+                        adminName: admin.firstName,
+                        name: member.name
+                    },
+                    "./template/infoToCheckInMember.handlebars"
+                )
+            }
 
             const payload = {
                 member: {
@@ -97,21 +112,8 @@ router.get("/", auth, async (req, res) => {
 // @desc      Update member
 // @access    Private
 router.put("/:_id", auth, async (req, res) => {
-    // const { name, email, role, trainingGroup, trainingSessions, familyMember, devices } = req.body;
 
-    // // Build member object
-    // const memberFields = {};
-    // if (name) memberFields.name = name;
-    // if (email) memberFields.email = email;
-    // if (trainingGroup) memberFields.trainingGroup = trainingGroup;
-    // if (role) memberFields.role = role;
-    // if (trainingSessions) memberFields.trainingSessions = trainingSessions;
-    // if (familyMember) memberFields.familyMember = familyMember;
-    // if (devices) memberFields.devices = devices;
     try {
-        // let editMember = await Member.findById(req.params._id);
-
-        // if (!editMember) return res.status(404).json({ msg: 'Mitglied nicht gefunden' });
 
         let memberArray = [];
         let subuser = false;
@@ -181,6 +183,20 @@ router.put("/:_id", auth, async (req, res) => {
         member = await Member.findByIdAndUpdate(req.params._id,
             { $set: memberFields },
             { new: true });
+
+        console.log("bodyreq", req.body);
+        console.log("email", email);
+        if (req.body.sendMail !== undefined && req.body.sendMail == true) {
+            console.log("mail will be sent", email);
+            sendEmail(
+                email,
+                "Du bist eingecheckt",
+                {
+                    name: member.name
+                },
+                "./template/checkedInMember.handlebars"
+            )
+        }
 
         res.json(member);
     } catch (error) {

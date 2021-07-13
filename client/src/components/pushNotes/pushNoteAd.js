@@ -85,6 +85,7 @@ const PushNoteAd = () => {
                 devices: [...member.devices, subscribeData]
             }
 
+            console.log("member subscription endpoint", member.devices.includes(subscription.endpoint), subscription.endpoint);
             if (member.devices.includes(subscription.endpoint) === false) {
                 updateMember(updMember);
             }

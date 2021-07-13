@@ -2,14 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import SimpleReactCalendar from 'simple-react-calendar';
 import AuthContext from '../../context/auth/authContext';
 import MemberContext from '../../context/member/memberContext';
-import TrainingSessionContext from '../../context/trainingSession/trainingSessionContext';
 import TrainingGroupContext from '../../context/trainingGroup/trainingGroupContext';
+import EmailForm from '../emails/EmailForm';
 import PushNote from '../pushNotes/pushNotes';
 import PushNoteAd from '../pushNotes/pushNoteAd';
 // import request from '../../request';
 import Moment from 'react-moment';
 import moment from 'moment';
 import 'moment/locale/de';
+import Email from '../emails/Emails';
 
 Moment.globalLocale = 'de';
 
@@ -23,14 +24,9 @@ const Messages = props => {
     const trainingGroupContext = useContext(TrainingGroupContext);
     const { getTrainingGroups } = trainingGroupContext;
 
-    const trainingSessionContext = useContext(TrainingSessionContext);
-    const { filterTrainingSessions, getTrainingSessions } = trainingSessionContext;
-
-
     useEffect(() => {
         authContext.loadMember();
         getTrainingGroups();
-        getTrainingSessions();
         getMembers();
         // eslint-disable-next-line
     }, []);
@@ -45,24 +41,13 @@ const Messages = props => {
     }
 
     return (
-        <div className={`grid-${columns}`}>
-            <div>
-                <div className='center-cal fixed'>
-                    {(role === 'admin' || role === 'superUser') &&
-                        <h4 className="text-dark large center">Trainingseinheiten am:</h4>}
-                    {(role === 'admin' || role === 'superUser') &&
-                        <SimpleReactCalendar activeMonth={new Date()} daysOfWeek={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']} onSelect={(e) => {
-                            const actualDate = moment(e).format('YYYY-MM-DD');
-                            filterTrainingSessions(actualDate);
-                        }} /> }
-                    <br/>
-                    {(role === 'member' || role === 'trainer') && <PushNote /> }                    
-                    {(role === 'admin' || role === 'superUser') && <PushNoteAd /> }
-                </div>
-            </div>
-            <div className='card-grid-3'>
-                {(role === 'admin' || role === 'superUser') && <PushNote />}
-            </div>
+        <div>
+            {(role === 'admin' || role === 'superUser') && 
+            <PushNote />}
+            {(role === 'admin' || role === 'superUser') && 
+            <EmailForm />}
+            {(role === 'admin' || role === 'superUser') &&
+            <Email /> }
         </div>
     )
 }
