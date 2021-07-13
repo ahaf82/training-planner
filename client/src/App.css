@@ -392,6 +392,10 @@ textarea {
     border: 1px solid #ccc;
 }
 
+.textfield {
+    height: 15%;
+}
+
 input[type='submit'],
 button {
     font: inherit;

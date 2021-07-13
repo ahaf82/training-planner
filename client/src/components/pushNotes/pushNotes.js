@@ -172,33 +172,33 @@ const PushNote = () => {
                     headers: {
                         "content-type": "application/json"
                     }
-                });
-                // .then(async response => {
-                //     console.log("resp", response);
-                //     if (response.status === 410) {
-                //         await unsubscribe();
-                //         await subscribe();
-                //         console.log("subscription renewed");
-                //         await fetch("/subscribe", {
-                //             method: "POST",
-                //             body: JSON.stringify(item),
-                //             headers: {
-                //                 "content-type": "application/json"
-                //             }
-                //         })
-                //         .then(async response => {
-                //             console.log("resp", response);
-                //             console.log("Push Sent again...");
-                //         });
-                //     }
-                // })
+                })
+                .then(async response => {
+                    console.log("resp", response);
+                    if (response.status === 410) {
+                        // await unsubscribe();
+                        await subscribe();
+                        console.log("subscription renewed");
+                        await fetch("/subscribe", {
+                            method: "POST",
+                            body: JSON.stringify(item),
+                            headers: {
+                                "content-type": "application/json"
+                            }
+                        })
+                        .then(async response => {
+                            console.log("resp", response);
+                            console.log("Push Sent again...");
+                        });
+                    }
+                })
                 console.log("Push Sent...");
             }));
         }
     }
 
     return (
-        <div className='column'>
+        <div>
             {'Notification' in window && navigator.serviceWorker && (role === 'member' || role === 'trainer') &&
             <div className="card bg-light">
                 Push Benachrichtigungen auf diesem Gerät zulassen:

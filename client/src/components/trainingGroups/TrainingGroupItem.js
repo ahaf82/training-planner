@@ -26,15 +26,15 @@ const TrainingGroupItem = ({ group }) => {
     // Convert Object Id to Name
     let groupMembers;
     let subMembers = [];
-    if (members !== undefined) subMembers = members.filter(element => element.familyMember.length > 0).map(element => element.familyMember)[0];
+    if (members !== undefined && members !== null) subMembers = members.filter(element => element.familyMember.length > 0).map(element => element.familyMember)[0];
     let groupSubMembers = subMembers.filter(obj => group.members.includes(obj._id));
-    console.log(groupSubMembers);
+    // console.log(groupSubMembers);
 
     if (members) {
         groupMembers = [ ...members.filter(element => group.members.includes(element._id)), ...groupSubMembers]
         // groupMembers = [...new Set(members.filter(element => group.members.includes(element._id)), ...groupSubMembers)];
         groupMembers = [...new Set(groupMembers)];
-        console.log("groups", groupMembers);
+        // console.log("groups", groupMembers);
     }
 
     return (

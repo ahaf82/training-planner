@@ -38,6 +38,8 @@ app.use('/api/member', require('./routes/member'));
 app.use('/api/training-group', require('./routes/training-group'));
 app.use('/api/training-session', require('./routes/training-session'));
 
+// Emails
+app.use('/api/email', require('./routes/email'));
 
 // Push Notification
 app.use('/subscribe', require('./routes/subscribe'));
