@@ -53,7 +53,7 @@ self.addEventListener('push', async function (e) {
     ]
   };
   e.waitUntil(
-    await new Promise(self.registration.showNotification('Kentai-Plan', options))
+    await new Promise(self.registration.showNotification('Training Planer', options))
   );
 });
 

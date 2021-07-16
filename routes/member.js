@@ -51,7 +51,7 @@ router.post('/', [
 
             await member.save();
 
-            const adminMails = [ { mail: "info@kentai-plan.de", firstName: "Armin" }, { mail: "Lubehrla@gmail.com", firstName: "Lutz" } ];
+            const adminMails = [ { mail: "info@training-planer.de", firstName: "Armin" } ];
 
             for (let admin of adminMails) {
                 sendEmail(
