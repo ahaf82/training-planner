@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
@@ -8,7 +8,7 @@ const NewPassword = (props) => {
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { resetPassword, newPassword, error, clearErrors } = authContext;
+    const { newPassword } = authContext;
 
     const history = useHistory();
 
