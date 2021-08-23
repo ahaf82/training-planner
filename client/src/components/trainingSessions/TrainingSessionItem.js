@@ -24,7 +24,7 @@ const TrainingSessionItem = ({ session, checkIn }) => {
     const memberContext = useContext(MemberContext);
     const { getMembers } = memberContext;
     
-    const { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
+    let { _id, description, maxMembers, memberCount, members, time, timeTo, date } = session;
 
     let group =[];
     if (trainingGroup != undefined) {
@@ -42,53 +42,46 @@ const TrainingSessionItem = ({ session, checkIn }) => {
     }
     
     const [checked, setChecked] = useState(false);
+    const [activeMember, setActiveMember] = useState("");
     
     useEffect(() => {
-        // if (session.members.find(element => element === authContext.member._id) !== undefined) {
         if (checkIn.name) checkIn = checkIn._id
-        console.log("checkIn", checkIn);
-        // console.log("itemmember", checkInMember)
-        // setCheckInMember(checkInMember);
-        // console.log("checkIn", checkInMember);
-        // if (session.members.find(element => element === checkInMember._id) !== undefined) {
+        // console.log("member checkeds", session.members);
+        // console.log("check status", checked);
+        // console.log("check active member", activeMember);
         setChecked(false);
         if (session.members.find(element => element === checkIn) !== undefined) {
             setChecked(true);
         }
-//    }, [authContext.member._id, getMembers, getTrainingGroups, getTrainingSessions, session.members]);
-//    }, [checkIn, checkInMember, session.members]);
+        members.filter(item => item !== checkIn);
     }, [checkIn, session.members]);
 
     // Check In and Out in Training Session
-    const onChange = (e) => {
+    const onChange = async(e) => {
         e.preventDefault();
-        setChecked(!checked);
-        if (maxMembers && !checked && (memberCount >= maxMembers)) {
-            M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-2', displayLength: 1500 });
+        setActiveMember(checkIn)
+        console.log("onChange sessionmembers", session.members);
+        if (maxMembers && (session.members.find(element => element === checkIn) === undefined) && (memberCount >= maxMembers)) {
+            return M.toast({ html: 'Kein Platz mehr frei', classes: 'red darken-2', displayLength: 1500 });
         }
-        if (!checked && (memberCount < maxMembers || !maxMembers)) {
-            // updateTrainingSession({ ...session, members: [...members, authContext.member._id], memberCount: memberCount+1 });
-            // updateTrainingSession({ ...session, members: [...members, checkInMember._id], memberCount: memberCount+1 });
-            updateTrainingSession({ ...session, members: [...members, checkIn], memberCount: memberCount+1 });
+        console.log("?", session.members.find(element => element === checkIn) === undefined)
+        console.log("check after ?", checkIn)
+        if ((session.members.find(element => element === checkIn) === undefined) && (members.filter(item => item !== checkIn).length < maxMembers || ((session.members.find(element => element === checkIn) === undefined) && !maxMembers))) {
+            setChecked(true);
+            updateTrainingSession({ ...session, members: [...members, checkIn], memberCount: members.filter(item => item !== checkIn).length });
+            console.log("!checked", members.filter(item => item !== checkIn))
         }
-        if (checked) {
-            if (memberCount === 1) {
-                // updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: "0" });
-                // updateTrainingSession({ ...session, members: members.filter(item => item !== checkInMember._id), memberCount: "0" });
-                updateTrainingSession({ ...session, members: members.filter(item => item !== checkIn), memberCount: "0" });
-            } else {
-                // updateTrainingSession({ ...session, members: members.filter(item => item !== authContext.member._id), memberCount: memberCount-1 });
-                // updateTrainingSession({ ...session, members: members.filter(item => item !== checkInMember._id), memberCount: memberCount-1 });
-                if ((memberCount-1)>=0) updateTrainingSession({ ...session, members: members.filter(item => item !== checkIn), memberCount: memberCount-1 });
-                if ((memberCount-1)<0) updateTrainingSession({ ...session, members: members.filter(item => item !== checkIn), memberCount: memberCount });
-            }
+        if (session.members.find(element => element === checkIn._id) !== undefined || members.filter(item => item === checkIn).length > 0) {
+            setChecked(false);
+            updateTrainingSession({ ...session, members: members.filter(item => item !== checkIn), memberCount: members.filter(item => item !== checkIn).length });
         }
+
+        setChecked(false);
     }
     
     // Convert ObjectMember Id to Name
     let sessionMembers;
     if (memberContext.members) {
-        // console.log("context", memberContext.members);
         let subMembers = [ ...memberContext.members.filter(element => element.familyMember.length > 0).map(element => element.familyMember).flat(1) ];
         // console.log("subs", subMembers);
         let sessionSubMembers = subMembers.filter(obj => session.members.includes(obj._id));
@@ -126,8 +119,8 @@ const TrainingSessionItem = ({ session, checkIn }) => {
                     {maxMembers && <li>
                         <i></i> Maximale Teilnehmer: {maxMembers}
                     </li>}
-                    {memberCount && <li>
-                        <i></i> Angemeldete Teilnehmer: {memberCount}
+                    {!!session.members && <li>
+                        <i></i> Angemeldete Teilnehmer: {session.members.length}
                     </li>}
                     {(role === 'admin' || role === 'superUser' ) && sessionMembers && <div>
                         <i class="fa fa-user"></i> <bold>Teilnehmer:</bold> <br/>
